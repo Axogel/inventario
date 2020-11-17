@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Mail\Transfer;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,18 +14,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
+// Route::get('/', 'HomeController@index')->name('index');
+
+//********************** AUTHENTICATION ************************//
+//Auth::routes(); //-- pack: register and login
+// Authentication Routes
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login')->name('login_post');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
+// Registration Routes...
+Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+Route::post('register', 'Auth\RegisterController@register');
+
+// Password Reset Routes
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+
+//********************** END AUTHENTICATION ************************//
+
+Route::get('/', 'HomeController@index')->name('index');
+
+//-- admin
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
+    Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
 });
 
-/*Route::get('dashboard', 'UserController@dashboard')->middleware('auth');*/
-
-Route::get('/{page}', 'AdminController@index');
-
-Route::get('/login', 'Auth/AuthController@login')->middleware('auth');
-Route::get('/register','Auth/RegisterController@create');
-
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('users','UsersController');

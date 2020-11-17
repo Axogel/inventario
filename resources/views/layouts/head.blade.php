@@ -1,5 +1,7 @@
 <!-- Title -->
-<title>Dashtic - Bootstrap Webapp Responsive Dashboard Simple Admin Panel Premium HTML5 Template</title>
+<title>{{ config('app.name', 'Laravel') }}</title>
+<!-- CSRF Token -->
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <!--Favicon -->
 <link rel="icon" href="{{URL::asset('assets/images/brand/favicon.ico')}}" type="image/x-icon"/>
 <!-- Bootstrap css -->

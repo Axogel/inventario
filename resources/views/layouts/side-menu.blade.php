@@ -373,8 +373,15 @@
 									<div class="border-bottom pb-3 pt-3 mb-3">
 										<p class="mb-1">Your Fax Number</p>
 										<a class="font-weight-bold" href="{{ url('/' . $page='#') }}">88 8888 8888</a>
-									</div>
-									<a class="text-primary" href="{{ url('/' . $page='#') }}">Logout</a>
+                                    </div>
+
+                                    <a class="text-primary" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">Logout</a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
+
 								</div>
 								<div class="ml-auto">
 									<a class="nav-link icon p-0" href="{{ url('/' . $page='#') }}">

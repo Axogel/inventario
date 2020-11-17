@@ -18,7 +18,7 @@ class AdminController extends Controller
         }
         else
         {
-            return view('auth.login');
+            return view('coming');
         }
 
      //   return view($id);
