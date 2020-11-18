@@ -16,12 +16,20 @@
 								<img src="{{URL::asset('assets/images/users/16.jpg')}}" alt="user-img" class="avatar-xl rounded-circle mb-1">
 							</div>
 							<div class="user-info">
-								<h5 class=" mb-1 font-weight-bold">John Thomson</h5>
-								<span class="text-muted app-sidebar__user-name text-sm">App Developer</span>
+								<h5 class=" mb-1 font-weight-bold">{{ Auth::user()->name }}</h5>
+								{{-- <span class="text-muted app-sidebar__user-name text-sm">App Developer</span> --}}
 							</div>
 						</div>
 					</div>
-					<ul class="side-menu">
+                    <ul class="side-menu">
+
+                        <li class="slide">
+							<a class="side-menu__item" href="{{ route('users.index') }}">
+							<svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+							<span class="side-menu__label">Users</span><i class="angle fa fa-angle-right"></i></a>
+						</li>
+
+
 						<li class="slide">
 							<a class="side-menu__item"  data-toggle="slide" href="{{ url('/' . $page='#') }}">
 							<svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>

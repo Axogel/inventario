@@ -170,6 +170,12 @@ Route::get('/elements-paddning', 'HomeController@elementpaddning')->name('elemen
 //-- admin
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
     Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
+    Route::get('/tours', function(){
+        return view('jumbotron');
+    });
 });
 
 Route::resource('users','UsersController');
+Route::get('/datatable', function(){
+    return view('datatable');
+});
