@@ -6,6 +6,7 @@ use App\User;
 use App\Role;
 use Illuminate\Http\Request;
 use App\Mail\WelcomeMail;
+use Illuminate\Support\Facades\Mail;
 
 class UsersController extends Controller
 {
@@ -52,7 +53,7 @@ class UsersController extends Controller
         $content = new \stdClass();
         $content->receiver = $request->get('name');
 
-        Mail::to($request->get('email'))->send(new WelcomeMail($content));
+        Mail::to($request->get('email'))->send(new WelcomeMail($request->get('email')));
 
         return redirect()->route('users.index')->with('success','Usuario creado satisfactoriamente');
     }

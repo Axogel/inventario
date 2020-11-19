@@ -175,7 +175,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     });
 });
 
-Route::resource('users','UsersController');
+Route::group(['middleware' => ['auth', 'admin']], function () {
+    Route::resource('users','UsersController');
+});
+
+Route::group(['middleware' => ['auth', 'superadmin']], function () {
+    Route::resource('promo','PromoController');
+});
+
 Route::get('/datatable', function(){
     return view('datatable');
 });
