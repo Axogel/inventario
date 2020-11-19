@@ -31,42 +31,39 @@
                                         <form method="POST" action="{{ route('users.update', $user->id) }}"  role="form">
                                             {{ csrf_field() }}
                                             <input name="_method" type="hidden" value="PATCH">
-                                            <div class="row">
-                                                <div class="col-xs-12">
-                                                    <div class="form-group">
-                                                        <label class="form-label">Name</label>
-                                                        <input type="text" name="name" id="name" class="form-control input-sm" value="{{ $user->name }}">
-                                                    </div>
+                                            <div class="form-group row">
+                                                <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" name="name" id="name" class="form-control input-sm" value="{{ $user->name }}">
                                                 </div>
-                                                <div class="col-xs-12">
-                                                    <div class="form-group">
-                                                        <label class="form-label">Email</label>
-                                                        <input type="email" name="email" id="email" class="form-control input-sm" value="{{ $user->email }}">
-                                                    </div>
-                                                </div>
-                                                {{-- <div class="row"> --}}
-                                                @if ( $user->isAdmin() )
-                                                    <div class="col-xs-12">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Role</label>
-                                                            <select class="form-control" name="role">
-                                                            @if ( $user->isAdmin() )
-                                                            <option value="1">Admin</option>
-                                                            <option value="2">User</option>
-                                                            @else
-                                                            <option value="2">User</option>
-                                                            <option value="1">Admin</option>
-                                                            @endif
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                @else
-                                                    <input type="hidden" name="role" id="role" class="form-control input-sm" value="{{ $user->role_id }}">
-                                                @endif
-                                                {{-- </div> --}}
                                             </div>
-                                            <div class="row">
-                                                <div class="col-xs-12">
+                                            <div class="form-group row">
+                                                <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
+                                                <div class="col-md-6">
+                                                    <input type="email" name="email" id="email" class="form-control input-sm" value="{{ $user->email }}">
+                                                </div>
+                                            </div>
+                                            {{-- <div class="row"> --}}
+                                            @if( Auth::user()->isSuper())
+                                            <div class="form-group row">
+                                                <label for="role" class="col-md-4 col-form-label text-md-right">User Type</label>
+                                                <div class="col-md-6">
+                                                    <select class="form-control" name="role">
+                                                        @foreach($roles as $role)
+                                                            @if($user->role_id == $role->id)
+                                                                <option value="{{ $role->id }}" selected>{{ $role->description }}</option>
+                                                            @else
+                                                                <option value="{{ $role->id }}">{{ $role->description }}</option>
+                                                            @endif
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            @else
+                                                <input type="hidden" name="role" id="role" class="form-control input-sm" value="{{ $user->role_id }}">
+                                            @endif
+                                            <div class="form-group row">
+                                                <div class="col-md-12 text-md-right">
                                                     <button type="submit" class="btn btn-lg btn-primary">Updated</button>
                                                     @if($user->role_id == 1)
                                                         <a href="{{ route('users.index') }}" class="btn btn-lg btn-danger">Cancel</a>

@@ -8,7 +8,7 @@
 					<div class="row">
 						<div class="col mx-auto">
 							<div class="row justify-content-center">
-								<div class="col-md-7 col-lg-5">
+								<div class="col-md-8">
 									<div class="card card-group mb-0">
 										<div class="card p-4">
 											<div class="card-body">
@@ -17,7 +17,7 @@
 													<hr>
 													<p class="text-muted">Sign In to your account</p>
                                                 </div>
-                                                <form method="POST" action="{{ route('login_post') }}" method="post">
+                                                <form method="POST" action="{{ route('login') }}" method="post">
                                                     @csrf
                                                     <!--
                                                     <div class="btn-list d-sm-flex">

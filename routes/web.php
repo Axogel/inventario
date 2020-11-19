@@ -19,20 +19,21 @@ use App\Mail\Transfer;
 //********************** AUTHENTICATION ************************//
 //Auth::routes(); //-- pack: register and login
 // Authentication Routes
-Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-Route::post('login', 'Auth\LoginController@login')->name('login_post');
-Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+// Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+// Route::post('login', 'Auth\LoginController@login')->name('login_post');
+// Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
-// Registration Routes...
-Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-Route::post('register', 'Auth\RegisterController@register');
+// // Registration Routes...
+// Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+// Route::post('register', 'Auth\RegisterController@register');
 
-// Password Reset Routes
-Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
-Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
-Route::post('password/reset', 'Auth\ResetPasswordController@reset');
-
+// // Password Reset Routes
+// Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+// Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+// Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+// Route::post('password/reset/{token}', 'Auth\ResetPasswordController@resetPassword')->name('password.update');
+// Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+Auth::routes();
 //********************** END AUTHENTICATION ************************//
 
 Route::get('/', 'HomeController@index')->name('index');
@@ -174,10 +175,11 @@ Route::get('/elements-paddning', 'HomeController@elementpaddning')->name('elemen
 
 //****************** end side-menu***************************************//
 
-
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
+});
 //-- admin
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
-    Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
     Route::get('/tours', function(){
         return view('jumbotron');
     });

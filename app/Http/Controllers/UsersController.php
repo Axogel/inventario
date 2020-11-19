@@ -78,7 +78,8 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = user::find($id);
-        return view('users.edit', compact('user'));
+        $roles = Role::all();
+        return view('users.edit', compact(['user','roles']));
     }
 
     /**
@@ -101,7 +102,7 @@ class UsersController extends Controller
         if($request->get('role') == 1){
             return redirect()->route('users.index')->with('success','User update');
         }else{
-            return redirect()->route('dashboard')->with('success','Data update');
+            return redirect()->route('users.index')->with('success','Data update');
         }
 
     }
