@@ -32,7 +32,7 @@
 									</div>
 									<div class="card-body">
 										<div class="table-responsive">
-                                            <table id="example" class="table table-bordered text-nowrap key-buttons">
+                                            <table id="example" class="table table-bordered text-nowrap ">
                                                 <thead>
                                                     <th class="border-bottom-0">#</th>
                                                     <th class="border-bottom-0">Name</th>
@@ -45,10 +45,10 @@
                                                     @if($users->isNotEmpty())
                                                         @foreach($users as $user)
                                                             <tr class="bold">
-                                                                <th>{{ $loop->iteration }}</th>
+                                                                <td>{{$user->id}}</td>
                                                                 <td>{{$user->name}}</td>
                                                                 <td>{{$user->email}}</td>
-                                                                <td>{{$user->role->name}}</td>
+                                                                <td>{{$user->role->description}}</td>
                                                                 <td><a class="btn btn-primary btn-xs" href="{{action('UsersController@edit', $user->id)}}" ><span class="fa fa-pencil"></span></a></td>
                                                                 <td>
                                                                     <form action="{{action('UsersController@destroy', $user->id)}}" method="post">
@@ -77,20 +77,5 @@
 			</div>
 @endsection
 @section('js')
-<!-- Data tables -->
-<script src="{{URL::asset('assets/plugins/datatable/js/jquery.dataTables.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/dataTables.bootstrap4.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/dataTables.buttons.min.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/buttons.bootstrap4.min.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/jszip.min.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/pdfmake.min.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/vfs_fonts.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/buttons.html5.min.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/buttons.print.min.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/buttons.colVis.min.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/dataTables.responsive.min.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/responsive.bootstrap4.min.js')}}"></script>
-<script src="{{URL::asset('assets/js/datatables.js')}}"></script>
-<!-- Select2 js -->
-<script src="{{URL::asset('assets/plugins/select2/select2.full.min.js')}}"></script>
+
 @endsection

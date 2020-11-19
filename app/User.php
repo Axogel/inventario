@@ -43,7 +43,13 @@ class User extends Authenticatable
     }
 
     public function isAdmin(){
-        if( $this->role->name == 'admin')
+        if($this->role->name == 'superadmin' || $this->role->name == 'compadmin')
+            return true;
+        else
+            return false;
+    }
+    public function isSuper(){
+        if($this->role->name == 'superadmin')
             return true;
         else
             return false;
