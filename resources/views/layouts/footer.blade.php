@@ -1,4 +1,4 @@
-<!--Footer-->
+<!--Footer
 	<footer class="footer">
 		<div class="container">
 			<div class="row align-items-center flex-row-reverse">
@@ -8,4 +8,4 @@
 			</div>
 		</div>
 	</footer>
-<!-- End Footer-->
+ End Footer-->

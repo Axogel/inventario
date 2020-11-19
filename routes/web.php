@@ -39,6 +39,14 @@ Route::get('/', 'HomeController@index')->name('index');
 
 
 //******************side-menu***************************************//
+
+Route::get('/sales-summary', 'UploadController@salessummary')->name('salessummary');
+Route::get('/comps', 'UploadController@comps')->name('comps');
+Route::get('/voids', 'UploadController@voids')->name('voids');
+Route::get('/promos', 'UploadController@promos')->name('promos');
+Route::get('/payments', 'UploadController@payments')->name('payments');
+Route::get('/mix', 'UploadController@mix')->name('mix');
+
 Route::get('/index', 'HomeController@index')->name('index');
 Route::get('/index2', 'HomeController@index2')->name('index2');
 Route::get('/index3', 'HomeController@index3')->name('index3');
@@ -176,6 +184,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 });
 
 Route::resource('users','UsersController');
+Route::get('/sales-summary', 'UploadController@salessummary')->name('salessummary');
+
+
 Route::get('/datatable', function(){
     return view('datatable');
 });
