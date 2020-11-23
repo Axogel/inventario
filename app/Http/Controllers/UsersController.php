@@ -55,7 +55,7 @@ class UsersController extends Controller
 
         Mail::to($request->get('email'))->send(new WelcomeMail($request->get('email')));
 
-        return redirect()->route('users.index')->with('success','Usuario creado satisfactoriamente');
+        return redirect()->route('users.index')->with('success','User created successfully');
     }
 
     /**

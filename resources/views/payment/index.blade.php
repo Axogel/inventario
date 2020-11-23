@@ -5,7 +5,7 @@
 						<!--Page header-->
 						<div class="page-header">
 							<div class="page-leftheader">
-								<h4 class="page-title">Promos Dashboard</h4>
+								<h4 class="page-title">Payments Dashboard</h4>
 							</div>
 						</div>
 						<!--End Page header-->
@@ -26,10 +26,10 @@
 							<div class="col-xl-12 col-lg-12 col-md-12">
 								<div class="card">
 									<div class="card-header">
-										<h3 class="card-title">Promos</h3>
+										<h3 class="card-title">Payments</h3>
 										<div class="card-options">
 											<div class="btn-group ml-5 mb-0">
-                                                <a class="btn btn-primary" data-target="#modaldemo1" data-toggle="modal" href=""><i class="fa fa-plus mr-2"></i>Add New Promo</a>
+                                                <a class="btn btn-primary" data-target="#modaldemo1" data-toggle="modal" href=""><i class="fa fa-plus mr-2"></i>Add New Payment</a>
 											</div>
 										</div>
 									</div>
@@ -42,39 +42,39 @@
                                                     <th class="border-bottom-0">DOB</th>
                                                     <th class="border-bottom-0">Store Code</th>
                                                     <th class="border-bottom-0">Store Name</th>
-                                                    <th class="border-bottom-0">Check Promo</th>
-                                                    <th class="border-bottom-0">Check Name</th>
-                                                    <th class="border-bottom-0">Employee</th>
-                                                    <th class="border-bottom-0">Manager</th>
-                                                    <th class="border-bottom-0">Promo Type</th>
+                                                    <th class="border-bottom-0">Tender</th>
+                                                    <th class="border-bottom-0">Check Payment</th>
+                                                    <th class="border-bottom-0">Card</th>
+                                                    <th class="border-bottom-0">Exp</th>
                                                     <th class="border-bottom-0">Quantity</th>
                                                     <th class="border-bottom-0">Amount</th>
-                                                    <th class="border-bottom-0">Employeed ID</th>
-                                                    <th class="border-bottom-0">Manager ID</th>
+                                                    <th class="border-bottom-0">Total</th>
+                                                    <th class="border-bottom-0">Employee Name</th>
+                                                    <th class="border-bottom-0">Employee ID</th>
                                                     <th class="border-bottom-0">Edit</th>
                                                     <th class="border-bottom-0">Delete</th>
                                                 </thead>
                                                 <tbody>
-                                                    @if($promos->isNotEmpty())
-                                                        @foreach($promos as $promo)
+                                                    @if($payments->isNotEmpty())
+                                                        @foreach($payments as $payment)
                                                             <tr class="bold">
-                                                                <td>{{$promo->id}}</td>
-                                                                <td>{{$promo->sid}}</td>
-                                                                <td>{{$promo->dob}}</td>
-                                                                <td>{{$promo->store_code}}</td>
-                                                                <td>{{$promo->store_name}}</td>
-                                                                <td>{{$promo->check_promo}}</td>
-                                                                <td>{{$promo->check_name}}</td>
-                                                                <td>{{$promo->employee}}</td>
-                                                                <td>{{$promo->manager}}</td>
-                                                                <td>{{$promo->promo_type}}</td>
-                                                                <td>{{$promo->qty}}</td>
-                                                                <td>{{$promo->amount}}</td>
-                                                                <td>{{$promo->emp_id}}</td>
-                                                                <td>{{$promo->man_id}}</td>
-                                                                <td><a class="btn btn-primary btn-xs" href="{{action('PromoController@edit', $promo->id)}}" ><span class="fa fa-pencil"></span></a></td>
+                                                                <td>{{$payment->id}}</td>
+                                                                <td>{{$payment->sid}}</td>
+                                                                <td>{{$payment->dob}}</td>
+                                                                <td>{{$payment->store_code}}</td>
+                                                                <td>{{$payment->store_name}}</td>
+                                                                <td>{{$payment->tender}}</td>
+                                                                <td>{{$payment->check_payments}}</td>
+                                                                <td>{{$payment->card}}</td>
+                                                                <td>{{$payment->exp}}</td>
+                                                                <td>{{$payment->qty}}</td>
+                                                                <td>{{$payment->amount}}</td>
+                                                                <td>{{$payment->total}}</td>
+                                                                <td>{{$payment->empployee_name}}</td>
+                                                                <td>{{$payment->empployee_id}}</td>
+                                                                <td><a class="btn btn-primary btn-xs" href="{{action('PaymentController@edit', $payment->id)}}" ><span class="fa fa-pencil"></span></a></td>
                                                                 <td>
-                                                                    <form action="{{action('PromoController@destroy', $promo->id)}}" method="post">
+                                                                    <form action="{{action('PaymentController@destroy', $payment->id)}}" method="post">
                                                                         {{csrf_field()}}
                                                                         <input name="_method" type="hidden" value="DELETE">
                                                                         <button class="btn btn-danger btn-xs" type="submit"><span class="fa fa-trash"></span></button>
@@ -105,7 +105,7 @@
                             <h6 class="modal-title">File Upload</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                         </div>
                         <div class="modal-body">
-                            <form method="POST" action="{{ route('promo.store') }}"  role="form">
+                            <form method="POST" action="{{ route('payment.store') }}"  role="form">
                                 {{ csrf_field() }}
                                 <div class="row">
                                     <div class="col-xs-6">

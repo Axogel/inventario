@@ -41,7 +41,8 @@ class LoginController extends Controller
 
     protected function authenticated()
     {
-        return redirect(session('link'));
+        return redirect('/dashboard');
+        //return redirect(session('link'));
     }
 
     public function showLoginForm()
@@ -49,7 +50,7 @@ class LoginController extends Controller
         session(['link' => url()->previous()]);
         return view('auth.login');
     }
-/*
+    /*
     public function redirectTo()
     {
         if (session()->has('redirect_to'))

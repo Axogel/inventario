@@ -5,7 +5,7 @@
 						<!--Page header-->
 						<div class="page-header">
 							<div class="page-leftheader">
-								<h4 class="page-title">Promos Dashboard</h4>
+								<h4 class="page-title">Sales Dashboard</h4>
 							</div>
 						</div>
 						<!--End Page header-->
@@ -26,10 +26,10 @@
 							<div class="col-xl-12 col-lg-12 col-md-12">
 								<div class="card">
 									<div class="card-header">
-										<h3 class="card-title">Promos</h3>
+										<h3 class="card-title">Sales</h3>
 										<div class="card-options">
 											<div class="btn-group ml-5 mb-0">
-                                                <a class="btn btn-primary" data-target="#modaldemo1" data-toggle="modal" href=""><i class="fa fa-plus mr-2"></i>Add New Promo</a>
+                                                <a class="btn btn-primary" data-target="#modaldemo1" data-toggle="modal" href=""><i class="fa fa-plus mr-2"></i>Add New Sale</a>
 											</div>
 										</div>
 									</div>
@@ -42,39 +42,37 @@
                                                     <th class="border-bottom-0">DOB</th>
                                                     <th class="border-bottom-0">Store Code</th>
                                                     <th class="border-bottom-0">Store Name</th>
-                                                    <th class="border-bottom-0">Check Promo</th>
-                                                    <th class="border-bottom-0">Check Name</th>
-                                                    <th class="border-bottom-0">Employee</th>
-                                                    <th class="border-bottom-0">Manager</th>
-                                                    <th class="border-bottom-0">Promo Type</th>
-                                                    <th class="border-bottom-0">Quantity</th>
-                                                    <th class="border-bottom-0">Amount</th>
-                                                    <th class="border-bottom-0">Employeed ID</th>
-                                                    <th class="border-bottom-0">Manager ID</th>
+                                                    <th class="border-bottom-0">Name</th>
+                                                    <th class="border-bottom-0">ID Sale</th>
+                                                    <th class="border-bottom-0">Net Sales</th>
+                                                    <th class="border-bottom-0">Comp</th>
+                                                    <th class="border-bottom-0">Promo</th>
+                                                    <th class="border-bottom-0">Void</th>
+                                                    <th class="border-bottom-0">Taxe</th>
+                                                    <th class="border-bottom-0">GRS Sale</th>
                                                     <th class="border-bottom-0">Edit</th>
                                                     <th class="border-bottom-0">Delete</th>
                                                 </thead>
                                                 <tbody>
-                                                    @if($promos->isNotEmpty())
-                                                        @foreach($promos as $promo)
+                                                    @if($sales->isNotEmpty())
+                                                        @foreach($sales as $sale)
                                                             <tr class="bold">
-                                                                <td>{{$promo->id}}</td>
-                                                                <td>{{$promo->sid}}</td>
-                                                                <td>{{$promo->dob}}</td>
-                                                                <td>{{$promo->store_code}}</td>
-                                                                <td>{{$promo->store_name}}</td>
-                                                                <td>{{$promo->check_promo}}</td>
-                                                                <td>{{$promo->check_name}}</td>
-                                                                <td>{{$promo->employee}}</td>
-                                                                <td>{{$promo->manager}}</td>
-                                                                <td>{{$promo->promo_type}}</td>
-                                                                <td>{{$promo->qty}}</td>
-                                                                <td>{{$promo->amount}}</td>
-                                                                <td>{{$promo->emp_id}}</td>
-                                                                <td>{{$promo->man_id}}</td>
-                                                                <td><a class="btn btn-primary btn-xs" href="{{action('PromoController@edit', $promo->id)}}" ><span class="fa fa-pencil"></span></a></td>
+                                                                <td>{{$sale->id}}</td>
+                                                                <td>{{$sale->sid}}</td>
+                                                                <td>{{$sale->dob}}</td>
+                                                                <td>{{$sale->store_code}}</td>
+                                                                <td>{{$sale->store_name}}</td>
+                                                                <td>{{$sale->name}}</td>
+                                                                <td>{{$sale->id_sale}}</td>
+                                                                <td>{{$sale->net_sale}}</td>
+                                                                <td>{{$sale->comp}}</td>
+                                                                <td>{{$sale->promo}}</td>
+                                                                <td>{{$sale->void}}</td>
+                                                                <td>{{$sale->taxe}}</td>
+                                                                <td>{{$sale->grs_sale}}</td>
+                                                                <td><a class="btn btn-primary btn-xs" href="{{action('SaleController@edit', $sale->id)}}" ><span class="fa fa-pencil"></span></a></td>
                                                                 <td>
-                                                                    <form action="{{action('PromoController@destroy', $promo->id)}}" method="post">
+                                                                    <form action="{{action('SaleController@destroy', $sale->id)}}" method="post">
                                                                         {{csrf_field()}}
                                                                         <input name="_method" type="hidden" value="DELETE">
                                                                         <button class="btn btn-danger btn-xs" type="submit"><span class="fa fa-trash"></span></button>
@@ -105,7 +103,7 @@
                             <h6 class="modal-title">File Upload</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                         </div>
                         <div class="modal-body">
-                            <form method="POST" action="{{ route('promo.store') }}"  role="form">
+                            <form method="POST" action="{{ route('sale.store') }}"  role="form">
                                 {{ csrf_field() }}
                                 <div class="row">
                                     <div class="col-xs-6">
