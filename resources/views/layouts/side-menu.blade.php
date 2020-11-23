@@ -44,7 +44,7 @@
 						</li>
 						<li class="slide">
 							<a class="side-menu__item" href="{{ url('/' . $page='voids') }}">
-                                <i class="side-menu__icon fa fa-percent"></i>
+                                <i class="side-menu__icon fa fa-certificate"></i>
                                 <span class="side-menu__label">Voids</span><i class="angle fa fa-angle-right"></i>
                             </a>
                         </li>
