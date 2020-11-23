@@ -1,5 +1,11 @@
 @extends('layouts.master')
 @section('css')
+<!-- Data table css -->
+<link href="{{URL::asset('assets/plugins/datatable/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet" />
+<link href="{{URL::asset('assets/plugins/datatable/css/buttons.bootstrap4.min.css')}}"  rel="stylesheet">
+<link href="{{URL::asset('assets/plugins/datatable/responsive.bootstrap4.min.css')}}" rel="stylesheet" />
+<!-- Slect2 css -->
+<link href="{{URL::asset('assets/plugins/select2/select2.min.css')}}" rel="stylesheet" />
 @endsection
 @section('page-header')
 						<!--Page header-->
@@ -11,83 +17,159 @@
 						<!--End Page header-->
 @endsection
 @section('content')
-                        <!-- Row -->
-                        <div class="row">
-							<div class="col-md-12 col-lg-12">
+
+						<div class="row">
+							<div class="col-12">
+								<!--div-->
 								<div class="card">
-									<div class="table-responsive">
-										<table class="table card-table table-vcenter text-nowrap mb-0">
-											<thead >
-												<tr>
-                                                    <th>SID</th>
-                                                    <th>DOB</th>
-													<th>STORE CODE</th>
-													<th>STORE NAME</th>
-													<th>CHECK</th>
-                                                    <th>CHECKNAME</th>
-                                                    <th>EMPLOYEE</th>
-                                                    <th>MANAGER</th>
-                                                    <th>PROMOTYPE</th>
-                                                    <th>QTY</th>
-                                                    <th>AMOUNT</th>
-                                                    <th>EMPID</th>
-                                                    <th>MANID</th>   
-												</tr>
-											</thead>
-											<tbody>
-                                                <tr>
-													<th>131483</th>
-													<td>20201110</td>
-													<td>9</td>
-													<td>Juici - Liguanea Restored</td>
-                                                    <td>Breakfast </td>
-                                                    <td>16</td>
-                                                    <td>81170</td>
-                                                    <td>0</td>
-                                                    <td>0</td>
-                                                    <td>940</td>
-                                                    <td>0</td>
-                                                    <td>81170</td>
-                                                    <td>8</td>    
-												</tr>
-												<tr>
-													<th scope="row">1</th>
-													<td>Joan Powell</td>
-													<td>Associate Developer</td>
-													<td>$450,870</td>
-												</tr>
-												<tr>
-													<th scope="row">2</th>
-													<td>Gavin Gibson</td>
-													<td>Account manager</td>
-													<td>$230,540</td>
-												</tr>
-												<tr>
-													<th scope="row">3</th>
-													<td>Julian Kerr</td>
-													<td>Senior Javascript Developer</td>
-													<td>$55,300</td>
-												</tr>
-												<tr>
-													<th scope="row">4</th>
-													<td>Cedric Kelly</td>
-													<td>Accountant</td>
-													<td>$234,100</td>
-												</tr>
-												<tr>
-													<th scope="row">5</th>
-													<td>Samantha May</td>
-													<td>Junior Technical Author</td>
-													<td>$43,198</td>
-												</tr>
-											</tbody>
-										</table>
+									<div class="card-header">
+										<div class="card-title">File Export</div>
 									</div>
-									<!-- table-responsive -->
+									<div class="card-body">
+										<div class="">
+											<div class="table-responsive">
+												<table id="example" class="table table-bordered text-nowrap key-buttons">
+													<thead>
+														<tr>
+															<th class="border-bottom-0">SID</th>
+                                                    		<th class="border-bottom-0">DOB</th>
+															<th class="border-bottom-0">STORE CODE</th>
+															<th class="border-bottom-0">STORE NAME</th>
+															<th class="border-bottom-0">CHECK</th>
+                                                    		<th class="border-bottom-0">CHECKNAME</th>
+                                                    		<th class="border-bottom-0">EMPLOYEE</th>
+                                                    		<th	class="border-bottom-0">MANAGER</th>
+                                                    		<th class="border-bottom-0">PROMOTYPE</th>
+                                                   		 	<th class="border-bottom-0">QTY</th>
+                                                    		<th class="border-bottom-0">AMOUNT</th>
+                                                    		<th class="border-bottom-0">EMPID</th>
+                                                    		<th class="border-bottom-0">MANID</th>  
+									
+														</tr>
+													</thead>
+													<tbody>
+
+														<tr>
+															<th>131483</th>
+															<td>20201110</td>
+															<td>9</td>
+															<td>Juici - Liguanea Restored</td>
+                                                    		<td>Breakfast </td>
+                                                    		<td>16</td>
+                                                    		<td>81170</td>
+                                                    		<td>0</td>
+                                                    		<td>0</td>
+                                                    		<td>940</td>
+                                                    		<td>0</td>
+                                                    		<td>81170</td>
+                                                    		<td>8</td>    
+														</tr>
+
+														<tr>
+															<th>131483</th>
+															<td>20201110</td>
+															<td>9</td>
+															<td>Juici - Liguanea Restored</td>
+                                                    		<td>Breakfast </td>
+                                                    		<td>16</td>
+                                                    		<td>81170</td>
+                                                    		<td>0</td>
+                                                    		<td>0</td>
+                                                    		<td>940</td>
+                                                    		<td>0</td>
+                                                    		<td>81170</td>
+                                                    		<td>8</td>    
+														</tr>
+
+														<tr>
+															<th>131483</th>
+															<td>20201110</td>
+															<td>9</td>
+															<td>Juici - Liguanea Restored</td>
+                                                    		<td>Breakfast </td>
+                                                    		<td>16</td>
+                                                    		<td>81170</td>
+                                                    		<td>0</td>
+                                                    		<td>0</td>
+                                                    		<td>940</td>
+                                                    		<td>0</td>
+                                                    		<td>81170</td>
+                                                    		<td>8</td>    
+														</tr>
+
+														<tr>
+															<th>131483</th>
+															<td>20201110</td>
+															<td>9</td>
+															<td>Juici - Liguanea Restored</td>
+                                                    		<td>Breakfast </td>
+                                                    		<td>16</td>
+                                                    		<td>81170</td>
+                                                    		<td>0</td>
+                                                    		<td>0</td>
+                                                    		<td>940</td>
+                                                    		<td>0</td>
+                                                    		<td>81170</td>
+                                                    		<td>8</td>    
+														</tr>
+
+														<tr>
+															<th>131483</th>
+															<td>20201110</td>
+															<td>9</td>
+															<td>Juici - Liguanea Restored</td>
+                                                    		<td>Breakfast </td>
+                                                    		<td>16</td>
+                                                    		<td>81170</td>
+                                                    		<td>0</td>
+                                                    		<td>0</td>
+                                                    		<td>940</td>
+                                                    		<td>0</td>
+                                                    		<td>81170</td>
+                                                    		<td>8</td>    
+														</tr>
+
+														<tr>
+															<th>131483</th>
+															<td>20201110</td>
+															<td>9</td>
+															<td>Juici - Liguanea Restored</td>
+                                                    		<td>Breakfast </td>
+                                                    		<td>16</td>
+                                                    		<td>81170</td>
+                                                    		<td>0</td>
+                                                    		<td>0</td>
+                                                    		<td>940</td>
+                                                    		<td>0</td>
+                                                    		<td>81170</td>
+                                                    		<td>8</td>    
+														</tr>
+														
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
 								</div>
-                            </div>
-                        </div>
-						<!-- End Row -->
+							</div>
+						</div>
+								<!--/div-->
 @endsection
 @section('js')
+<!-- Data tables -->
+<script src="{{URL::asset('assets/plugins/datatable/js/jquery.dataTables.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/datatable/js/dataTables.bootstrap4.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/datatable/js/dataTables.buttons.min.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/datatable/js/buttons.bootstrap4.min.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/datatable/js/jszip.min.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/datatable/js/pdfmake.min.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/datatable/js/vfs_fonts.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/datatable/js/buttons.html5.min.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/datatable/js/buttons.print.min.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/datatable/js/buttons.colVis.min.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/datatable/dataTables.responsive.min.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/datatable/responsive.bootstrap4.min.js')}}"></script>
+<script src="{{URL::asset('assets/js/datatables.js')}}"></script>
+<!-- Select2 js -->
+<script src="{{URL::asset('assets/plugins/select2/select2.full.min.js')}}"></script>
 @endsection
