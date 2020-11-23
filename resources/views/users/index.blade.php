@@ -11,7 +11,16 @@
 						<!--End Page header-->
 @endsection
 @section('content')
-						<!--Row-->
+                        <!--Row-->
+                        @if(Session::has('success'))
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                {{Session::get('success')}}
+
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
 						<div class="row row-deck">
 							<div class="col-xl-12 col-lg-12 col-md-12">
 								<div class="card">
@@ -19,14 +28,7 @@
 										<h3 class="card-title">Users</h3>
 										<div class="card-options">
 											<div class="btn-group ml-5 mb-0">
-												<button type="button" class="btn btn-white dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fe fe-plus"></i>New Order</button>
-												<div class="dropdown-menu">
-													<a class="dropdown-item" href="{{ route('users.create') }}"><i class="fa fa-plus mr-2"></i>Add new User</a>
-													{{-- <a class="dropdown-item" href="#"><i class="fa fa-eye mr-2"></i>View all new tab</a>
-													<a class="dropdown-item" href="#"><i class="fa fa-edit mr-2"></i>Edit User</a>
-													<div class="dropdown-divider"></div>
-													<a class="dropdown-item" href="#"><i class="fa fa-cog mr-2"></i> Settings</a> --}}
-												</div>
+                                                <a class="btn btn-primary" href="{{ route('users.create') }}"><i class="fa fa-plus mr-2"></i>Add New User</a>
 											</div>
 										</div>
 									</div>

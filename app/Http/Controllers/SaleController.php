@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Promo;
+use App\Sale;
 use Illuminate\Http\Request;
 use SimpleXMLElement;
 
-class PromoController extends Controller
+class SaleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class PromoController extends Controller
      */
     public function index()
     {
-        $promos = Promo::all();
-        return view('promo.index')->with("promos", $promos);
+        $sales = Sale::all();
+        return view('sale.index')->with("sales", $sales);
     }
 
     /**
@@ -26,9 +26,7 @@ class PromoController extends Controller
      */
     public function create()
     {
-        // $promos = Promo::all();
-
-        // return view('promo.create')->with("promos", $promos);
+        //
     }
 
     /**
@@ -42,31 +40,30 @@ class PromoController extends Controller
         $this->validate($request,['xmltext'=>'required']);
         $xml = $request->get('xmltext');
 
-        $PROMOS = new SimpleXMLElement($xml);
+        $SALES = new SimpleXMLElement($xml);
 
-        foreach ($PROMOS->children() as $promo) {
-            $temp = new Promo();
-            $temp->sid = $PROMOS->attributes()->SID;
-            $temp->dob = $PROMOS->attributes()->DOB;
-            $temp->store_code = $PROMOS->attributes()->STORECODE;
-            $temp->check_promo = $promo->CHECK;
-            if($promo->CHECKNAME == '' || $promo->CHECKNAME == null)
-                $temp->check_name = 0;
+        foreach ($SALES->children() as $sale) {
+            $temp = new Sale();
+            $temp->sid = $SALES->attributes()->SID;
+            $temp->dob = $SALES->attributes()->DOB;
+            $temp->store_code = $SALES->attributes()->STORECODE;
+            $temp->store_name = $SALES->attributes()->STORENAME;
+            $temp->name = $sale->NAME;
+            $temp->id_sale = $sale->ID;
+            $temp->net_sale = $sale->NETSALES;
+            $temp->comp = $sale->COMPS;
+            $temp->promo = $sale->PROMOS;
+            $temp->void = $sale->VOIDS;
+            if($sale->TAXES == '' || $sale->TAXES == null)
+                $temp->taxes = 0;
             else
-                $temp->check_name = $promo->CHECKNAME;
-            $temp->employee = $promo->EMPLOYEE;
-            $temp->manager = $promo->MANAGER;
-            $temp->store_name = $PROMOS->attributes()->STORENAME;
-            $temp->promo_type = $promo->PROMOTYPE;
-            $temp->qty = $promo->QTY;
-            $temp->amount = $promo->AMOUNT;
-            $temp->emp_id = $promo->EMPID;
-            $temp->man_id = $promo->MANID;
+                $temp->taxes = $sale->TAXES;
+            $temp->grs_sale = $sale->GRSSALES;
 
             $temp->save();
         }
 
-        return redirect()->route('promo.index')->with('success','Promo created successfully');
+        return redirect()->route('sale.index')->with('success','Sale created successfully');
     }
 
     /**
@@ -88,8 +85,7 @@ class PromoController extends Controller
      */
     public function edit($id)
     {
-        $promo = Promo::find($id);
-        return view('promo.edit')->with('promo', $promo);
+        //
     }
 
     /**
@@ -112,7 +108,7 @@ class PromoController extends Controller
      */
     public function destroy($id)
     {
-        Promo::find($id)->delete();
-        return redirect()->route('promo.index')->with('success','Promo dropped.');
+        Sale::find($id)->delete();
+        return redirect()->route('sale.index')->with('success','Sale dropped.');
     }
 }

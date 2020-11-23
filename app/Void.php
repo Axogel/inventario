@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Promo extends Model
+class Void extends Model
 {
     public $timestamps = false;
     protected $fillable = [

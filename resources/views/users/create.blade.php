@@ -20,7 +20,15 @@
 						<!--End Page header-->
 @endsection
 @section('content')
-						<!-- Row -->
+                        <!-- Row -->
+                        @if(Session::has('success'))
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                {{Session::get('success')}}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+			            @endif
 						<div class="row">
 							<div class="col-xl-12 col-lg-12 col-md-12">
 								<div class="card">

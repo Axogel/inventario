@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Sale;
 
 class HomeController extends Controller
 {
@@ -23,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('index');
+        return redirect()->route('dashboard');;
     }
     public function index2()
     {
@@ -276,7 +277,7 @@ class HomeController extends Controller
     public function  headers()
     {
         return view('headers');
-    } 
+    }
     public function  jumbotron()
     {
         return view('jumbotron');
@@ -518,10 +519,9 @@ class HomeController extends Controller
         return view('elements-paddning');
     }
 
-
-
     public function dashboard()
     {
-        return view('index');
+        $sales = Sale::all();
+        return view('index')->with("sales", $sales);
     }
 }

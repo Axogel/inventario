@@ -39,8 +39,13 @@
 						<!--End Page header-->
 @endsection
 @section('content')
-						<!-- Row -->
+                        <!-- Row -->
+                        @foreach ($PROMOS as $promo)
+                                <div class="row">{{$promo->CHECK}}</div>
+                                <div class="row">{{$PROMOS->attributes()->SID}}</div>
+                        @endforeach
 						<div class="row">
+
 							<div class="col-xl-12 col-lg-12 col-md-12">
 								<div class="card">
                                     <div class="card-header">
@@ -52,7 +57,7 @@
                                             <div class="row">
                                                 <div class="col-xs-6">
                                                     <input type="file" id="xmldata" class="dropify" data-height="250" accept="text/xml" onchange='openFile(event)'/>
-                                                    <input type="text" id='xmltext'>
+                                                    <input type="text" id='xmltext' name="xmltext">
                                                 </div>
                                             </div>
                                             <div class="col-xs-12">

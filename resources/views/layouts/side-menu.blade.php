@@ -44,7 +44,7 @@
 						</li>
 						<li class="slide">
 							<a class="side-menu__item" href="{{ url('/' . $page='voids') }}">
-                                <i class="side-menu__icon fa fa-percent"></i>
+                                <i class="side-menu__icon fa fa-certificate"></i>
                                 <span class="side-menu__label">Voids</span><i class="angle fa fa-angle-right"></i>
                             </a>
                         </li>
@@ -70,7 +70,7 @@
 						<li class="slide">
 							<a class="side-menu__item" data-toggle="slide" href="{{ url('/' . $page='#') }}">
 							<svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-							<span class="side-menu__label">Upload Data</span><i class="angle fa fa-angle-right"></i></a>
+							<span class="side-menu__label">Upload Data</span><i class="side-menu__icon angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
 								<li><a class="slide-item" href="{{ url('/' . $page='sales-summary') }}"><span>Sales Summary</span></a></li>
 								<li><a class="slide-item" href="{{ url('/' . $page='comps')}}"><span>Comps</span></a></li>
