@@ -75,9 +75,9 @@
 								<li><a class="slide-item" href="{{ url('/' . $page='sales-summary') }}"><span>Sales Summary</span></a></li>
 								<li><a class="slide-item" href="{{ url('/' . $page='comps')}}"><span>Comps</span></a></li>
 								<li><a class="slide-item" href="{{ url('/' . $page='voids') }}"><span>Voids</span></a></li>
-								<li><a class="slide-item" href="{{ route('promo.index') }}"><span>Promos</span></a></li>
-								<li><a class="slide-item" href="{{ route('payment.index') }}"><span>Payments</span></a></li>
-								<li><a class="slide-item" href="{{ route('sale.index') }}"><span>Sales Mix</span></a></li>
+								<li><a class="slide-item" href="{{ url('/' . $page='promos') }}"><span>Promos</span></a></li>
+								<li><a class="slide-item" href="{{ url('/' . $page='payments') }}"><span>Payments</span></a></li>
+								<li><a class="slide-item" href="{{ url('/' . $page='mix') }}"><span>Sales Mix</span></a></li>
 							</ul>
 						</li>
 
