@@ -34,7 +34,6 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="side-menu__icon"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
                             <span class="side-menu__label">Promos</span><i class="angle fa fa-angle-right"></i></a>
 						</li>
-<<<<<<< Updated upstream
 						<li class="slide">
 							<a class="side-menu__item" data-toggle="slide" href="{{ url('/' . $page='#') }}">
 							<svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
@@ -49,9 +48,6 @@
 							</ul>
 						</li>
 
-=======
-                        @endif
->>>>>>> Stashed changes
 
 						<li class="slide">
 							<a class="side-menu__item"  data-toggle="slide" href="{{ url('/' . $page='#') }}">
