@@ -41,13 +41,13 @@ class PromoController extends Controller
         $this->validate($request,[ 'xmltext'=>'required']);
 
         $promo = new Promo();
-        $xml = simplexml_load_string($request->get('xmltext'));
+        // $xml = simplexml_load_string($request->get('xmltext'));
 
-        foreach ($xml->promos->promo as $element) {
-            foreach($element as $key => $val) {
-                echo "{$key}: {$val}";
-            }
-        }
+        // foreach ($xml->promos->promo as $element) {
+        //     foreach($element as $key => $val) {
+        //         echo "{$key}: {$val}";
+        //     }
+        // }
 
         // $promo->sid;
         // $promo->dob;

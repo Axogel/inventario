@@ -8,12 +8,14 @@
 					<div class="row">
 						<div class="col mx-auto">
 							<div class="row justify-content-center">
-								<div class="col-md-7 col-lg-5">
+								<div class="col-md-8">
 									<div class="card card-group mb-0">
 										<div class="card p-4">
 											<div class="card-body">
 												<div class="text-center title-style mb-6">
-													<h1 class="mb-2">{{ __('Reset Password') }}</h1>
+                                                    <h1 class="mb-2">{{ __('Reset Password') }}</h1>
+                                                    <hr>
+													<p class="text-muted">Reset your password</p>
                                                 </div>
                                                 <form method="POST" action="{{ route('password.update') }}">
                                                     @csrf
