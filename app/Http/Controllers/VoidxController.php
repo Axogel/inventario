@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Voidx;
 
-class VoidController extends Controller
+class VoidxController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +14,8 @@ class VoidController extends Controller
      */
     public function index()
     {
-        //
+        $voidxs = Voidx::all();
+        return view('void.index')->with("voidxs", $voidxs);
     }
 
     /**
@@ -79,6 +81,7 @@ class VoidController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Voidx::find($id)->delete();
+        return redirect()->route('void.index')->with('success','Voidx dropped.');
     }
 }

@@ -5,7 +5,7 @@
 						<!--Page header-->
 						<div class="page-header">
 							<div class="page-leftheader">
-								<h4 class="page-title">Sales Dashboard</h4>
+								<h4 class="page-title">Sales Summary</h4>
 							</div>
 						</div>
 						<!--End Page header-->
@@ -22,11 +22,11 @@
                             </div>
                         @endif
 
-						<div class="row row-deck">
-							<div class="col-xl-12 col-lg-12 col-md-12">
+						<div class="row">
+							<div class="col-12">
 								<div class="card">
 									<div class="card-header">
-										<h3 class="card-title">Sales</h3>
+										<h3 class="card-title">File Export</h3>
 										<div class="card-options">
 											<div class="btn-group ml-5 mb-0">
                                                 <a class="btn btn-primary" data-target="#modaldemo1" data-toggle="modal" href=""><i class="fa fa-plus mr-2"></i>Add New Sale</a>
@@ -34,10 +34,11 @@
 										</div>
 									</div>
 									<div class="card-body">
-										<div class="table-responsive">
-                                            <table id="" class="table table-bordered text-nowrap key-buttons">
+                                        <div class="">
+										    <div class="table-responsive">
+                                                <table id="example" class="table table-bordered text-nowrap key-buttons">
                                                 <thead>
-                                                    <th class="border-bottom-0">#</th>
+                                                <tr>
                                                     <th class="border-bottom-0">SID</th>
                                                     <th class="border-bottom-0">DOB</th>
                                                     <th class="border-bottom-0">Store Code</th>
@@ -52,12 +53,13 @@
                                                     <th class="border-bottom-0">GRS Sale</th>
                                                     <th class="border-bottom-0">Edit</th>
                                                     <th class="border-bottom-0">Delete</th>
+                                                </tr>
                                                 </thead>
                                                 <tbody>
                                                     @if($sales->isNotEmpty())
                                                         @foreach($sales as $sale)
-                                                            <tr class="bold">
-                                                                <td>{{$sale->id}}</td>
+                                                            <tr>
+                                                                
                                                                 <td>{{$sale->sid}}</td>
                                                                 <td>{{$sale->dob}}</td>
                                                                 <td>{{$sale->store_code}}</td>
@@ -86,7 +88,8 @@
                                                         </tr>
                                                     @endif
                                                 </tbody>
-                                            </table>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
 								</div>

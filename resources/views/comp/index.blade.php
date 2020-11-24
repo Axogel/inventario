@@ -5,7 +5,7 @@
 						<!--Page header-->
 						<div class="page-header">
 							<div class="page-leftheader">
-								<h4 class="page-title">Comps Dashboard</h4>
+								<h4 class="page-title">Comps</h4>
 							</div>
 						</div>
 						<!--End Page header-->
@@ -26,7 +26,7 @@
 							<div class="col-xl-12 col-lg-12 col-md-12">
 								<div class="card">
 									<div class="card-header">
-										<h3 class="card-title">Comps</h3>
+										<h3 class="card-title">File Export</h3>
 										<div class="card-options">
 											<div class="btn-group ml-5 mb-0">
                                                 <a class="btn btn-primary" data-target="#modaldemo1" data-toggle="modal" href=""><i class="fa fa-plus mr-2"></i>Add New Comp</a>
@@ -35,7 +35,7 @@
 									</div>
 									<div class="card-body">
 										<div class="table-responsive">
-                                            <table id="" class="table table-bordered text-nowrap key-buttons">
+                                            <table id="example" class="table table-bordered text-nowrap key-buttons">
                                                 <thead>
                                                     <th class="border-bottom-0">#</th>
                                                     <th class="border-bottom-0">SID</th>
