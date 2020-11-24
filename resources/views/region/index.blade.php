@@ -55,8 +55,8 @@
                                                             <tr class="bold">
                                                                 <td>{{$region->id}}</td>
                                                                 <td>{{$region->name}}</td>
-                                                                <td>{{$region->created_date}}</td>
-                                                                <td>{{$region->last_modified_date}}</td>
+                                                                <td>{{$region->created_at}}</td>
+                                                                <td>{{$region->updated_at}}</td>
                                                                 <td><a class="btn btn-primary btn-xs" href="{{action('RegionController@edit', $region->id)}}" ><span class="fa fa-pencil"></span></a></td>
                                                                 <td>
                                                                     <form action="{{action('RegionController@destroy', $region->id)}}" method="post">

@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
 
 use App\Region;
+use App\User;
 use Illuminate\Http\Request;
+
 
 
 class RegionController extends Controller
@@ -26,9 +29,8 @@ class RegionController extends Controller
      */
     public function create()
     {
-        $roles = Role::all();
-
-        return view('users.create')->with("roles", $roles);
+        
+        return view('region.create');
     }
 
     /**
@@ -39,7 +41,15 @@ class RegionController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $this->validate($request,['name'=>'required']);
+
+        $temp = new Region();
+        $temp->name = $request->get('name');
+        $temp->timestamps = true;
+        $temp->last_modified_by = Auth::user()->id;
+        $temp->save();
+
+        return redirect()->route('region.index')->with('success','Region created successfully');
     }
 
     /**
@@ -74,7 +84,19 @@ class RegionController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request,[ 'name'=>'required']);
+
+        $temp = Region::find($id);
+        $temp->name = $request->get('name');
+        $temp->last_modified_by = Auth::user()->id;
+        $temp->timestamps = true;
+        $temp->update();
+
         
+        return redirect()->route('region.index')->with('success','Region update');
+        
+          
+       
     }
 
     /**
