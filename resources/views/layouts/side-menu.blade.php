@@ -47,31 +47,31 @@
                         <li class="slide">
 							<a class="side-menu__item" href="{{ route('sale.index') }}">
                                 <i class="side-menu__icon fa fa-line-chart"></i>
-                                <span class="side-menu__label">Sales Summary</span><i class="angle fa fa-angle-right"></i>
+                                <span class="side-menu__label">Sales Summary</span><i class="side-menu__icon angle fa fa-angle-right"></i>
                             </a>
                         </li>
                         <li class="slide">
 							<a class="side-menu__item" href="{{ route('comp.index') }}">
                                 <i class="side-menu__icon fa fa-window-restore"></i>
-                                <span class="side-menu__label">Comps</span><i class="angle fa fa-angle-right"></i>
+                                <span class="side-menu__label">Comps</span><i class="side-menu__icon angle fa fa-angle-right"></i>
                             </a>
 						</li>
 						<li class="slide">
 							<a class="side-menu__item" href="{{ route('comp.index') }}">
                                 <i class="side-menu__icon fa fa-certificate"></i>
-                                <span class="side-menu__label">Voids</span><i class="angle fa fa-angle-right"></i>
+                                <span class="side-menu__label">Voids</span><i class="side-menu__icon angle fa fa-angle-right"></i>
                             </a>
                         </li>
                         <li class="slide">
 							<a class="side-menu__item" href="{{ url('/' . $page='promos') }}">
                                 <i class="side-menu__icon fa fa-percent"></i>
-                                <span class="side-menu__label">Promos</span><i class="angle fa fa-angle-right"></i>
+                                <span class="side-menu__label">Promos</span><i class="side-menu__icon angle fa fa-angle-right"></i>
                             </a>
                         </li>
                         <li class="slide">
                             <a class="side-menu__item" href="{{ url('/' . $page='payments') }}">
                                 <i class="side-menu__icon fa fa-credit-card"></i>
-                                <span class="side-menu__label">Payments</span><i class="angle fa fa-angle-right"></i>
+                                <span class="side-menu__label">Payments</span><i class="side-menu__icon angle fa fa-angle-right"></i>
                             </a>
                         </li>
                         <li class="slide">
