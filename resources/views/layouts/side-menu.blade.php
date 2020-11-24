@@ -38,13 +38,23 @@
 								<li><a class="slide-item" href="{{ route('sale.index') }}"><span>Sales Summary</span></a></li>
 								<li><a class="slide-item" href="{{ route('comp.index') }}"><span>Comps</span></a></li>
 								<li><a class="slide-item" href="{{ route('voidx.index') }}"><span>Voids</span></a></li>
-								<li><a class="slide-item" href="{{ url('/' . $page='promos') }}"><span>Promos</span></a></li>
-								<li><a class="slide-item" href="{{ url('/' . $page='payments') }}"><span>Payments</span></a></li>
-								<li><a class="slide-item" href="{{ url('/' . $page='mix') }}"><span>Sales Mix</span></a></li>
+								<li><a class="slide-item" href="{{ route('promo.index') }}"><span>Promos</span></a></li>
+								<li><a class="slide-item" href="{{ route('payment.index') }}"><span>Payments</span></a></li>
+								<li><a class="slide-item" href="{{ route('mix.index') }}"><span>Sales Mix</span></a></li>
 							</ul>
 						</li>
-						
-                        <li class="slide">
+						<li class="slide">
+							<a class="side-menu__item" data-toggle="slide" href="{{ url('/' . $page='#') }}">
+							<svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+							<span class="side-menu__label">Location</span><i class="side-menu__icon angle fa fa-angle-right"></i></a>
+							<ul class="slide-menu">
+								<li><a class="slide-item" href="{{ route('region.index') }}"><span>Regions</span></a></li>
+								<li><a class="slide-item" href="{{ route('comp.index') }}"><span>Sites</span></a></li>
+								
+							</ul>
+						</li>
+						 <!--
+                        <li class="slide">   
 							<a class="side-menu__item" href="{{ route('sale.index') }}">
                                 <i class="side-menu__icon fa fa-line-chart"></i>
                                 <span class="side-menu__label">Sales Summary</span><i class="side-menu__icon angle fa fa-angle-right"></i>
@@ -80,7 +90,7 @@
                                 <span class="side-menu__label">Sales Mix</span><i  class="side-menu__icon angle fa fa-angle-right"></i>
                             </a>
                         </li>
-                        <!--
+                       
 						<li class="slide">
 							<a class="side-menu__item" data-toggle="slide" href="{{ url('/' . $page='#') }}">
 							<svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>

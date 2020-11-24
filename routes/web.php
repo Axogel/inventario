@@ -196,6 +196,7 @@ Route::group(['middleware' => ['auth', 'superadmin']], function () {
     Route::resource('comp', 'CompController');
     Route::resource('mix', 'MixController');
     Route::resource('voidx', 'VoidxController');
+    Route::resource('region', 'RegionController');
 });
 
 Route::get('/datatable', function(){

@@ -1,5 +1,11 @@
 @extends('layouts.master')
 @section('css')
+<!-- Data table css -->
+<link href="{{URL::asset('assets/plugins/datatable/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet" />
+<link href="{{URL::asset('assets/plugins/datatable/css/buttons.bootstrap4.min.css')}}"  rel="stylesheet">
+<link href="{{URL::asset('assets/plugins/datatable/responsive.bootstrap4.min.css')}}" rel="stylesheet" />
+<!-- Slect2 css -->
+<link href="{{URL::asset('assets/plugins/select2/select2.min.css')}}" rel="stylesheet" />
 @endsection
 @section('page-header')
 						<!--Page header-->
@@ -35,7 +41,7 @@
 									</div>
 									<div class="card-body">
 										<div class="table-responsive">
-                                            <table id="" class="table table-bordered text-nowrap key-buttons">
+                                            <table id="example" class="table table-bordered text-nowrap key-buttons">
                                                 <thead>
                                                     <th class="border-bottom-0">#</th>
                                                     <th class="border-bottom-0">SID</th>

@@ -11,13 +11,13 @@
 						<!--Page header-->
 						<div class="page-header">
 							<div class="page-leftheader">
-								<h4 class="page-title">Voids</h4>
+								<h4 class="page-title">Region</h4>
 							</div>
 						</div>
 						<!--End Page header-->
 @endsection
 @section('content')
-
+                        <!--Row-->
                         @if(Session::has('success'))
                             <div class="alert alert-info alert-dismissible fade show" role="alert">
                                 {{Session::get('success')}}
@@ -27,63 +27,39 @@
                                 </button>
                             </div>
                         @endif
-
-						<div class="row">
-							<div class="col-12">
-								<!--div-->
+						<div class="row row-deck">
+							<div class="col-xl-12 col-lg-12 col-md-12">
 								<div class="card">
 									<div class="card-header">
-										<div class="card-title">File Export</div>
-                                        <div class="card-options">
+										<h3 class="card-title">File Export</h3>
+										<div class="card-options">
 											<div class="btn-group ml-5 mb-0">
-                                                <a class="btn btn-primary" data-target="#modaldemo1" data-toggle="modal" href=""><i class="fa fa-plus mr-2"></i>Add New Sale</a>
+                                                <a class="btn btn-primary" href="{{ route('region.create') }}"><i class="fa fa-plus mr-2"></i>Add New Region</a>
 											</div>
 										</div>
 									</div>
 									<div class="card-body">
-										<div class="">
-											<div class="table-responsive">
-												<table id="example" class="table table-bordered text-nowrap key-buttons">
-													<thead>
-														<tr>
-															<th class="border-bottom-0">SID</th>
-                                                    		<th class="border-bottom-0">DOB</th>
-															<th class="border-bottom-0">STORE CODE</th>
-															<th class="border-bottom-0">STORE NAME</th>
-															<th class="border-bottom-0">CHECK</th>
-                                                   		    <th class="border-bottom-0">ITEM</th>
-                                                     		<th class="border-bottom-0">REASON</th>
-                                                    		<th class="border-bottom-0">MANAGER</th>
-                                                   			<th class="border-bottom-0">TIME</th>
-                                                    		<th class="border-bottom-0">SERVER</th>
-                                                    		<th class="border-bottom-0">AMOUNT</th>
-                                                    		<th class="border-bottom-0">MANAGERID</th>
-                                                    		<th class="border-bottom-0">SERVERID</th> 
-									
-														</tr>
-													</thead>
-													<tbody>
-
-                                                    @if($voidxs->isNotEmpty())
-                                                        @foreach($voidxs as $voidx)
-                                                            <tr>
-                                                                
-                                                                <td>{{$voidx->sid}}</td>
-                                                                <td>{{$voidx->dob}}</td>
-                                                                <td>{{$voidx->store_code}}</td>
-                                                                <td>{{$voidx->store_name}}</td>
-                                                                <td>{{$voidx->check_void}}</td>
-                                                                <td>{{$voidx->item}}</td>
-                                                                <td>{{$voidx->reason}}</td>
-                                                                <td>{{$voidx->manager}}</td>
-                                                                <td>{{$voidx->time}}</td>
-                                                                <td>{{$voidx->server}}</td>
-                                                                <td>{{$voidx->amount}}</td>
-                                                                <td>{{$voidx->manager_id}}</td>
-																<td>{{$voidx->server_id}}</td>
-                                                                <td><a class="btn btn-primary btn-xs" href="{{action('VoidxController@edit', $voidx->id)}}" ><span class="fa fa-pencil"></span></a></td>
+										<div class="table-responsive">
+                                            <table id="example" class="table table-bordered text-nowrap ">
+                                                <thead>
+                                                    <th class="border-bottom-0">#</th>
+                                                    <th class="border-bottom-0">Name</th>
+                                                    <th class="border-bottom-0">Created Date</th>
+                                                    <th class="border-bottom-0">Las Modified Date</th>
+                                                    <th class="border-bottom-0">Edit</th>
+                                                    <th class="border-bottom-0">Delete</th>
+                                                </thead>
+                                                <tbody>
+                                                    @if($regions->isNotEmpty())
+                                                        @foreach($regions as $region)
+                                                            <tr class="bold">
+                                                                <td>{{$region->id}}</td>
+                                                                <td>{{$region->name}}</td>
+                                                                <td>{{$region->created_date}}</td>
+                                                                <td>{{$region->last_modified_date}}</td>
+                                                                <td><a class="btn btn-primary btn-xs" href="{{action('RegionController@edit', $region->id)}}" ><span class="fa fa-pencil"></span></a></td>
                                                                 <td>
-                                                                    <form action="{{action('VoidxController@destroy', $voidx->id)}}" method="post">
+                                                                    <form action="{{action('RegionController@destroy', $region->id)}}" method="post">
                                                                         {{csrf_field()}}
                                                                         <input name="_method" type="hidden" value="DELETE">
                                                                         <button class="btn btn-danger btn-xs" type="submit"><span class="fa fa-trash"></span></button>
@@ -96,16 +72,17 @@
                                                             <td colspan="8">No one there!</td>
                                                         </tr>
                                                     @endif
-													</tbody>
-												</table>
-											</div>
-										</div>
-									</div>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
 								</div>
 							</div>
 						</div>
-								<!--/div-->
-               
+						<!--End row-->
+					</div>
+				</div><!-- end app-content-->
+			</div>
 @endsection
 @section('js')
 <!-- Data tables -->
