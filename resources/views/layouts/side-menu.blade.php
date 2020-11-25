@@ -53,6 +53,8 @@
 								
 							</ul>
 						</li>
+						@endif
+                        @endif
 						 <!--
                         <li class="slide">
 							<a class="side-menu__item" href="{{ route('sale.index') }}">
@@ -104,7 +106,7 @@
 								<li><a class="slide-item" href="{{ url('/' . $page='mix') }}"><span>Sales Mix</span></a></li>
 							</ul>
 						</li>
-                        @endif
+                        
 					</ul>
 					<div class="app-sidebar-help">
 						<div class="dropdown text-center">
@@ -136,6 +138,6 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					</div>-->
 				</aside>
-<!--aside closed-->
+				
