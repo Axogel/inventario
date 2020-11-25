@@ -42,29 +42,36 @@ class PaymentController extends Controller
 
         $PAYMENTS = new SimpleXMLElement($xml);
 
-        foreach ($PAYMENTS->children() as $payment) {
-            $temp = new Payment();
-            $temp->sid = $PAYMENTS->attributes()->SID;
-            $temp->dob = $PAYMENTS->attributes()->DOB;
-            $temp->store_code = $PAYMENTS->attributes()->STORECODE;
-            $temp->store_name = $PAYMENTS->attributes()->STORENAME;
-            $temp->tender = $payment->TENDER;
-            $temp->check_payments = $payment->CHECK;
-            $temp->card = $payment->CARD;
-            if($payment->EXP == '' || $payment->EXP == null)
-                $temp->exp = 0;
-            else
-                $temp->exp = $payment->EXP;
-            $temp->qty = $payment->QTY;
-            $temp->amount = $payment->AMOUNT;
-            $temp->total = $payment->TOTAL;
-            $temp->empployee_name = $payment->EMPPLOYEENAME;
-            $temp->empployee_id = $payment->EMPPLOYEEID;
+        $nodename = $PAYMENTS->getName();
 
-            $temp->save();
+        if($nodename == 'PAYMENTS'){
+            foreach ($PAYMENTS->children() as $payment) {
+                $temp = new Payment();
+                $temp->sid = $PAYMENTS->attributes()->SID;
+                $temp->dob = $PAYMENTS->attributes()->DOB;
+                $temp->store_code = $PAYMENTS->attributes()->STORECODE;
+                $temp->store_name = $PAYMENTS->attributes()->STORENAME;
+                $temp->tender = $payment->TENDER;
+                $temp->check_payments = $payment->CHECK;
+                $temp->card = $payment->CARD;
+                if($payment->EXP == '' || $payment->EXP == null)
+                    $temp->exp = 0;
+                else
+                    $temp->exp = $payment->EXP;
+                $temp->qty = $payment->QTY;
+                $temp->amount = $payment->AMOUNT;
+                $temp->total = $payment->TOTAL;
+                $temp->empployee_name = $payment->EMPPLOYEENAME;
+                $temp->empployee_id = $payment->EMPPLOYEEID;
+
+                $temp->save();
+            }
+            $message = 'Payments created successfully';
+        }else{
+            $message = 'Wrong file, please upload Payments xml file';
         }
 
-        return redirect()->route('payment.index')->with('success','Payment created successfully');
+        return redirect()->route('payment.index')->with('success', $message);
     }
 
     /**

@@ -43,30 +43,36 @@ class PromoController extends Controller
         $xml = $request->get('xmltext');
 
         $PROMOS = new SimpleXMLElement($xml);
+        $nodename = $PROMOS->getName();
 
-        foreach ($PROMOS->children() as $promo) {
-            $temp = new Promo();
-            $temp->sid = $PROMOS->attributes()->SID;
-            $temp->dob = $PROMOS->attributes()->DOB;
-            $temp->store_code = $PROMOS->attributes()->STORECODE;
-            $temp->check_promo = $promo->CHECK;
-            if($promo->CHECKNAME == '' || $promo->CHECKNAME == null)
-                $temp->check_name = 0;
-            else
-                $temp->check_name = $promo->CHECKNAME;
-            $temp->employee = $promo->EMPLOYEE;
-            $temp->manager = $promo->MANAGER;
-            $temp->store_name = $PROMOS->attributes()->STORENAME;
-            $temp->promo_type = $promo->PROMOTYPE;
-            $temp->qty = $promo->QTY;
-            $temp->amount = $promo->AMOUNT;
-            $temp->emp_id = $promo->EMPID;
-            $temp->man_id = $promo->MANID;
+        if($nodename == 'PROMOS'){
+            foreach ($PROMOS->children() as $promo) {
+                $temp = new Promo();
+                $temp->sid = $PROMOS->attributes()->SID;
+                $temp->dob = $PROMOS->attributes()->DOB;
+                $temp->store_code = $PROMOS->attributes()->STORECODE;
+                $temp->check_promo = $promo->CHECK;
+                if($promo->CHECKNAME == '' || $promo->CHECKNAME == null)
+                    $temp->check_name = 0;
+                else
+                    $temp->check_name = $promo->CHECKNAME;
+                $temp->employee = $promo->EMPLOYEE;
+                $temp->manager = $promo->MANAGER;
+                $temp->store_name = $PROMOS->attributes()->STORENAME;
+                $temp->promo_type = $promo->PROMOTYPE;
+                $temp->qty = $promo->QTY;
+                $temp->amount = $promo->AMOUNT;
+                $temp->emp_id = $promo->EMPID;
+                $temp->man_id = $promo->MANID;
 
-            $temp->save();
+                $temp->save();
+            }
+            $message = 'Promos created successfully';
+        }else{
+            $message = 'Wrong file, please upload Promos xml file';
         }
 
-        return redirect()->route('promo.index')->with('success','Promo created successfully');
+        return redirect()->route('promo.index')->with('success',$message);
     }
 
     /**

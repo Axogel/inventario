@@ -41,29 +41,35 @@ class SaleController extends Controller
         $xml = $request->get('xmltext');
 
         $SALES = new SimpleXMLElement($xml);
+        $nodename = $SALES->getName();
 
-        foreach ($SALES->children() as $sale) {
-            $temp = new Sale();
-            $temp->sid = $SALES->attributes()->SID;
-            $temp->dob = $SALES->attributes()->DOB;
-            $temp->store_code = $SALES->attributes()->STORECODE;
-            $temp->store_name = $SALES->attributes()->STORENAME;
-            $temp->name = $sale->NAME;
-            $temp->id_sale = $sale->ID;
-            $temp->net_sale = $sale->NETSALES;
-            $temp->comp = $sale->COMPS;
-            $temp->promo = $sale->PROMOS;
-            $temp->void = $sale->VOIDS;
-            if($sale->TAXES == '' || $sale->TAXES == null)
-                $temp->taxes = 0;
-            else
-                $temp->taxes = $sale->TAXES;
-            $temp->grs_sale = $sale->GRSSALES;
+        if($nodename == 'CATEGORIES'){
+            foreach ($SALES->children() as $sale) {
+                $temp = new Sale();
+                $temp->sid = $SALES->attributes()->SID;
+                $temp->dob = $SALES->attributes()->DOB;
+                $temp->store_code = $SALES->attributes()->STORECODE;
+                $temp->store_name = $SALES->attributes()->STORENAME;
+                $temp->name = $sale->NAME;
+                $temp->id_sale = $sale->ID;
+                $temp->net_sale = $sale->NETSALES;
+                $temp->comp = $sale->COMPS;
+                $temp->promo = $sale->PROMOS;
+                $temp->void = $sale->VOIDS;
+                if($sale->TAXES == '' || $sale->TAXES == null)
+                    $temp->taxes = 0;
+                else
+                    $temp->taxes = $sale->TAXES;
+                $temp->grs_sale = $sale->GRSSALES;
 
-            $temp->save();
+                $temp->save();
+            }
+            $message = 'Sales created successfully';
+        }else{
+            $message = 'Wrong file, please upload Sales xml file';
         }
 
-        return redirect()->route('sale.index')->with('success','Sale created successfully');
+        return redirect()->route('sale.index')->with('success', $message);
     }
 
     /**

@@ -35,7 +35,7 @@
 										<h3 class="card-title">Payments</h3>
 										<div class="card-options">
 											<div class="btn-group ml-5 mb-0">
-                                                <a class="btn btn-primary" data-target="#modaldemo1" data-toggle="modal" href=""><i class="fa fa-plus mr-2"></i>Add New Payment</a>
+                                                <a class="btn btn-primary" data-target="#modaldemo1" data-toggle="modal" href=""><i class="fa fa-plus mr-2"></i>Add New Payments</a>
 											</div>
 										</div>
 									</div>

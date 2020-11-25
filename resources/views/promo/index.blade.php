@@ -27,7 +27,6 @@
                                 </button>
                             </div>
                         @endif
-
 						<div class="row row-deck">
 							<div class="col-xl-12 col-lg-12 col-md-12">
 								<div class="card">
@@ -35,7 +34,7 @@
 										<h3 class="card-title">Promos</h3>
 										<div class="card-options">
 											<div class="btn-group ml-5 mb-0">
-                                                <a class="btn btn-primary" data-target="#modaldemo1" data-toggle="modal" href=""><i class="fa fa-plus mr-2"></i>Add New Promo</a>
+                                                <a class="btn btn-primary" data-target="#modaldemo1" data-toggle="modal" href=""><i class="fa fa-plus mr-2"></i>Add New Promos</a>
 											</div>
 										</div>
 									</div>
@@ -43,7 +42,7 @@
 										<div class="table-responsive">
                                             <table id="example" class="table table-bordered text-nowrap key-buttons">
                                                 <thead>
-                                                    <th class="border-bottom-0">#</th>
+                                                    {{-- <th class="border-bottom-0">#</th> --}}
                                                     <th class="border-bottom-0">SID</th>
                                                     <th class="border-bottom-0">DOB</th>
                                                     <th class="border-bottom-0">Store Code</th>
@@ -64,7 +63,7 @@
                                                     @if($promos->isNotEmpty())
                                                         @foreach($promos as $promo)
                                                             <tr class="bold">
-                                                                <td>{{$promo->id}}</td>
+                                                                {{-- <td>{{$promo->id}}</td> --}}
                                                                 <td>{{$promo->sid}}</td>
                                                                 <td>{{$promo->dob}}</td>
                                                                 <td>{{$promo->store_code}}</td>
