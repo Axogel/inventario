@@ -41,27 +41,32 @@ class CompController extends Controller
         $xml = $request->get('xmltext');
 
         $COMPS = new SimpleXMLElement($xml);
+        $nodename = $COMPS->getName();
 
-        foreach ($COMPS->children() as $comp) {
-            $temp = new Comp();
-            $temp->sid = $COMPS->attributes()->SID;
-            $temp->dob = $COMPS->attributes()->DOB;
-            $temp->store_code = $COMPS->attributes()->STORECODE;
-            $temp->store_name = $COMPS->attributes()->STORENAME;
-            $temp->check_comps = $comp->CHECK;
-            $temp->name = $comp->NAME;
-            $temp->employee = $comp->EMPLOYEE;
-            $temp->manager = $comp->MANAGER;
-            $temp->comp_type = $comp->COMPTYPE;
-            $temp->qty = $comp->QTY;
-            $temp->amount = $comp->AMOUNT;
-            $temp->emp_id = $comp->EMPID;
-            $temp->man_id = $comp->MANID;
+        if($nodename == 'COMPS'){
+            foreach ($COMPS->children() as $comp) {
+                $temp = new Comp();
+                $temp->sid = $COMPS->attributes()->SID;
+                $temp->dob = $COMPS->attributes()->DOB;
+                $temp->store_code = $COMPS->attributes()->STORECODE;
+                $temp->store_name = $COMPS->attributes()->STORENAME;
+                $temp->check_comps = $comp->CHECK;
+                $temp->name = $comp->NAME;
+                $temp->employee = $comp->EMPLOYEE;
+                $temp->manager = $comp->MANAGER;
+                $temp->comp_type = $comp->COMPTYPE;
+                $temp->qty = $comp->QTY;
+                $temp->amount = $comp->AMOUNT;
+                $temp->emp_id = $comp->EMPID;
+                $temp->man_id = $comp->MANID;
 
-            $temp->save();
+                $temp->save();
+            }
+            $message = 'Comps created successfully';
+        }else{
+            $message = 'Wrong file, please upload Comps xml file';
         }
-
-        return redirect()->route('comp.index')->with('success','Sale Mix created successfully');
+        return redirect()->route('comp.index')->with('success', $message);
     }
 
     /**

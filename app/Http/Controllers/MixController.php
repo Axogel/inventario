@@ -41,26 +41,32 @@ class MixController extends Controller
         $xml = $request->get('xmltext');
 
         $MIXES = new SimpleXMLElement($xml);
+        $nodename = $MIXES->getName();
 
-        foreach ($MIXES->children() as $mix) {
-            $temp = new Mix();
-            $temp->sid = $MIXES->attributes()->SID;
-            $temp->dob = $MIXES->attributes()->DOB;
-            $temp->store_code = $MIXES->attributes()->STORECODE;
-            $temp->store_name = $MIXES->attributes()->STORENAME;
-            $temp->item_id = $mix->ITEMID;
-            $temp->name = $mix->NAME;
-            $temp->qty_sold = $mix->QTYSOLD;
-            $temp->item_price = $mix->ITEMPRICE;
-            $temp->total_price = $mix->TOTALPRICE;
-            $temp->tax = $mix->TAX;
-            $temp->cost_price = $mix->COSTPRICE;
-            $temp->profit = $mix->PROFIT;
+        if($nodename == 'SALESMIX'){
+            foreach ($MIXES->children() as $mix) {
+                $temp = new Mix();
+                $temp->sid = $MIXES->attributes()->SID;
+                $temp->dob = $MIXES->attributes()->DOB;
+                $temp->store_code = $MIXES->attributes()->STORECODE;
+                $temp->store_name = $MIXES->attributes()->STORENAME;
+                $temp->item_id = $mix->ITEMID;
+                $temp->name = $mix->NAME;
+                $temp->qty_sold = $mix->QTYSOLD;
+                $temp->item_price = $mix->ITEMPRICE;
+                $temp->total_price = $mix->TOTALPRICE;
+                $temp->tax = $mix->TAX;
+                $temp->cost_price = $mix->COSTPRICE;
+                $temp->profit = $mix->PROFIT;
 
-            $temp->save();
+                $temp->save();
+            }
+            $message = 'Sales Mix created successfully';
+        }else{
+            $message = 'Wrong file, please upload Sales Mix xml file';
         }
 
-        return redirect()->route('mix.index')->with('success','Mix created successfully');
+        return redirect()->route('mix.index')->with('success', $message);
     }
 
     /**

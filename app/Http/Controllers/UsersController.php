@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Role;
+use Auth;
+use Validator;
+use Hash;
 use Illuminate\Http\Request;
 use App\Mail\WelcomeMail;
 use Illuminate\Support\Facades\Mail;
@@ -80,6 +83,56 @@ class UsersController extends Controller
         $user = user::find($id);
         $roles = Role::all();
         return view('users.edit', compact(['user','roles']));
+    }
+    public function profile()
+    {
+        $user = Auth::user();
+        return view('users.profile', compact('user'));
+    }
+
+    public function admin_credential_rules(array $data)
+    {
+        $messages = [
+            'current-password.required' => 'Please enter current password',
+            'password.required' => 'Please enter password',
+        ];
+
+        $validator = Validator::make($data, [
+
+            'current-password' => 'required',
+            'password' => 'same:password',
+            'password-confirmation' => 'same:password',
+        ], $messages);
+
+        return $validator;
+    }
+
+    public function postCredentials(Request $request)
+    {
+        if(Auth::Check()){
+            $request_data = $request->All();
+            $validator = $this->admin_credential_rules($request_data);
+
+            if($validator->fails()){
+                return redirect()->route('profile')->with('success',array('error' => $validator->getMessageBag()->toArray()));
+            }else{
+                $current_password = Auth::User()->password;
+
+                if(Hash::check($request_data['current-password'], $current_password)){
+                    $user_id = Auth::User()->id;
+                    $obj_user = User::find($user_id);
+                    $obj_user->name = $request_data['name'];
+                    $obj_user->email = $request_data['email'];
+                    if(($request_data['password']) != null && ($request_data['password']) != '')
+                    $obj_user->password = Hash::make($request_data['password']);
+                    $obj_user->save();
+                    return redirect()->route('profile')->with('success','User data update');
+                }else{
+                    return redirect()->route('profile')->with('success','Please enter correct current password');
+                }
+            }
+        }else
+            return redirect()->to('dashboard');
     }
 
     /**

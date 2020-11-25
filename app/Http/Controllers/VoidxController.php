@@ -41,27 +41,32 @@ class VoidxController extends Controller
         $xml = $request->get('xmltext');
 
         $VOIDS = new SimpleXMLElement($xml);
+        $nodename = $VOIDS->getName();
 
-        foreach ($VOIDS->children() as $void) {
-            $temp = new Voidx();
-            $temp->sid = $VOIDS->attributes()->SID;
-            $temp->dob = $VOIDS->attributes()->DOB;
-            $temp->store_code = $VOIDS->attributes()->STORECODE;
-            $temp->store_name = $VOIDS->attributes()->STORENAME;
-            $temp->check_void = $void->CHECK;
-            $temp->item = $void->ITEM;
-            $temp->reason = $void->REASON;
-            $temp->manager = $void->MANAGER;
-            $temp->time = $void->TIME;
-            $temp->server = $void->SERVER;
-            $temp->amount = $void->AMOUNT;
-            $temp->manager_id = $void->MANAGERID;
-            $temp->server_id = $void->SERVERID;
+        if($nodename == 'VOIDS'){
+            foreach ($VOIDS->children() as $void) {
+                $temp = new Voidx();
+                $temp->sid = $VOIDS->attributes()->SID;
+                $temp->dob = $VOIDS->attributes()->DOB;
+                $temp->store_code = $VOIDS->attributes()->STORECODE;
+                $temp->store_name = $VOIDS->attributes()->STORENAME;
+                $temp->check_void = $void->CHECK;
+                $temp->item = $void->ITEM;
+                $temp->reason = $void->REASON;
+                $temp->manager = $void->MANAGER;
+                $temp->time = $void->TIME;
+                $temp->server = $void->SERVER;
+                $temp->amount = $void->AMOUNT;
+                $temp->manager_id = $void->MANAGERID;
+                $temp->server_id = $void->SERVERID;
 
-            $temp->save();
+                $temp->save();
+            }
+            $message = 'Voids created successfully';
+        }else{
+            $message = 'Wrong file, please upload Voids xml file';
         }
-
-        return redirect()->route('voidx.index')->with('success','Void created successfully');
+        return redirect()->route('voidx.index')->with('success', $message);
     }
 
     /**

@@ -177,6 +177,8 @@ Route::get('/elements-paddning', 'HomeController@elementpaddning')->name('elemen
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
+    Route::get('/profile', 'UsersController@profile')->name('profile');
+    Route::patch('credentials', 'UsersController@postCredentials')->name('credentials');
 });
 //-- admin
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
