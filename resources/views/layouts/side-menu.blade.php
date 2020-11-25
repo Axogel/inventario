@@ -49,7 +49,7 @@
 							<span class="side-menu__label">Location</span><i class="side-menu__icon angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
 								<li><a class="slide-item" href="{{ route('region.index') }}"><span>Regions</span></a></li>
-								<li><a class="slide-item" href="{{ route('comp.index') }}"><span>Sites</span></a></li>
+								<li><a class="slide-item" href="{{ route('site.index') }}"><span>Sites</span></a></li>
 								
 							</ul>
 						</li>
