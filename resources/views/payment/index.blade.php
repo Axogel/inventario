@@ -111,7 +111,7 @@
                             <h6 class="modal-title">File Upload</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                         </div>
                         <div class="modal-body">
-                            <form method="POST" action="{{ route('payment.store') }}"  role="form">
+                            <form method="POST" action="{{ route('payment.store') }}" role="form" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 <div class="row">
                                     <div class="col-xs-6">

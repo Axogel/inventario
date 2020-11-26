@@ -40,7 +40,6 @@ class PromoController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,['xmltext'=>'required']);
 
         $xml = $request->file('xmldata');
         $PROMOS = simplexml_load_file($xml);

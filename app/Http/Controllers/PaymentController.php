@@ -37,7 +37,6 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,['xmltext'=>'required']);
         $xml = $request->file('xmldata');
         $PAYMENTS = simplexml_load_file($xml);
 
