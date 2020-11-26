@@ -38,8 +38,10 @@ class PaymentController extends Controller
     public function store(Request $request)
     {
         $xml = $request->file('xmldata');
-        $PAYMENTS = simplexml_load_file($xml);
-
+        $rawstring = file_get_contents($xml);
+        $safestring = mb_convert_encoding($rawstring,'UTF-8');
+        $safestring = preg_replace("|&([^;]+?)[\s<&]|","&amp;$1 ",$safestring);
+        $PAYMENTS = simplexml_load_string($safestring);
         $nodename = $PAYMENTS->getName();
 
         if($nodename == 'PAYMENTS'){

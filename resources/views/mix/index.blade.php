@@ -117,7 +117,6 @@
                                             <input type="file" id="xmldata" name="xmldata" class="custom-file-input" data-height="250" accept="text/xml" onchange='openFile(event)'/>
                                             <label class="custom-file-label">Choose file</label>
                                         </div>
-                                        <textarea id='xmltext' name="xmltext" hidden></textarea>
                                     </div>
                                 </div>
                                 <div class="col-xs-12">
@@ -149,20 +148,4 @@
 <script src="{{URL::asset('assets/js/datatables.js')}}"></script>
 <!-- Select2 js -->
 <script src="{{URL::asset('assets/plugins/select2/select2.full.min.js')}}"></script>
-
-<script type="text/javascript">
-    var openFile = function(event) {
-        var input = event.target;
-
-        var reader = new FileReader();
-        reader.onload = function(){
-            var dataURL = reader.result;
-            console.log(dataURL);
-            xmlDoc = $.parseXML(dataURL),
-            $xml = $(xmlDoc),
-            $('#xmltext').val(dataURL);
-        };
-        reader.readAsText(input.files[0]);
-    };
-</script>
 @endsection

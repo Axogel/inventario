@@ -37,10 +37,11 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,['xmltext'=>'required']);
-
         $xml = $request->file('xmldata');
-        $SALES = simplexml_load_file($xml);
+        $rawstring = file_get_contents($xml);
+        $safestring = mb_convert_encoding($rawstring,'UTF-8');
+        $safestring = preg_replace("|&([^;]+?)[\s<&]|","&amp;$1 ",$safestring);
+        $SALES = simplexml_load_string($safestring);
 
         $nodename = $SALES->getName();
 

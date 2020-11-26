@@ -40,9 +40,11 @@ class PromoController extends Controller
      */
     public function store(Request $request)
     {
-
         $xml = $request->file('xmldata');
-        $PROMOS = simplexml_load_file($xml);
+        $rawstring = file_get_contents($xml);
+        $safestring = mb_convert_encoding($rawstring,'UTF-8');
+        $safestring = preg_replace("|&([^;]+?)[\s<&]|","&amp;$1 ",$safestring);
+        $PROMOS = simplexml_load_string($safestring);
 
         $nodename = $PROMOS->getName();
 

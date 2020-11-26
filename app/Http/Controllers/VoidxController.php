@@ -37,9 +37,11 @@ class VoidxController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,['xmltext'=>'required']);
         $xml = $request->file('xmldata');
-        $VOIDS = simplexml_load_file($xml);
+        $rawstring = file_get_contents($xml);
+        $safestring = mb_convert_encoding($rawstring,'UTF-8');
+        $safestring = preg_replace("|&([^;]+?)[\s<&]|","&amp;$1 ",$safestring);
+        $VOIDS = simplexml_load_string($safestring);
         $nodename = $VOIDS->getName();
 
         if($nodename == 'VOIDS'){
