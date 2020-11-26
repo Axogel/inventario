@@ -116,7 +116,7 @@
                                 <div class="row">
                                     <div class="col-xs-6">
                                         <div class="custom-file">
-                                            <input type="file" id="xmldata" class="custom-file-input" data-height="250" accept="text/xml" onchange='openFile(event)'/>
+                                            <input type="file" id="xmldata" name="xmldata" class="custom-file-input" data-height="250" accept="text/xml" onchange='openFile(event)'/>
                                             <label class="custom-file-label">Choose file</label>
                                         </div>
                                         <input type="text" id='xmltext' name="xmltext" hidden>
