@@ -70,7 +70,7 @@ class VoidxController extends Controller
             $success = array("message" => "Wrong file, please upload Voids xml file", "alert" => "danger");
         }
 
-        return redirect()->route('voids.index')->with('success',$success);
+        return redirect()->route('voidx.index')->with('success',$success);
     }
 
     /**
