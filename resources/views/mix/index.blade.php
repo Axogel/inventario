@@ -34,6 +34,9 @@
 									<div class="card-header">
 										<h3 class="card-title">Sales Mix</h3>
 										<div class="card-options">
+                                            <div class="btn-group ml-5 mb-0">
+                                                <a class="btn btn-primary" href="{{ route('downloadmix') }}"><i class="fa fa-download mr-2"></i>File Example</a>
+											</div>
 											<div class="btn-group ml-5 mb-0">
                                                 <a class="btn btn-primary" data-target="#modaldemo1" data-toggle="modal" href=""><i class="fa fa-plus mr-2"></i>Add New Sales Mix</a>
 											</div>

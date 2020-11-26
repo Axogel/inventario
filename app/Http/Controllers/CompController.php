@@ -114,4 +114,10 @@ class CompController extends Controller
         Comp::find($id)->delete;
         return redirect()->route('comp.index')->with('success','Comp dropped.');
     }
+
+    public function downloadcomp()
+    {
+        return response()->download(storage_path('/app/public/20201110_131483_comps.xml'));
+
+    }
 }

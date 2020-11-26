@@ -121,4 +121,10 @@ class PromoController extends Controller
         Promo::find($id)->delete();
         return redirect()->route('promo.index')->with('success','Promo dropped.');
     }
+
+    public function downloadpromo()
+    {
+        return response()->download(storage_path('/app/public/20201110_131483_promos.xml'));
+
+    }
 }

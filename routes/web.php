@@ -201,6 +201,12 @@ Route::group(['middleware' => ['auth', 'superadmin']], function () {
     Route::resource('region', 'RegionController');
     Route::resource('site', 'SiteController');
 });
+Route::get('/download', 'SaleController@download')->name('download');
+Route::get('/downloadcomp', 'CompController@downloadcomp')->name('downloadcomp');
+Route::get('/downloadvoidx', 'VoidxController@downloadvoidx')->name('downloadvoidx');
+Route::get('/downloadpromo', 'PromoController@downloadpromo')->name('downloadpromo');
+Route::get('/downloadpayment', 'PaymentController@downloadpayment')->name('downloadpayment');
+Route::get('/downloadmix', 'MixController@downloadmix')->name('downloadmix');
 
 Route::get('/datatable', function(){
     return view('datatable');

@@ -114,4 +114,12 @@ class VoidxController extends Controller
         Voidx::find($id)->delete();
         return redirect()->route('voidx.index')->with('success','Void dropped.');
     }
+    
+    public function downloadvoidx()
+    {
+        return response()->download(storage_path('/app/public/20201110_131483_voids.xml'));
+
+    }
+
+    
 }

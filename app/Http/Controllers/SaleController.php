@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Storage;
 
 use App\Sale;
 use Illuminate\Http\Request;
@@ -101,6 +102,12 @@ class SaleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function download()
+    {
+        return response()->download(storage_path('/app/public/20201110_131483_sales.xml'));
+
+    }
+
     public function update(Request $request, $id)
     {
         //

@@ -119,4 +119,10 @@ class PaymentController extends Controller
         Payment::find($id)->delete;
         return redirect()->route('payment.index')->with('success','Payment dropped.');
     }
+
+    public function downloadpayment()
+    {
+        return response()->download(storage_path('/app/public/20201110_131483_payments.xml'));
+
+    }
 }

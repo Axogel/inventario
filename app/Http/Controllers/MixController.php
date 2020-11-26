@@ -114,4 +114,10 @@ class MixController extends Controller
         Mix::find($id)->delete;
         return redirect()->route('mix.index')->with('success','Mix dropped.');
     }
+
+    public function downloadmix()
+    {
+        return response()->download(storage_path('/app/public/20201110_131483_mix.xml'));
+
+    }
 }
