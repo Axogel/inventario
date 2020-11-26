@@ -51,10 +51,9 @@
 							<ul class="slide-menu">
 								<li><a class="slide-item" href="{{ route('region.index') }}"><span>Regions</span></a></li>
 								<li><a class="slide-item" href="{{ route('site.index') }}"><span>Sites</span></a></li>
-								
+
 							</ul>
 						</li>
-<<<<<<< Updated upstream
 						@endif
                         @endif
 						 <!--
@@ -108,11 +107,7 @@
 								<li><a class="slide-item" href="{{ url('/' . $page='mix') }}"><span>Sales Mix</span></a></li>
 							</ul>
 						</li>
-                        
-=======
-                        @endif
-                        @endif
->>>>>>> Stashed changes
+
 					</ul>
 					<div class="app-sidebar-help">
 						<div class="dropdown text-center">
@@ -146,4 +141,4 @@
 						</div>
 					</div>-->
 				</aside>
-				
+
