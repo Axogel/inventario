@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Voidx;
 use Illuminate\Http\Request;
 use SimpleXMLElement;
+use Exception;
 
 class VoidxController extends Controller
 {
@@ -37,42 +38,47 @@ class VoidxController extends Controller
      */
     public function store(Request $request)
     {
-        $xml = $request->file('xmldata');
-        $rawstring = file_get_contents($xml);
-        $safestring = mb_convert_encoding($rawstring,'UTF-8');
-        $safestring = preg_replace("|&([^;]+?)[\s<&]|","&amp;$1 ",$safestring);
-        $VOIDS = simplexml_load_string($safestring);
-        $nodename = $VOIDS->getName();
+        try {
+            $xml = $request->file('xmldata');
+            $rawstring = file_get_contents($xml);
+            $safestring = mb_convert_encoding($rawstring,'UTF-8');
+            $safestring = preg_replace("|&([^;]+?)[\s<&]|","&amp;$1 ",$safestring);
+            $VOIDS = simplexml_load_string($safestring);
+            $nodename = $VOIDS->getName();
 
-        if($nodename == 'VOIDS'){
-            Voidx::where([
-                ['sid', '=', $VOIDS->attributes()->SID],
-                ['dob', '=', $VOIDS->attributes()->DOB],
-            ])->delete();
-            foreach ($VOIDS->children() as $void) {
-                $temp = new Voidx();
-                $temp->sid = $VOIDS->attributes()->SID;
-                $temp->dob = $VOIDS->attributes()->DOB;
-                $temp->store_code = $VOIDS->attributes()->STORECODE;
-                $temp->store_name = $VOIDS->attributes()->STORENAME;
-                $temp->check_void = $void->CHECK;
-                $temp->item = $void->ITEM;
-                $temp->reason = $void->REASON;
-                $temp->manager = $void->MANAGER;
-                $temp->time = $void->TIME;
-                $temp->server = $void->SERVER;
-                $temp->amount = $void->AMOUNT;
-                $temp->manager_id = $void->MANAGERID;
-                $temp->server_id = $void->SERVERID;
+            if($nodename == 'VOIDS'){
+                Voidx::where([
+                    ['sid', '=', $VOIDS->attributes()->SID],
+                    ['dob', '=', $VOIDS->attributes()->DOB],
+                ])->delete();
+                foreach ($VOIDS->children() as $void) {
+                    $temp = new Voidx();
+                    $temp->sid = $VOIDS->attributes()->SID;
+                    $temp->dob = $VOIDS->attributes()->DOB;
+                    $temp->store_code = $VOIDS->attributes()->STORECODE;
+                    $temp->store_name = $VOIDS->attributes()->STORENAME;
+                    $temp->check_void = $void->CHECK;
+                    $temp->item = $void->ITEM;
+                    $temp->reason = $void->REASON;
+                    $temp->manager = $void->MANAGER;
+                    $temp->time = $void->TIME;
+                    $temp->server = $void->SERVER;
+                    $temp->amount = $void->AMOUNT;
+                    $temp->manager_id = $void->MANAGERID;
+                    $temp->server_id = $void->SERVERID;
 
-                $temp->save();
+                    $temp->save();
+                }
+                $success = array("message" => "Voids created successfully", "alert" => "success");
+            }else{
+                $success = array("message" => "Wrong file, please upload Voids xml file", "alert" => "danger");
             }
-            $success = array("message" => "Voids created successfully", "alert" => "success");
-        }else{
-            $success = array("message" => "Wrong file, please upload Voids xml file", "alert" => "danger");
+            return redirect()->route('voidx.index')->with('success',$success);
         }
-
-        return redirect()->route('voidx.index')->with('success',$success);
+        catch (Exception $e) {
+            $success = array("message" => "Wrong file, please upload a correct xml file", "alert" => "danger");
+            return redirect()->route('voidx.index')->with('success', $success);
+        }
     }
 
     /**

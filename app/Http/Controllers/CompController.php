@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Comp;
 use Illuminate\Http\Request;
 use SimpleXMLElement;
+use Exception;
 
 class CompController extends Controller
 {
@@ -37,43 +38,49 @@ class CompController extends Controller
      */
     public function store(Request $request)
     {
-        $xml = $request->file('xmldata');
-        $rawstring = file_get_contents($xml);
-        $safestring = mb_convert_encoding($rawstring,'UTF-8');
-        $safestring = preg_replace("|&([^;]+?)[\s<&]|","&amp;$1 ",$safestring);
-        $COMPS = simplexml_load_string($safestring);
-        $nodename = $COMPS->getName();
+        try {
+            $xml = $request->file('xmldata');
+            $rawstring = file_get_contents($xml);
+            $safestring = mb_convert_encoding($rawstring,'UTF-8');
+            $safestring = preg_replace("|&([^;]+?)[\s<&]|","&amp;$1 ",$safestring);
+            $COMPS = simplexml_load_string($safestring);
+            $nodename = $COMPS->getName();
 
-        if($nodename == 'COMPS'){
+            if($nodename == 'COMPS'){
 
-            Comp::where([
-                ['sid', '=', $COMPS->attributes()->SID],
-                ['dob', '=', $COMPS->attributes()->DOB],
-            ])->delete();
+                Comp::where([
+                    ['sid', '=', $COMPS->attributes()->SID],
+                    ['dob', '=', $COMPS->attributes()->DOB],
+                ])->delete();
 
-            foreach ($COMPS->children() as $comp) {
-                $temp = new Comp();
-                $temp->sid = $COMPS->attributes()->SID;
-                $temp->dob = $COMPS->attributes()->DOB;
-                $temp->store_code = $COMPS->attributes()->STORECODE;
-                $temp->store_name = $COMPS->attributes()->STORENAME;
-                $temp->check_comps = $comp->CHECK;
-                $temp->name = $comp->NAME;
-                $temp->employee = $comp->EMPLOYEE;
-                $temp->manager = $comp->MANAGER;
-                $temp->comp_type = $comp->COMPTYPE;
-                $temp->qty = $comp->QTY;
-                $temp->amount = $comp->AMOUNT;
-                $temp->emp_id = $comp->EMPID;
-                $temp->man_id = $comp->MANID;
+                foreach ($COMPS->children() as $comp) {
+                    $temp = new Comp();
+                    $temp->sid = $COMPS->attributes()->SID;
+                    $temp->dob = $COMPS->attributes()->DOB;
+                    $temp->store_code = $COMPS->attributes()->STORECODE;
+                    $temp->store_name = $COMPS->attributes()->STORENAME;
+                    $temp->check_comps = $comp->CHECK;
+                    $temp->name = $comp->NAME;
+                    $temp->employee = $comp->EMPLOYEE;
+                    $temp->manager = $comp->MANAGER;
+                    $temp->comp_type = $comp->COMPTYPE;
+                    $temp->qty = $comp->QTY;
+                    $temp->amount = $comp->AMOUNT;
+                    $temp->emp_id = $comp->EMPID;
+                    $temp->man_id = $comp->MANID;
 
-                $temp->save();
+                    $temp->save();
+                }
+                $success = array("message" => "Comps created successfully", "alert" => "success");
+            }else{
+                $success = array("message" => "Wrong file, please upload Comps xml file", "alert" => "danger");
             }
-            $success = array("message" => "Comps created successfully", "alert" => "success");
-        }else{
-            $success = array("message" => "Wrong file, please upload Comps xml file", "alert" => "danger");
+            return redirect()->route('comp.index')->with('success', $success);
         }
-        return redirect()->route('comp.index')->with('success', $success);
+        catch (Exception $e) {
+            $success = array("message" => "Wrong file, please upload a correct xml file", "alert" => "danger");
+            return redirect()->route('comp.index')->with('success', $success);
+        }
     }
 
     /**
