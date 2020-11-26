@@ -19,8 +19,8 @@
 @section('content')
                         <!--Row-->
                         @if(Session::has('success'))
-                            <div class="alert alert-info alert-dismissible fade show" role="alert">
-                                {{Session::get('success')}}
+                            <div class="alert alert-{{ session('success.alert') }} alert-dismissible fade show" role="alert">
+                                {{ session('success.message') }}
 
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
@@ -32,7 +32,7 @@
 							<div class="col-xl-12 col-lg-12 col-md-12">
 								<div class="card">
 									<div class="card-header">
-										<h3 class="card-title">File Export</h3>
+										<h3 class="card-title"></h3>
 										<div class="card-options">
 											<div class="btn-group ml-5 mb-0">
                                                 <a class="btn btn-primary" data-target="#modaldemo1" data-toggle="modal" href=""><i class="fa fa-plus mr-2"></i>Add New Comps</a>

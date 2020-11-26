@@ -22,7 +22,7 @@
 								<!--div-->
 								<div class="card">
 									<div class="card-header">
-										<div class="card-title">File Export</div>
+										<div class="card-title"></div>
 									</div>
 									<div class="card-body">
 										<div class="">
@@ -42,8 +42,8 @@
                                                     		<th class="border-bottom-0">SERVER</th>
                                                     		<th class="border-bottom-0">AMOUNT</th>
                                                     		<th class="border-bottom-0">MANAGERID</th>
-                                                    		<th class="border-bottom-0">SERVERID</th> 
-									
+                                                    		<th class="border-bottom-0">SERVERID</th>
+
 														</tr>
 													</thead>
 													<tbody>
@@ -61,7 +61,7 @@
                                                     		<td>940</td>
                                                     		<td>0</td>
                                                     		<td>81170</td>
-                                                    		<td>8</td>    
+                                                    		<td>8</td>
 														</tr>
 
 														<tr>
@@ -77,7 +77,7 @@
                                                     		<td>940</td>
                                                     		<td>0</td>
                                                     		<td>81170</td>
-                                                    		<td>8</td>    
+                                                    		<td>8</td>
 														</tr>
 
 														<tr>
@@ -93,7 +93,7 @@
                                                     		<td>940</td>
                                                     		<td>0</td>
                                                     		<td>81170</td>
-                                                    		<td>8</td>    
+                                                    		<td>8</td>
 														</tr>
 
 														<tr>
@@ -109,7 +109,7 @@
                                                     		<td>940</td>
                                                     		<td>0</td>
                                                     		<td>81170</td>
-                                                    		<td>8</td>    
+                                                    		<td>8</td>
 														</tr>
 
 														<tr>
@@ -125,7 +125,7 @@
                                                     		<td>940</td>
                                                     		<td>0</td>
                                                     		<td>81170</td>
-                                                    		<td>8</td>    
+                                                    		<td>8</td>
 														</tr>
 
 														<tr>
@@ -141,9 +141,9 @@
                                                     		<td>940</td>
                                                     		<td>0</td>
                                                     		<td>81170</td>
-                                                    		<td>8</td>    
+                                                    		<td>8</td>
 														</tr>
-														
+
 													</tbody>
 												</table>
 											</div>
@@ -153,7 +153,7 @@
 							</div>
 						</div>
 								<!--/div-->
-               
+
 @endsection
 @section('js')
 <!-- Data tables -->

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Promo;
 use Illuminate\Http\Request;
 use SimpleXMLElement;
+use Illuminate\Support\Facades\DB;
 
 class PromoController extends Controller
 {
@@ -40,12 +41,18 @@ class PromoController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,['xmltext'=>'required']);
-        $xml = $request->get('xmltext');
 
-        $PROMOS = new SimpleXMLElement($xml);
+        $xml = $request->file('xmldata');
+        $PROMOS = simplexml_load_file($xml);
+
         $nodename = $PROMOS->getName();
 
         if($nodename == 'PROMOS'){
+            Promo::where([
+                ['sid', '=', $PROMOS->attributes()->SID],
+                ['dob', '=', $PROMOS->attributes()->DOB],
+            ])->delete();
+
             foreach ($PROMOS->children() as $promo) {
                 $temp = new Promo();
                 $temp->sid = $PROMOS->attributes()->SID;
@@ -67,12 +74,12 @@ class PromoController extends Controller
 
                 $temp->save();
             }
-            $message = 'Promos created successfully';
+            $success = array("message" => "Promos created successfully", "alert" => "success");
         }else{
-            $message = 'Wrong file, please upload Promos xml file';
+            $success = array("message" => "Wrong file, please upload Promos xml file", "alert" => "danger");
         }
 
-        return redirect()->route('promo.index')->with('success',$message);
+        return redirect()->route('promo.index')->with('success',$success);
     }
 
     /**

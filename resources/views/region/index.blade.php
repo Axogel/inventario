@@ -31,7 +31,7 @@
 							<div class="col-xl-12 col-lg-12 col-md-12">
 								<div class="card">
 									<div class="card-header">
-										<h3 class="card-title">File Export</h3>
+										<h3 class="card-title"></h3>
 										<div class="card-options">
 											<div class="btn-group ml-5 mb-0">
                                                 <a class="btn btn-primary" href="{{ route('region.create') }}"><i class="fa fa-plus mr-2"></i>Add New Region</a>

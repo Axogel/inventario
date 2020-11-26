@@ -19,9 +19,9 @@
 @section('content')
                         <!--Row-->
                         @if(Session::has('success'))
-                            <div class="alert alert-info alert-dismissible fade show" role="alert">
-                                {{Session::get('success')}}
-
+                            <div class="alert alert-{{ session('success.alert') }} alert-dismissible fade show" role="alert">
+                                {{ session('success.message') }}
+                                <p>{{ session('success.nod') }}</p>
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -31,7 +31,7 @@
 							<div class="col-xl-12 col-lg-12 col-md-12">
 								<div class="card">
 									<div class="card-header">
-										<h3 class="card-title">Promos</h3>
+										<h3 class="card-title"></h3>
 										<div class="card-options">
 											<div class="btn-group ml-5 mb-0">
                                                 <a class="btn btn-primary" data-target="#modaldemo1" data-toggle="modal" href=""><i class="fa fa-plus mr-2"></i>Add New Promos</a>
@@ -42,7 +42,7 @@
 										<div class="table-responsive">
                                             <table id="example" class="table table-bordered text-nowrap key-buttons">
                                                 <thead>
-                                                    {{-- <th class="border-bottom-0">#</th> --}}
+                                                    <th class="border-bottom-0">#</th>
                                                     <th class="border-bottom-0">SID</th>
                                                     <th class="border-bottom-0">DOB</th>
                                                     <th class="border-bottom-0">Store Code</th>
@@ -63,7 +63,7 @@
                                                     @if($promos->isNotEmpty())
                                                         @foreach($promos as $promo)
                                                             <tr class="bold">
-                                                                {{-- <td>{{$promo->id}}</td> --}}
+                                                                <td>{{$promo->id}}</td>
                                                                 <td>{{$promo->sid}}</td>
                                                                 <td>{{$promo->dob}}</td>
                                                                 <td>{{$promo->store_code}}</td>
@@ -110,12 +110,12 @@
                             <h6 class="modal-title">File Upload</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                         </div>
                         <div class="modal-body">
-                            <form method="POST" action="{{ route('promo.store') }}"  role="form">
+                            <form method="POST" action="{{ route('promo.store') }}" role="form" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 <div class="row">
                                     <div class="col-xs-6">
                                         <div class="custom-file">
-                                            <input type="file" id="xmldata" class="custom-file-input" data-height="250" accept="text/xml" onchange='openFile(event)'/>
+                                            <input type="file" id="xmldata" name="xmldata" class="custom-file-input" data-height="250" accept="text/xml" onchange='openFile(event)'/>
                                             <label class="custom-file-label">Choose file</label>
                                         </div>
                                         <input type="text" id='xmltext' name="xmltext" hidden>
@@ -158,7 +158,6 @@
         var reader = new FileReader();
         reader.onload = function(){
             var dataURL = reader.result;
-            console.log(dataURL);
             xmlDoc = $.parseXML(dataURL),
             $xml = $(xmlDoc),
             $('#xmltext').val(dataURL);

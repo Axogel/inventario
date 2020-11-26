@@ -38,13 +38,17 @@ class PaymentController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,['xmltext'=>'required']);
-        $xml = $request->get('xmltext');
-
-        $PAYMENTS = new SimpleXMLElement($xml);
+        $xml = $request->file('xmldata');
+        $PAYMENTS = simplexml_load_file($xml);
 
         $nodename = $PAYMENTS->getName();
 
         if($nodename == 'PAYMENTS'){
+            Payment::where([
+                ['sid', '=', $PAYMENTS->attributes()->SID],
+                ['dob', '=', $PAYMENTS->attributes()->DOB],
+            ])->delete();
+
             foreach ($PAYMENTS->children() as $payment) {
                 $temp = new Payment();
                 $temp->sid = $PAYMENTS->attributes()->SID;
@@ -66,12 +70,11 @@ class PaymentController extends Controller
 
                 $temp->save();
             }
-            $message = 'Payments created successfully';
+            $success = array("message" => "Payments created successfully", "alert" => "success");
         }else{
-            $message = 'Wrong file, please upload Payments xml file';
+            $success = array("message" => "Wrong file, please upload Payments xml file", "alert" => "danger");
         }
-
-        return redirect()->route('payment.index')->with('success', $message);
+        return redirect()->route('payment.index')->with('success',$success);
     }
 
     /**

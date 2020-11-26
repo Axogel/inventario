@@ -38,12 +38,17 @@ class SaleController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,['xmltext'=>'required']);
-        $xml = $request->get('xmltext');
 
-        $SALES = new SimpleXMLElement($xml);
+        $xml = $request->file('xmldata');
+        $SALES = simplexml_load_file($xml);
+
         $nodename = $SALES->getName();
 
         if($nodename == 'CATEGORIES'){
+            Sale::where([
+                ['sid', '=', $SALES->attributes()->SID],
+                ['dob', '=', $SALES->attributes()->DOB],
+            ])->delete();
             foreach ($SALES->children() as $sale) {
                 $temp = new Sale();
                 $temp->sid = $SALES->attributes()->SID;
@@ -64,12 +69,12 @@ class SaleController extends Controller
 
                 $temp->save();
             }
-            $message = 'Sales created successfully';
+            $success = array("message" => "Sales created successfully", "alert" => "success");
         }else{
-            $message = 'Wrong file, please upload Sales xml file';
+            $success = array("message" => "Wrong file, please upload Sales xml file", "alert" => "danger");
         }
 
-        return redirect()->route('sale.index')->with('success', $message);
+        return redirect()->route('sale.index')->with('success',$success);
     }
 
     /**

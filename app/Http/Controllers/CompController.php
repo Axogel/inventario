@@ -38,12 +38,17 @@ class CompController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,['xmltext'=>'required']);
-        $xml = $request->get('xmltext');
-
-        $COMPS = new SimpleXMLElement($xml);
+        $xml = $request->file('xmldata');
+        $COMPS = simplexml_load_file($xml);
         $nodename = $COMPS->getName();
 
         if($nodename == 'COMPS'){
+
+            Comp::where([
+                ['sid', '=', $COMPS->attributes()->SID],
+                ['dob', '=', $COMPS->attributes()->DOB],
+            ])->delete();
+
             foreach ($COMPS->children() as $comp) {
                 $temp = new Comp();
                 $temp->sid = $COMPS->attributes()->SID;
@@ -62,11 +67,11 @@ class CompController extends Controller
 
                 $temp->save();
             }
-            $message = 'Comps created successfully';
+            $success = array("message" => "Comps created successfully", "alert" => "success");
         }else{
-            $message = 'Wrong file, please upload Comps xml file';
+            $success = array("message" => "Wrong file, please upload Comps xml file", "alert" => "danger");
         }
-        return redirect()->route('comp.index')->with('success', $message);
+        return redirect()->route('comp.index')->with('success', $success);
     }
 
     /**

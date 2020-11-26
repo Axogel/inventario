@@ -38,12 +38,18 @@ class MixController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,['xmltext'=>'required']);
-        $xml = $request->get('xmltext');
+        $xml = $request->file('xmldata');
+        $MIXES = simplexml_load_file($xml);
 
-        $MIXES = new SimpleXMLElement($xml);
         $nodename = $MIXES->getName();
 
         if($nodename == 'SALESMIX'){
+
+            Mix::where([
+                ['sid', '=', $MIXES->attributes()->SID],
+                ['dob', '=', $MIXES->attributes()->DOB],
+            ])->delete();
+
             foreach ($MIXES->children() as $mix) {
                 $temp = new Mix();
                 $temp->sid = $MIXES->attributes()->SID;
@@ -61,12 +67,12 @@ class MixController extends Controller
 
                 $temp->save();
             }
-            $message = 'Sales Mix created successfully';
+            $success = array("message" => "Sales Mix created successfully", "alert" => "success");
         }else{
-            $message = 'Wrong file, please upload Sales Mix xml file';
+            $success = array("message" => "Wrong file, please upload a Sales Mix xml file", "alert" => "danger");
         }
 
-        return redirect()->route('mix.index')->with('success', $message);
+        return redirect()->route('mix.index')->with('success', $success);
     }
 
     /**

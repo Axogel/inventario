@@ -38,12 +38,15 @@ class VoidxController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,['xmltext'=>'required']);
-        $xml = $request->get('xmltext');
-
-        $VOIDS = new SimpleXMLElement($xml);
+        $xml = $request->file('xmldata');
+        $VOIDS = simplexml_load_file($xml);
         $nodename = $VOIDS->getName();
 
         if($nodename == 'VOIDS'){
+            Voidx::where([
+                ['sid', '=', $VOIDS->attributes()->SID],
+                ['dob', '=', $VOIDS->attributes()->DOB],
+            ])->delete();
             foreach ($VOIDS->children() as $void) {
                 $temp = new Voidx();
                 $temp->sid = $VOIDS->attributes()->SID;
@@ -62,11 +65,12 @@ class VoidxController extends Controller
 
                 $temp->save();
             }
-            $message = 'Voids created successfully';
+            $success = array("message" => "Voids created successfully", "alert" => "success");
         }else{
-            $message = 'Wrong file, please upload Voids xml file';
+            $success = array("message" => "Wrong file, please upload Voids xml file", "alert" => "danger");
         }
-        return redirect()->route('voidx.index')->with('success', $message);
+
+        return redirect()->route('voids.index')->with('success',$success);
     }
 
     /**
