@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Promo;
 use Illuminate\Http\Request;
 use SimpleXMLElement;
+use Exception;
 
 class PromoController extends Controller
 {
@@ -39,40 +40,52 @@ class PromoController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,['xmltext'=>'required']);
-        $xml = $request->get('xmltext');
+        try {
+            $xml = $request->file('xmldata');
+            $rawstring = file_get_contents($xml);
+            $safestring = mb_convert_encoding($rawstring,'UTF-8');
+            $safestring = preg_replace("|&([^;]+?)[\s<&]|","&amp;$1 ",$safestring);
+            $PROMOS = simplexml_load_string($safestring);
 
-        $PROMOS = new SimpleXMLElement($xml);
-        $nodename = $PROMOS->getName();
+            $nodename = $PROMOS->getName();
 
-        if($nodename == 'PROMOS'){
-            foreach ($PROMOS->children() as $promo) {
-                $temp = new Promo();
-                $temp->sid = $PROMOS->attributes()->SID;
-                $temp->dob = $PROMOS->attributes()->DOB;
-                $temp->store_code = $PROMOS->attributes()->STORECODE;
-                $temp->check_promo = $promo->CHECK;
-                if($promo->CHECKNAME == '' || $promo->CHECKNAME == null)
-                    $temp->check_name = 0;
-                else
-                    $temp->check_name = $promo->CHECKNAME;
-                $temp->employee = $promo->EMPLOYEE;
-                $temp->manager = $promo->MANAGER;
-                $temp->store_name = $PROMOS->attributes()->STORENAME;
-                $temp->promo_type = $promo->PROMOTYPE;
-                $temp->qty = $promo->QTY;
-                $temp->amount = $promo->AMOUNT;
-                $temp->emp_id = $promo->EMPID;
-                $temp->man_id = $promo->MANID;
+            if($nodename == 'PROMOS'){
+                Promo::where([
+                    ['sid', '=', $PROMOS->attributes()->SID],
+                    ['dob', '=', $PROMOS->attributes()->DOB],
+                ])->delete();
 
-                $temp->save();
+                foreach ($PROMOS->children() as $promo) {
+                    $temp = new Promo();
+                    $temp->sid = $PROMOS->attributes()->SID;
+                    $temp->dob = $PROMOS->attributes()->DOB;
+                    $temp->store_code = $PROMOS->attributes()->STORECODE;
+                    $temp->check_promo = $promo->CHECK;
+                    if($promo->CHECKNAME == '' || $promo->CHECKNAME == null)
+                        $temp->check_name = 0;
+                    else
+                        $temp->check_name = $promo->CHECKNAME;
+                    $temp->employee = $promo->EMPLOYEE;
+                    $temp->manager = $promo->MANAGER;
+                    $temp->store_name = $PROMOS->attributes()->STORENAME;
+                    $temp->promo_type = $promo->PROMOTYPE;
+                    $temp->qty = $promo->QTY;
+                    $temp->amount = $promo->AMOUNT;
+                    $temp->emp_id = $promo->EMPID;
+                    $temp->man_id = $promo->MANID;
+
+                    $temp->save();
+                }
+                $success = array("message" => "Promos created successfully", "alert" => "success");
+            }else{
+                $success = array("message" => "Wrong file, please upload Promos xml file", "alert" => "danger");
             }
-            $message = 'Promos created successfully';
-        }else{
-            $message = 'Wrong file, please upload Promos xml file';
+            return redirect()->route('promo.index')->with('success',$success);
         }
-
-        return redirect()->route('promo.index')->with('success',$message);
+        catch (Exception $e) {
+            $success = array("message" => "Wrong file, please upload a correct xml file", "alert" => "danger");
+            return redirect()->route('promo.index')->with('success', $success);
+        }
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Payment;
 use Illuminate\Http\Request;
 use SimpleXMLElement;
+use Exception;
 
 class PaymentController extends Controller
 {
@@ -37,41 +38,51 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,['xmltext'=>'required']);
-        $xml = $request->get('xmltext');
+        try {
+            $xml = $request->file('xmldata');
+            $rawstring = file_get_contents($xml);
+            $safestring = mb_convert_encoding($rawstring,'UTF-8');
+            $safestring = preg_replace("|&([^;]+?)[\s<&]|","&amp;$1 ",$safestring);
+            $PAYMENTS = simplexml_load_string($safestring);
+            $nodename = $PAYMENTS->getName();
 
-        $PAYMENTS = new SimpleXMLElement($xml);
+            if($nodename == 'PAYMENTS'){
+                Payment::where([
+                    ['sid', '=', $PAYMENTS->attributes()->SID],
+                    ['dob', '=', $PAYMENTS->attributes()->DOB],
+                ])->delete();
 
-        $nodename = $PAYMENTS->getName();
+                foreach ($PAYMENTS->children() as $payment) {
+                    $temp = new Payment();
+                    $temp->sid = $PAYMENTS->attributes()->SID;
+                    $temp->dob = $PAYMENTS->attributes()->DOB;
+                    $temp->store_code = $PAYMENTS->attributes()->STORECODE;
+                    $temp->store_name = $PAYMENTS->attributes()->STORENAME;
+                    $temp->tender = $payment->TENDER;
+                    $temp->check_payments = $payment->CHECK;
+                    $temp->card = $payment->CARD;
+                    if($payment->EXP == '' || $payment->EXP == null)
+                        $temp->exp = 0;
+                    else
+                        $temp->exp = $payment->EXP;
+                    $temp->qty = $payment->QTY;
+                    $temp->amount = $payment->AMOUNT;
+                    $temp->total = $payment->TOTAL;
+                    $temp->empployee_name = $payment->EMPPLOYEENAME;
+                    $temp->empployee_id = $payment->EMPPLOYEEID;
 
-        if($nodename == 'PAYMENTS'){
-            foreach ($PAYMENTS->children() as $payment) {
-                $temp = new Payment();
-                $temp->sid = $PAYMENTS->attributes()->SID;
-                $temp->dob = $PAYMENTS->attributes()->DOB;
-                $temp->store_code = $PAYMENTS->attributes()->STORECODE;
-                $temp->store_name = $PAYMENTS->attributes()->STORENAME;
-                $temp->tender = $payment->TENDER;
-                $temp->check_payments = $payment->CHECK;
-                $temp->card = $payment->CARD;
-                if($payment->EXP == '' || $payment->EXP == null)
-                    $temp->exp = 0;
-                else
-                    $temp->exp = $payment->EXP;
-                $temp->qty = $payment->QTY;
-                $temp->amount = $payment->AMOUNT;
-                $temp->total = $payment->TOTAL;
-                $temp->empployee_name = $payment->EMPPLOYEENAME;
-                $temp->empployee_id = $payment->EMPPLOYEEID;
-
-                $temp->save();
+                    $temp->save();
+                }
+                $success = array("message" => "Payments created successfully", "alert" => "success");
+            }else{
+                $success = array("message" => "Wrong file, please upload Payments xml file", "alert" => "danger");
             }
-            $message = 'Payments created successfully';
-        }else{
-            $message = 'Wrong file, please upload Payments xml file';
+            return redirect()->route('payment.index')->with('success',$success);
         }
-
-        return redirect()->route('payment.index')->with('success', $message);
+        catch (Exception $e) {
+            $success = array("message" => "Wrong file, please upload a correct xml file", "alert" => "danger");
+            return redirect()->route('payment.index')->with('success', $success);
+        }
     }
 
     /**

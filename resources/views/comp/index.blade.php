@@ -19,8 +19,8 @@
 @section('content')
                         <!--Row-->
                         @if(Session::has('success'))
-                            <div class="alert alert-info alert-dismissible fade show" role="alert">
-                                {{Session::get('success')}}
+                            <div class="alert alert-{{ session('success.alert') }} alert-dismissible fade show" role="alert">
+                                {{ session('success.message') }}
 
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
@@ -32,7 +32,7 @@
 							<div class="col-xl-12 col-lg-12 col-md-12">
 								<div class="card">
 									<div class="card-header">
-										<h3 class="card-title">File Export</h3>
+										<h3 class="card-title"></h3>
 										<div class="card-options">
                                             <div class="btn-group ml-5 mb-0">
                                                 <a class="btn btn-primary" href="{{ route('downloadcomp') }}"><i class="fa fa-download mr-2"></i>File Example</a>
@@ -114,15 +114,14 @@
                             <h6 class="modal-title">File Upload</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                         </div>
                         <div class="modal-body">
-                            <form method="POST" action="{{ route('comp.store') }}"  role="form">
+                            <form method="POST" action="{{ route('comp.store') }}" role="form" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 <div class="row">
                                     <div class="col-xs-6">
                                         <div class="custom-file">
-                                            <input type="file" id="xmldata" class="custom-file-input" data-height="250" accept="text/xml" onchange='openFile(event)'/>
+                                            <input type="file" id="xmldata" name="xmldata" class="custom-file-input" data-height="250" accept="text/xml" onchange='openFile(event)'/>
                                             <label class="custom-file-label">Choose file</label>
                                         </div>
-                                        <input type="text" id='xmltext' name="xmltext" hidden>
                                     </div>
                                 </div>
                                 <div class="col-xs-12">
@@ -154,20 +153,4 @@
 <script src="{{URL::asset('assets/js/datatables.js')}}"></script>
 <!-- Select2 js -->
 <script src="{{URL::asset('assets/plugins/select2/select2.full.min.js')}}"></script>
-
-<script type="text/javascript">
-    var openFile = function(event) {
-        var input = event.target;
-
-        var reader = new FileReader();
-        reader.onload = function(){
-            var dataURL = reader.result;
-            console.log(dataURL);
-            xmlDoc = $.parseXML(dataURL),
-            $xml = $(xmlDoc),
-            $('#xmltext').val(dataURL);
-        };
-        reader.readAsText(input.files[0]);
-    };
-</script>
 @endsection

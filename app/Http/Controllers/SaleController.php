@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Sale;
 use Illuminate\Http\Request;
 use SimpleXMLElement;
+use Exception;
 
 class SaleController extends Controller
 {
@@ -38,39 +39,50 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,['xmltext'=>'required']);
-        $xml = $request->get('xmltext');
+        try {
+            $xml = $request->file('xmldata');
+            $rawstring = file_get_contents($xml);
+            $safestring = mb_convert_encoding($rawstring,'UTF-8');
+            $safestring = preg_replace("|&([^;]+?)[\s<&]|","&amp;$1 ",$safestring);
+            $SALES = simplexml_load_string($safestring);
 
-        $SALES = new SimpleXMLElement($xml);
-        $nodename = $SALES->getName();
+            $nodename = $SALES->getName();
 
-        if($nodename == 'CATEGORIES'){
-            foreach ($SALES->children() as $sale) {
-                $temp = new Sale();
-                $temp->sid = $SALES->attributes()->SID;
-                $temp->dob = $SALES->attributes()->DOB;
-                $temp->store_code = $SALES->attributes()->STORECODE;
-                $temp->store_name = $SALES->attributes()->STORENAME;
-                $temp->name = $sale->NAME;
-                $temp->id_sale = $sale->ID;
-                $temp->net_sale = $sale->NETSALES;
-                $temp->comp = $sale->COMPS;
-                $temp->promo = $sale->PROMOS;
-                $temp->void = $sale->VOIDS;
-                if($sale->TAXES == '' || $sale->TAXES == null)
-                    $temp->taxes = 0;
-                else
-                    $temp->taxes = $sale->TAXES;
-                $temp->grs_sale = $sale->GRSSALES;
+            if($nodename == 'CATEGORIES'){
+                Sale::where([
+                    ['sid', '=', $SALES->attributes()->SID],
+                    ['dob', '=', $SALES->attributes()->DOB],
+                ])->delete();
+                foreach ($SALES->children() as $sale) {
+                    $temp = new Sale();
+                    $temp->sid = $SALES->attributes()->SID;
+                    $temp->dob = $SALES->attributes()->DOB;
+                    $temp->store_code = $SALES->attributes()->STORECODE;
+                    $temp->store_name = $SALES->attributes()->STORENAME;
+                    $temp->name = $sale->NAME;
+                    $temp->id_sale = $sale->ID;
+                    $temp->net_sale = $sale->NETSALES;
+                    $temp->comp = $sale->COMPS;
+                    $temp->promo = $sale->PROMOS;
+                    $temp->void = $sale->VOIDS;
+                    if($sale->TAXES == '' || $sale->TAXES == null)
+                        $temp->taxes = 0;
+                    else
+                        $temp->taxes = $sale->TAXES;
+                    $temp->grs_sale = $sale->GRSSALES;
 
-                $temp->save();
+                    $temp->save();
+                }
+                $success = array("message" => "Sales created successfully", "alert" => "success");
+            }else{
+                $success = array("message" => "Wrong file, please upload Sales xml file", "alert" => "danger");
             }
-            $message = 'Sales created successfully';
-        }else{
-            $message = 'Wrong file, please upload Sales xml file';
+            return redirect()->route('sale.index')->with('success',$success);
         }
-
-        return redirect()->route('sale.index')->with('success', $message);
+        catch (Exception $e) {
+            $success = array("message" => "Wrong file, please upload a correct xml file", "alert" => "danger");
+            return redirect()->route('sale.index')->with('success', $success);
+        }
     }
 
     /**
