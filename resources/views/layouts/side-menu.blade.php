@@ -1,7 +1,7 @@
 <!--aside open-->
 <div class="app-sidebar app-sidebar2">
 					<div class="app-sidebar__logo">
-						<a class="header-brand" href="{{ url('/' . $page='index') }}">
+						<a class="header-brand" href="{{ route('index') }}">
 							<img src="{{URL::asset('assets/images/brand/logo.png')}}" class="header-brand-img desktop-lgo" alt="Covido logo">
 							<img src="{{URL::asset('assets/images/brand/logo1.png')}}" class="header-brand-img dark-logo" alt="Covido logo">
 							<img src="{{URL::asset('assets/images/brand/favicon.png')}}" class="header-brand-img mobile-logo" alt="Covido logo">
