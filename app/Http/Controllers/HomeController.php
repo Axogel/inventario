@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Sale;
+use DB;
 
 class HomeController extends Controller
 {
@@ -22,9 +23,21 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+
+    public function dashboardgrap()
+    {   
+        $sales = DB::table('sales')->groupBy('store_code')->get();
+
+        $comps = DB::table('sales')->select( DB::raw( 'SUM(comp) as suma'))
+                    ->groupBy('store_code')
+                    ->get()->toarray();
+        
+        Sale::sum("comp");
+        return view('dashboardgrap', compact( "sales", "comps"));
+    }
     public function index()
     {
-        return redirect()->route('dashboard');;
+        return redirect()->route('dashboard');
     }
     public function index2()
     {
