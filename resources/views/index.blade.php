@@ -185,7 +185,7 @@
 														<h2 class="mb-0 font-weight-bold">$897k</h2>
 													</div>
 													<div class="col col-auto">
-														<div id="spark1"></div>
+														<div id="daysales"></div>
 													</div>
 												</div>
 											</div>
@@ -305,23 +305,11 @@
 							<div class="col-xl-8 col-lg-7 col-md-12">
 								<div class="card card-block">
 									<div class="card-header d-sm-flex d-block">
-										<h3 class="card-title">Earning Revenue</h3>
-										<div class="ml-auto mt-4 mt-sm-0">
-											<a class="btn btn-white" href="#">Week</a>
-											<a class="btn btn-white" href="#">Month</a>
-											<a class="btn btn-primary" href="#">Year</a>
-											<div class="btn-group ml-3 mb-0">
-												<a href="#" class="option-dots" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-												<div class="dropdown-menu p-0">
-													<a class="dropdown-item" href="#"><i class="fa fa-download"></i> Download</a>
-													<a class="dropdown-item" href="#"><i class="fa fa-cog mr-2"></i> Settings</a>
-												</div>
-											</div>
-										</div>
+										<h3 class="card-title">Sales Summary</h3>
 									</div>
 									<div class="card-body">
 										<div class="chart-container">
-											<canvas id="leads" class="h-400 chart-dropshadow-primary"></canvas>
+											<canvas id="salesgraph" class="h-400 chart-dropshadow-primary"></canvas>
 										</div>
 									</div>
 								</div>
@@ -633,7 +621,21 @@
 						<!--End row-->
 
 					</div>
-				</div><!-- end app-content-->
+                </div><!-- end app-content-->
+                <ul id="netsalesgraph" style="display: none;">
+                @if($sales->isNotEmpty())
+                    @foreach($sales as $sale)
+                        <li>{{$sale->net_sale}}</li>
+                    @endforeach
+                @endif
+                </ul>
+                <ul id="voidsalesgraph" style="display: none;">
+                    @if($sales->isNotEmpty())
+                        @foreach($sales as $sale)
+                            <li>{{$sale->void}}</li>
+                        @endforeach
+                    @endif
+                </ul>
 			</div>
 @endsection
 @section('js')
@@ -675,5 +677,113 @@
 <!--Chart js -->
 <script src="{{URL::asset('assets/plugins/chart/chart.bundle.js')}}"></script>
 <script src="{{URL::asset('assets/plugins/chart/utils.js')}}"></script>
+
+<script>
+    $(document).ready(function(){
+        var ctx = $('#salesgraph');
+        var salesdata = $('#netsalesgraph').children(), voiddata = $('#voidsalesgraph').children();
+        var sales = new Array(), voids = new Array(), count = new Array();
+        salesdata.each(function(index, e) {
+            sales.push($(this).text());
+            count.push(""+index+"");
+        });
+        voiddata.each(function(index, e) {
+            voids.push($(this).text());
+        });
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: count,
+                type: 'line',
+                datasets: [{
+                    label: "Sales",
+                    data: sales,
+                    backgroundColor: 'rgba(68, 84, 195,0.1)',
+                    borderColor: 'rgba(68, 84, 195,0.9)',
+                    borderWidth: 5,
+                    pointStyle: 'circle',
+                    pointRadius: 0,
+                    pointBorderColor: 'transparent',
+                    pointBackgroundColor: 'rgba(68, 84, 195,0.8)',
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                tooltips: {
+                    mode: 'index',
+                    titleFontSize: 12,
+                    titleFontColor: 'rgba(0,0,0,0.9)',
+                    bodyFontColor: 'rgba(0,0,0,0.9)',
+                    backgroundColor: '#fff',
+                    bodyFontFamily: 'Montserrat',
+                    cornerRadius: 0,
+                    intersect: false,
+                },
+                legend: {
+                    display: false,
+                    labels: {
+                        usePointStyle: true,
+                        fontFamily: 'Montserrat',
+                    },
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        ticks: {
+                            display: true,
+                            fontColor: "#8e9cad",
+                            fontSize: "13",
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Months',
+                            fontSize: "15",
+                            fontColor: "#8e9cad",
+                        },
+                        gridLines: {
+                            display: true,
+                            drawBorder: false,
+                            color: 'rgba(193, 184, 184,0.1)',
+                            zeroLineColor: '#000'
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        ticks: {
+                            display: true,
+                            fontColor: "#8e9cad",
+                            color: 'rgba(193, 184, 184,0.1)',
+                            fontSize: "13",
+                            callback: function(value, index, values) {
+                                return '$' + value;
+                            },
+                            maxRotation: 0,
+                            stepSize: 10000,
+                            min: 0,
+                            max: 150000
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Revenue',
+                            fontColor: "#8e9cad",
+                            fontSize: "15",
+                        },
+                        gridLines: {
+                            display: true,
+                            drawBorder: false,
+                            color: 'rgba(193, 184, 184,0)',
+                            zeroLineColor: 'rgba(193, 184, 184,0.1)'
+                        }
+                    }]
+                },
+                title: {
+                    display: false,
+                    text: 'Normal Legend'
+                }
+            }
+        });
+    });
+</script>
 @endsection
 
