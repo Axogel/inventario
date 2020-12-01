@@ -7,6 +7,7 @@ use App\Sale;
 use Illuminate\Http\Request;
 use SimpleXMLElement;
 use Exception;
+use DB;
 
 class SaleController extends Controller
 {
@@ -93,7 +94,8 @@ class SaleController extends Controller
      */
     public function show($id)
     {
-        //
+        $sales = Sale::where('store_code', $id)->get()->toarray();
+        return $sales;
     }
 
     /**
