@@ -29,11 +29,10 @@ class HomeController extends Controller
         $sales = DB::table('sales')->groupBy('store_code')->get();
 
         $comps = DB::table('sales')->select( DB::raw( 'SUM(comp) as suma'))
-                    ->groupBy('store_code')
                     ->get()->toarray();
+        $promos = Sale::sum('promo');
         
-        Sale::sum("comp");
-        return view('dashboardgrap', compact( "sales", "comps"));
+        return view('dashboardgrap', compact( "sales", "comps", "promos"));
     }
     public function index()
     {
