@@ -96,7 +96,7 @@ class SaleController extends Controller
     {
         $dateStart = date($request->dateStart);
         $dateEnd = $request->dateEnd;
-        if($dateStart != '' || !$dateStart || $dateStart != null){
+        if($request->dateStart != null){
             //$sales = Sale::whereBetween('dob',[$dateStart,$dateEnd]);
             $sales = DB::table('sales')
            ->whereBetween('dob', [$dateStart, $dateEnd])
