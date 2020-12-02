@@ -35,7 +35,7 @@
 										<svg class="header-icon2 mr-3" x="1008" y="1248" viewBox="0 0 24 24"  height="100%" width="100%" preserveAspectRatio="xMidYMid meet" focusable="false">
 											<path d="M5 8h14V6H5z" opacity=".3"/><path d="M7 11h2v2H7zm12-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-4 3h2v2h-2zm-4 0h2v2h-2z"/>
 										</svg> <span>Select Date
-										<i class="fa fa-caret-down"></i></span>
+                                        <i class="fa fa-caret-down"></i></span>
 									</a>
 								</div>
 							</div>
@@ -138,7 +138,7 @@
 <script src="{{URL::asset('assets/plugins/moment/moment.js')}}"></script>
 <!-- Daterangepicker js-->
 <script src="{{URL::asset('assets/plugins/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
-<script src="{{URL::asset('assets/js/daterange.js')}}"></script>
+{{-- <script src="{{URL::asset('assets/js/daterange.js')}}"></script> --}}
 <!---jvectormap js-->
 <script src="{{URL::asset('assets/plugins/jvectormap/jquery.vmap.js')}}"></script>
 <script src="{{URL::asset('assets/plugins/jvectormap/jquery.vmap.world.js')}}"></script>
@@ -152,22 +152,39 @@
 <script src="{{URL::asset('assets/plugins/chart/chart.bundle.js')}}"></script>
 <script src="{{URL::asset('assets/plugins/chart/utils.js')}}"></script>
 
-<!--Chart js -->
-<script src="{{URL::asset('assets/plugins/chart/chart.bundle.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/chart/utils.js')}}"></script>
+<!--DateFormat -->
+<script src="{{URL::asset('assets/js/jquery-dateformat.min.js')}}"></script>
 
 <script>
     $(document).ready(function(){
-        var id = $('#store option:selected').value();
-        storeCharge(id);
+        var store_id = $('#store option:checked').val();
+        var dateS = $("#dateStart").val();
+        var dateE = $("#dateEnd").val();
+        storeCharge(store_id, dateS, dateE);
     });
-    function storeCharge(store){
+    $('#daterange-btn').daterangepicker({
+            ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            },
+            startDate: moment().subtract(29, 'days'),
+            endDate: moment()
+        }, function(start, end) {
+            $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+            var store_id = $('#store option:selected').val();
+            storeCharge(store_id, start.format('YYYYMMDD'), end.format('YYYYMMDD'));
+        });
+    function storeCharge(store, dateStart, dateEnd){
         $.ajax({url:'sale/'+store+'/show',
             type:'get',
             dataType:"json"
 		})
         .done(function(e){
-            var f=e, comps=0, promos=0, voids=0, taxes=0, grsals=0;
+            var f=e, comps=0, promos=0, voids=0, taxes=0, grsals=0, maxChart = 0;
             let axisX = [], dataChart = [];
 			$.each(f,function(index, el) {
                 comps+=el.comp;
@@ -177,6 +194,8 @@
                 grsals+=el.grs_sale;
                 axisX[index]=el.name;
                 dataChart[index]=el.net_sale;
+                if(maxChart < el.net_sale)
+                    maxChart=el.net_sale
             });
             $('#comps').text(comps);
             $('#promos').text(promos);
@@ -210,8 +229,8 @@
                             ticks: {
                                 beginAtZero: true,
                                 fontSize: 10,
-                                max: 10000,
-                                fontColor: "#b4b7c5",
+                                max: maxChart,
+                                fontColor: "#ababab",
                             },
                             gridLines: {
                                 color: 'rgba(180, 183, 197, 0.4)'
@@ -221,8 +240,8 @@
                             barPercentage: 0.6,
                             ticks: {
                                 beginAtZero: true,
-                                fontSize: 11,
-                                fontColor: "#b4b7c5",
+                                fontSize: 8,
+                                fontColor: "#ababab",
                             },
                             gridLines: {
                                 color: 'rgba(180, 183, 197, 0.4)'
