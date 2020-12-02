@@ -201,7 +201,9 @@ Route::group(['middleware' => ['auth', 'superadmin']], function () {
     Route::resource('voidx', 'VoidxController');
     Route::resource('region', 'RegionController');
     Route::resource('site', 'SiteController');
+    Route::get('/sale/{ssid}/show','SaleController@show');
 });
+
 Route::get('/download', 'SaleController@download')->name('download');
 Route::get('/downloadcomp', 'CompController@downloadcomp')->name('downloadcomp');
 Route::get('/downloadvoidx', 'VoidxController@downloadvoidx')->name('downloadvoidx');
