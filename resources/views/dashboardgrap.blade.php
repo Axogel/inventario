@@ -115,7 +115,7 @@
                                                     <div class="card-title">Net Sales</div>
                                                 </div>
                                                 <div class="card-body">
-                                                    <div>
+                                                    <div id="canvasCont">
                                                         <canvas id="chartBar1" class="h-300"></canvas>
                                                     </div>
                                                 </div>
@@ -209,8 +209,9 @@
             $('#grssales').text(grsals);
 
             'use strict';
+            $('#chartBar1').remove();
+            $('#canvasCont').append('<canvas id="chartBar1" class="h-300"><canvas>');
             var ctx1 = document.getElementById('chartBar1').getContext('2d');
-            ctx1.clearRect(0, 0, ctx1.width, ctx1.height)
             new Chart(ctx1, {
                 type: 'bar',
                 data: {
