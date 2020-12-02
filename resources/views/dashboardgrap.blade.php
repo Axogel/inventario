@@ -62,11 +62,15 @@
 									<div class="col-xl-2 col-lg-2 col-md-6">
 										<div class="card">
 											<div class="card-body">
-                                                <div class="feature">
-                                                    <i class="fa fa-certificate feature-icon text-warning"></i>
-                                                    <h2 class="font-weight-bold mb-0 mt-4" id='promos'></h2>
-                                                    <h4 class="card-title">Promos</h4>
-                                                </div>
+											<!--	<svg class="card-custom-icon text-secondary icon-dropshadow-secondary" x="1008" y="1248" viewBox="0 0 24 24" fit="" height="100%" width="100%" preserveAspectRatio="xMidYMid meet" focusable="false">
+													<path opacity=".0" d="M12.07,6.01 C8.2,6.01 5.07,9.14 5.07,13.01 C5.07,16.88 8.2,20.01 12.07,20.01 C15.94,20.01 19.07,16.88 19.07,13.01 C19.07,9.14 15.94,6.01 12.07,6.01 Z M13.07,14.01 L11.07,14.01 L11.07,8.01 L13.07,8.01 L13.07,14.01 Z"></path>
+													<path d="M9.07,1.01 L15.07,1.01 L15.07,3.01 L9.07,3.01 L9.07,1.01 Z M11.07,8.01 L13.07,8.01 L13.07,14.01 L11.07,14.01 L11.07,8.01 Z M19.1,7.39 L20.52,5.97 C20.09,5.46 19.62,4.98 19.11,4.56 L17.69,5.98 C16.14,4.74 14.19,4 12.07,4 C7.1,4 3.07,8.03 3.07,13 C3.07,17.97 7.09,22 12.07,22 C17.05,22 21.07,17.97 21.07,13 C21.07,10.89 20.33,8.93 19.1,7.39 Z M12.07,20.01 C8.2,20.01 5.07,16.88 5.07,13.01 C5.07,9.14 8.2,6.01 12.07,6.01 C15.94,6.01 19.07,9.14 19.07,13.01 C19.07,16.88 15.94,20.01 12.07,20.01 Z"></path></svg>-->
+												<h4 class="card-title">Promos</h4>
+												<h2 class="mb-1 font-weight-bold">{{ $promos }}</h2>
+												<span class="mb-1 text-muted"><span class="text-success"><i class="fa fa-caret-up  mr-1"></i> 19.8</span> than last month</span>
+												<div class="progress progress-sm mt-3 bg-secondary-transparent">
+													<div class="progress-bar progress-bar-striped progress-bar-animated bg-secondary" style="width: 58%"></div>
+												</div>
 											</div>
 										</div>
 									</div>
