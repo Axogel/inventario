@@ -210,6 +210,7 @@
 
             'use strict';
             var ctx1 = document.getElementById('chartBar1').getContext('2d');
+            ctx1.clearRect(0, 0, canvas.width, canvas.height)
             new Chart(ctx1, {
                 type: 'bar',
                 data: {
