@@ -36,7 +36,13 @@ class HomeController extends Controller
     }
     public function index()
     {
-        return redirect()->route('dashboard');
+        $sales = DB::table('sales')->groupBy('store_code')->get();
+
+        $comps = DB::table('sales')->select( DB::raw( 'SUM(comp) as suma'))
+                    ->get()->toarray();
+        $promos = Sale::sum('promo');
+        
+        return view('dashboardgrap', compact( "sales", "comps", "promos"));
     }
     public function index2()
     {

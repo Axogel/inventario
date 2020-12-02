@@ -53,7 +53,7 @@
 											<div class="card-body">
                                                 <div class="feature">
                                                     <i class="fa fa-line-chart feature-icon text-danger"></i>
-                                                    <h2 class="font-weight-bold mb-0 mt-4" id='comps'></h2>
+                                                    <h3 class="font-weight-bold mb-0 mt-4" id='comps'></h3>
                                                     <h4 class="card-title">Comps</h4>
                                                 </div>
 											</div>
@@ -75,7 +75,7 @@
 											<div class="card-body">
                                                 <div class="feature">
                                                     <i class="fa fa-credit-card feature-icon text-primary"></i>
-                                                    <h2 class="font-weight-bold mb-0 mt-4" id='voids'></h2>
+                                                    <h3 class="font-weight-bold mb-0 mt-4" id='voids'></h3>
                                                     <h4 class="card-title">Voids</h4>
                                                 </div>
 											</div>
@@ -86,7 +86,7 @@
 											<div class="card-body">
                                                 <div class="feature">
                                                     <i class="fa fa-money feature-icon text-success"></i>
-                                                    <h2 class="font-weight-bold mb-0 mt-4" id='taxes'></h2>
+                                                    <h3 class="font-weight-bold mb-0 mt-4" id='taxes'></h3>
                                                     <h4 class="card-title">Taxes</h4>
                                                 </div>
 											</div>
@@ -97,7 +97,7 @@
 											<div class="card-body">
                                                 <div class="feature">
                                                     <i class="fa fa-cart-plus feature-icon text-secondary"></i>
-                                                    <h2 class="font-weight-bold mb-0 mt-4" id='grssales'></h2>
+                                                    <h3 class="font-weight-bold mb-0 mt-4" id='grssales'></h3>
                                                     <h4 class="card-title">Grs Sales</h4>
                                                 </div>
 											</div>
@@ -247,7 +247,7 @@
                             barPercentage: 0.6,
                             ticks: {
                                 beginAtZero: true,
-                                fontSize: 8,
+                                fontSize: 10,
                                 fontColor: "#ababab",
                             },
                             gridLines: {
