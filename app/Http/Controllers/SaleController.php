@@ -92,9 +92,18 @@ class SaleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $sales = Sale::where('store_code', $id)->get()->toarray();
+        $dateStart = date($request->dateStart);
+        $dateEnd = $request->dateEnd;
+        if($dateStart != '' || !$dateStart || $dateStart != null){
+            //$sales = Sale::whereBetween('dob',[$dateStart,$dateEnd]);
+            $sales = DB::table('sales')
+           ->whereBetween('dob', [$dateStart, $dateEnd])
+           ->get();
+        }else{
+            $sales = Sale::where('store_code', $id)->get()->toarray();
+        }
         return $sales;
     }
 

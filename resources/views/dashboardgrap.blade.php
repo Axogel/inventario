@@ -158,9 +158,9 @@
 <script>
     $(document).ready(function(){
         var store_id = $('#store option:checked').val();
-        var dateS = $("#dateStart").val();
-        var dateE = $("#dateEnd").val();
-        storeCharge(store_id, dateS, dateE);
+        var dateS = '';
+        var dateE = '';
+        //storeCharge(store_id, dateS, dateE);
     });
     $('#daterange-btn').daterangepicker({
             ranges: {
@@ -174,14 +174,19 @@
             startDate: moment().subtract(29, 'days'),
             endDate: moment()
         }, function(start, end) {
-            $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+            $('#daterange-btn span').html(start.format('MMMM DD, YYYY') + ' - ' + end.format('MMMM DD, YYYY'));
             var store_id = $('#store option:selected').val();
-            storeCharge(store_id, start.format('YYYYMMDD'), end.format('YYYYMMDD'));
+            storeCharge(store_id, start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'));
         });
     function storeCharge(store, dateStart, dateEnd){
+        console.log(dateStart, dateEnd);
         $.ajax({url:'sale/'+store+'/show',
             type:'get',
-            dataType:"json"
+            dataType:"json",
+            data:{
+                dateStart:dateStart,
+                dateEnd:dateEnd
+            }
 		})
         .done(function(e){
             var f=e, comps=0, promos=0, voids=0, taxes=0, grsals=0, maxChart = 0;
