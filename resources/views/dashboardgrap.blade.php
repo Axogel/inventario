@@ -17,18 +17,20 @@
 						<div class="page-header">
 							<div class="page-leftheader">
 								<div class="form-group">
-                                    <div class="row">
+                                    <div class="row">     
                                         <div class="col-3"><label class="form-label"><h2 class="card-title">Store</h2></label></div>
                                             <div class="col-9">
                                                 <select name="store" id="store" class="form-control custom-select select2" onchange="storeCharge(this.value)">
+                                               
                                                 @foreach( $sales as $sale)
                                                     <option value="{{ $sale->store_code }}">{{ $sale->store_name }}</option>
                                                 @endforeach
+                                                
                                                 </select>
                                             </div>
                                         </div>
-                                </div>
-							</div>
+                                    </div>
+							    </div>
 							<div class="page-rightheader ml-auto d-lg-flex d-none">
 									<div class="ml-5 mb-0">
 									<a class="btn btn-white date-range-btn" href="#" id="daterange-btn">

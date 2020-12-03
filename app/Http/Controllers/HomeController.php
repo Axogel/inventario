@@ -539,7 +539,12 @@ class HomeController extends Controller
 
     public function dashboard()
     {
-        $sales = Sale::all();
-        return view('index')->with("sales", $sales);
+        $sales = DB::table('sales')->groupBy('store_code')->get();
+
+        $comps = DB::table('sales')->select( DB::raw( 'SUM(comp) as suma'))
+                    ->get()->toarray();
+        $promos = Sale::sum('promo');
+        
+        return view('dashboardgrap', compact( "sales", "comps", "promos"));
     }
 }
