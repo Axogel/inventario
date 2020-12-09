@@ -10,6 +10,7 @@ use Hash;
 use Illuminate\Http\Request;
 use App\Mail\WelcomeMail;
 use Illuminate\Support\Facades\Mail;
+use DB;
 
 class UsersController extends Controller
 {
@@ -32,10 +33,11 @@ class UsersController extends Controller
     public function create()
     {
         $roles = Role::all();
-
-        return view('users.create')->with("roles", $roles);
+        $stores = DB::table('sales')->groupBy('store_code')->get();
+        return view('users.create', compact( "roles", "stores"));
     }
 
+        
     /**
      * Store a newly created resource in storage.
      *
@@ -51,6 +53,7 @@ class UsersController extends Controller
         $temp->email = $request->get('email');
         $temp->password = bcrypt($request->get('password'));
         $temp->role()->associate($request->get('role'));
+        $temp->store_code = $request->get('store');
         $temp->save();
 
         $content = new \stdClass();

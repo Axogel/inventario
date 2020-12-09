@@ -21,11 +21,18 @@
                                         <div class="col-3"><label class="form-label"><h2 class="card-title">Store</h2></label></div>
                                             <div class="col-9">
                                                 <select name="store" id="store" class="form-control custom-select select2" onchange="storeCharge(this.value)">
-                                               
-                                                @foreach( $sales as $sale)
-                                                    <option value="{{ $sale->store_code }}">{{ $sale->store_name }}</option>
-                                                @endforeach
-                                                
+                                               @if(Auth::user()->isAdmin())
+                                                    @foreach( $sales as $sale)
+                                                        @if(Auth::user()->store_code == $sale->store_code)
+                                                        <option value="{{ $sale->store_code }}">{{ $sale->store_name }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                                @if(Auth::user()->isSuper())
+                                                    @foreach( $sales as $sale)
+                                                        <option value="{{ $sale->store_code }}">{{ $sale->store_name }}</option>  
+                                                    @endforeach
+                                                @endif
                                                 </select>
                                             </div>
                                         </div>
@@ -159,11 +166,15 @@
 
 <script>
     $(document).ready(function(){
+        var f = new Date();
         var store_id = $('#store option:checked').val();
-        var dateS = '';
-        var dateE = '';
-        //storeCharge(store_id, dateS, dateE);
+        var dateS = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + (f.getDate()-1));
+        var dateE = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + (f.getDate()-1));
+     
+        storeCharge(store_id, dateS, dateE);
+        
     });
+
     $('#daterange-btn').daterangepicker({
             ranges: {
                 'Today': [moment(), moment()],
@@ -173,8 +184,8 @@
                 'This Month': [moment().startOf('month'), moment().endOf('month')],
                 'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
             },
-            startDate: moment().subtract(29, 'days'),
-            endDate: moment()
+            startDate: moment().subtract(1, 'days'),
+            endDate: moment().subtract(1, 'days')
         }, function(start, end) {
             $('#daterange-btn span').html(start.format('MMMM DD, YYYY') + ' - ' + end.format('MMMM DD, YYYY'));
             var store_id = $('#store option:selected').val();

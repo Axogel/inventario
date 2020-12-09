@@ -190,6 +190,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 
 Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::resource('users','UsersController');
+    Route::get('/sale/{ssid}/show','SaleController@show');
 });
 
 Route::group(['middleware' => ['auth', 'superadmin']], function () {
@@ -201,7 +202,7 @@ Route::group(['middleware' => ['auth', 'superadmin']], function () {
     Route::resource('voidx', 'VoidxController');
     Route::resource('region', 'RegionController');
     Route::resource('site', 'SiteController');
-    Route::get('/sale/{ssid}/show','SaleController@show');
+    
 });
 
 Route::get('/download', 'SaleController@download')->name('download');
