@@ -87,12 +87,12 @@
                                                 <select name="region" class="form-control custom-select select2">
                                                 @if(Auth::user()->isSuper())
                                                     @foreach( $regions as $region)
-                                                    <option value="{{ $region->id }}">{{ $region->name }}</option>
+                                                    <option value="{{ $region->id }}">{{ $region->namer }}</option>
                                                     @endforeach
                                                 @elseif(Auth::user()->isAdmin())
                                                     @foreach( $regions as $region)
                                                     @if( Auth::user()->region_id == $region->id)
-                                                    <option value="{{ $region->id }}">{{ $region->name }}</option>
+                                                    <option value="{{ $region->id }}">{{ $region->namer }}</option>
                                                     @endif
                                                     @endforeach
                                                 @endif
