@@ -83,7 +83,7 @@
                                                                 <td>{{$user->email}}</td>
                                                                 <td>{{$user->username}}</td>
                                                                 <td>{{$user->role->description}}</td>
-                                                                <td>{{$user->region->name}}</td> 
+                                                                <td>{{$user->region->namer}}</td> 
                                                                 <td><a class="btn btn-primary btn-xs" href="{{action('UsersController@edit', $user->id)}}" ><span class="fa fa-pencil"></span></a></td>
                                                                 <td>
                                                                     <form action="{{action('UsersController@destroy', $user->id)}}" method="post">
