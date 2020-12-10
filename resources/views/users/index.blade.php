@@ -58,7 +58,7 @@
                                                         
                                                         @foreach($users as $user)
                                                             <tr class="bold">
-                                                                <td>{{$user->id}}</td>
+                                                                <td> </td>
                                                                 <td>{{$user->name}} {{$user->last_name}}</td>
                                                                 <td>{{$user->email}}</td>
                                                                 <td>{{$user->username}}</td>
@@ -78,7 +78,7 @@
                                                         @foreach($users as $user)
                                                            @if(Auth::user()->store_code == $user->store_code)
                                                             <tr class="bold">
-                                                                <td>{{$user->id}}</td>
+                                                                <td> </td>
                                                                 <td>{{$user->name}} {{$user->last_name}}</td>
                                                                 <td>{{$user->email}}</td>
                                                                 <td>{{$user->username}}</td>
