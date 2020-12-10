@@ -23,6 +23,9 @@ class UsersController extends Controller
      */
     public function index()
     {   $users = User::join('regions', 'users.region_id', '=', 'regions.id')
+                        ->join('sales', 'users.store_code', '=', 'sales.store_code')
+                        ->select('users.*', 'regions.namer as regionname', 'sales.store_name')
+                        ->groupby('users.id')
                         ->get();
         
         //$users = User::all();

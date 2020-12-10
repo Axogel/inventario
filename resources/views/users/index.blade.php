@@ -48,6 +48,7 @@
                                                     <th class="border-bottom-0">Username</th>
                                                     <th class="border-bottom-0">Role</th>
                                                     <th class="border-bottom-0">Region</th>
+                                                    <th class="border-bottom-0">Store</th>
                                                     <th class="border-bottom-0">Edit</th>
                                                     <th class="border-bottom-0">Delete</th>
                                                 </thead>
@@ -55,15 +56,15 @@
                                                
                                                 @if($users->isNotEmpty())
                                                     @if(Auth::user()->isSuper())
-                                                        
                                                         @foreach($users as $user)
                                                             <tr class="bold">
-                                                                <td> </td>
+                                                                <td>{{$user->id}}</td>
                                                                 <td>{{$user->name}} {{$user->last_name}}</td>
                                                                 <td>{{$user->email}}</td>
                                                                 <td>{{$user->username}}</td>
                                                                 <td>{{$user->role->description}}</td>
                                                                 <td>{{$user->region->namer}}</td> 
+                                                                <td>{{$user->store_name}}</td> 
                                                                 <td><a class="btn btn-primary btn-xs" href="{{action('UsersController@edit', $user->id)}}" ><span class="fa fa-pencil"></span></a></td>
                                                                 <td>
                                                                     <form action="{{action('UsersController@destroy', $user->id)}}" method="post">
@@ -78,12 +79,13 @@
                                                         @foreach($users as $user)
                                                            @if(Auth::user()->store_code == $user->store_code)
                                                             <tr class="bold">
-                                                                <td> </td>
+                                                                <td>{{$user->id}}</td>
                                                                 <td>{{$user->name}} {{$user->last_name}}</td>
                                                                 <td>{{$user->email}}</td>
                                                                 <td>{{$user->username}}</td>
                                                                 <td>{{$user->role->description}}</td>
                                                                 <td>{{$user->region->namer}}</td> 
+                                                                <td>{{$user->store_name}}</td>
                                                                 <td><a class="btn btn-primary btn-xs" href="{{action('UsersController@edit', $user->id)}}" ><span class="fa fa-pencil"></span></a></td>
                                                                 <td>
                                                                     <form action="{{action('UsersController@destroy', $user->id)}}" method="post">
