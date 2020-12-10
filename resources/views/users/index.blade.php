@@ -45,18 +45,25 @@
                                                     <th class="border-bottom-0">#</th>
                                                     <th class="border-bottom-0">Name</th>
                                                     <th class="border-bottom-0">Email</th>
+                                                    <th class="border-bottom-0">Username</th>
                                                     <th class="border-bottom-0">Role</th>
+                                                    <th class="border-bottom-0">Region</th>
                                                     <th class="border-bottom-0">Edit</th>
                                                     <th class="border-bottom-0">Delete</th>
                                                 </thead>
                                                 <tbody>
-                                                    @if($users->isNotEmpty())
+                                               
+                                                @if($users->isNotEmpty())
+                                                    @if(Auth::user()->isSuper())
+                                                        
                                                         @foreach($users as $user)
                                                             <tr class="bold">
                                                                 <td>{{$user->id}}</td>
-                                                                <td>{{$user->name}}</td>
+                                                                <td>{{$user->name}} {{$user->last_name}}</td>
                                                                 <td>{{$user->email}}</td>
+                                                                <td>{{$user->username}}</td>
                                                                 <td>{{$user->role->description}}</td>
+                                                                <td>{{$user->region->namer}}</td> 
                                                                 <td><a class="btn btn-primary btn-xs" href="{{action('UsersController@edit', $user->id)}}" ><span class="fa fa-pencil"></span></a></td>
                                                                 <td>
                                                                     <form action="{{action('UsersController@destroy', $user->id)}}" method="post">
@@ -67,11 +74,33 @@
                                                                 </td>
                                                             </tr>
                                                         @endforeach
-                                                    @else
+                                                    @elseif(Auth::user()->isAdmin())
+                                                        @foreach($users as $user)
+                                                           @if(Auth::user()->store_code == $user->store_code)
+                                                            <tr class="bold">
+                                                                <td>{{$user->id}}</td>
+                                                                <td>{{$user->name}} {{$user->last_name}}</td>
+                                                                <td>{{$user->email}}</td>
+                                                                <td>{{$user->username}}</td>
+                                                                <td>{{$user->role->description}}</td>
+                                                                <td>{{$user->region->name}}</td> 
+                                                                <td><a class="btn btn-primary btn-xs" href="{{action('UsersController@edit', $user->id)}}" ><span class="fa fa-pencil"></span></a></td>
+                                                                <td>
+                                                                    <form action="{{action('UsersController@destroy', $user->id)}}" method="post">
+                                                                        {{csrf_field()}}
+                                                                        <input name="_method" type="hidden" value="DELETE">
+                                                                        <button class="btn btn-danger btn-xs" type="submit"><span class="fa fa-trash"></span></button>
+                                                                    </form>
+                                                                </td>
+                                                            </tr>
+                                                            @endif
+                                                        @endforeach
+                                                    @endif
+                                                @else
                                                         <tr>
                                                             <td colspan="8">No one there!</td>
                                                         </tr>
-                                                    @endif
+                                                @endif
                                                 </tbody>
                                             </table>
                                         </div>

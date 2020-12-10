@@ -44,7 +44,7 @@ class RegionController extends Controller
         $this->validate($request,['name'=>'required']);
 
         $temp = new Region();
-        $temp->name = $request->get('name');
+        $temp->namer = $request->get('name');
         $temp->timestamps = true;
         $temp->last_modified_by = Auth::user()->id;
         $temp->save();
@@ -87,7 +87,7 @@ class RegionController extends Controller
         $this->validate($request,[ 'name'=>'required']);
 
         $temp = Region::find($id);
-        $temp->name = $request->get('name');
+        $temp->namer = $request->get('name');
         $temp->last_modified_by = Auth::user()->id;
         $temp->timestamps = true;
         $temp->update();

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Role;
+use App\Region;
+use App\Sale;
 use Auth;
 use Validator;
 use Hash;
@@ -20,9 +22,11 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $users = User::all();
-        return view('users.index')->with("users", $users);
+    {   $users = User::join('regions', 'users.region_id', '=', 'regions.id')
+                        ->get();
+        
+        //$users = User::all();
+        return view('users.index', compact("users"));
     }
 
     /**
@@ -34,7 +38,8 @@ class UsersController extends Controller
     {
         $roles = Role::all();
         $stores = DB::table('sales')->groupBy('store_code')->get();
-        return view('users.create', compact( "roles", "stores"));
+        $regions = Region::all();
+        return view('users.create', compact( "roles", "stores", "regions"));
     }
 
         
@@ -47,15 +52,25 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[ 'name'=>'required', 'email'=>'required', 'password'=>'required', 'direccion' => 'string', 'telefono' => 'string' ]);
-
+        
         $temp = new User();
         $temp->name = $request->get('name');
+        $temp->last_name = $request->get('last_name');
+        $temp->username = $request->get('username');
         $temp->email = $request->get('email');
         $temp->password = bcrypt($request->get('password'));
         $temp->role()->associate($request->get('role'));
         $temp->store_code = $request->get('store');
-        $temp->save();
+        $temp->region_id = $request->get('region');
 
+        if($request->get('company_admin')== NULL){
+            $temp->company_admin = 0;
+        }else{
+            $temp->company_admin = $request->get('company_admin');
+        }
+       
+        $temp->save();
+        
         $content = new \stdClass();
         $content->receiver = $request->get('name');
 

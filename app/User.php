@@ -11,13 +11,12 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
+    /**0tes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'store_code',
+        'name', 'email', 'password', 'store_code', 'region_id', 'last_name', 'username', 'company_admin', 'las_modified_by', 'last_log_in_date',
     ];
 
     /**
@@ -42,6 +41,13 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Role');
     }
+
+    public function region()
+    {
+        return $this->belongsTo('App\Region');
+    }
+
+    
 
     public function isAdmin(){
         if($this->role->name == 'superadmin' || $this->role->name == 'compadmin')
