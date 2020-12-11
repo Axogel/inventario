@@ -38,6 +38,18 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
+                                                <label for="last_name" class="col-md-4 col-form-label text-md-right">Last Name</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" name="last_name" id="last_name" class="form-control input-sm" value="{{ $user->last_name }}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="name" class="col-md-4 col-form-label text-md-right">Username</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" name="username" id="username" class="form-control input-sm" value="{{ $user->username }}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
                                                 <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
                                                 <div class="col-md-6">
                                                     <input type="email" name="email" id="email" class="form-control input-sm" value="{{ $user->email }}">
@@ -59,8 +71,38 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                            <div class="form-group row">
+                                                <label for="region" class="col-md-4 col-form-label text-md-right">Region</label>
+                                                <div class="col-md-6">
+                                                    <select class="form-control" name="region">
+                                                        @foreach($regions as $region)
+                                                            @if($user->region_id == $region->id)
+                                                                <option value="{{ $region->id }}" selected>{{ $region->namer }}</option>
+                                                            @else
+                                                                <option value="{{ $region->id }}">{{ $region->namer }}</option>
+                                                            @endif
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="region" class="col-md-4 col-form-label text-md-right">Store</label>
+                                                <div class="col-md-6">
+                                                    <select class="form-control" name="store">
+                                                        @foreach($sales as $sale)
+                                                            @if($user->store_code == $sale->store_code)
+                                                                <option value="{{ $sale->store_code }}" selected>{{ $sale->store_name }}</option>
+                                                            @else
+                                                                <option value="{{ $sale->store_code }}">{{ $sale->store_name }}</option>
+                                                            @endif
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
                                             @else
                                                 <input type="hidden" name="role" id="role" class="form-control input-sm" value="{{ $user->role_id }}">
+                                                <input type="hidden" name="region" id="region" class="form-control input-sm" value="{{ $user->region_id }}">
+                                                <input type="hidden" name="store" id="store" class="form-control input-sm" value="{{ $user->store_code }}">
                                             @endif
                                             <div class="form-group row">
                                                 <div class="col-md-12 text-md-right">

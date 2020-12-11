@@ -45,7 +45,6 @@
                                                     <th class="border-bottom-0">#</th>
                                                     <th class="border-bottom-0">Name</th>
                                                     <th class="border-bottom-0">Email</th>
-                                                    <th class="border-bottom-0">Username</th>
                                                     <th class="border-bottom-0">Role</th>
                                                     <th class="border-bottom-0">Region</th>
                                                     <th class="border-bottom-0">Store</th>
@@ -61,7 +60,6 @@
                                                                 <td>{{$user->id}}</td>
                                                                 <td>{{$user->name}} {{$user->last_name}}</td>
                                                                 <td>{{$user->email}}</td>
-                                                                <td>{{$user->username}}</td>
                                                                 <td>{{$user->role->description}}</td>
                                                                 <td>{{$user->region->namer}}</td> 
                                                                 <td>{{$user->store_name}}</td> 
@@ -82,7 +80,6 @@
                                                                 <td>{{$user->id}}</td>
                                                                 <td>{{$user->name}} {{$user->last_name}}</td>
                                                                 <td>{{$user->email}}</td>
-                                                                <td>{{$user->username}}</td>
                                                                 <td>{{$user->role->description}}</td>
                                                                 <td>{{$user->region->namer}}</td> 
                                                                 <td>{{$user->store_name}}</td>

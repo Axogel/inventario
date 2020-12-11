@@ -103,7 +103,10 @@ class UsersController extends Controller
     {
         $user = user::find($id);
         $roles = Role::all();
-        return view('users.edit', compact(['user','roles']));
+        $regions = Region::all();
+        $sales = Sale::groupby('sales.store_code')
+                        ->get();
+        return view('users.edit', compact(['user','roles','regions','sales']));
     }
     public function profile()
     {
@@ -169,8 +172,12 @@ class UsersController extends Controller
 
         $temp = User::find($id);
         $temp->name = $request->get('name');
+        $temp->last_name = $request->get('last_name');
+        $temp->username = $request->get('username');
         $temp->email = $request->get('email');
         $temp->role()->associate($request->get('role'));
+        $temp->region_id = $request->get('region');
+        $temp->store_code = $request->get('store');
         $temp->save();
 
         if($request->get('role') == 1){
