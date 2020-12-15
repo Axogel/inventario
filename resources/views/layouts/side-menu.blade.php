@@ -13,7 +13,7 @@
 					<div class="app-sidebar__user">
 						<div class="dropdown user-pro-body text-center">
 							<div class="user-pic">
-								<img src="{{URL::asset('assets/images/users/16.jpg')}}" alt="user-img" class="avatar-xl rounded-circle mb-1">
+								<img src="../img/profile/{{ Auth::user()->profile_photo }}" alt="user-img" class="avatar-xl rounded-circle mb-1">
 							</div>
 							<div class="user-info">
 								<h5 class=" mb-1 font-weight-bold">{{ Auth::user()->name }}</h5>

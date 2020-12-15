@@ -114,7 +114,7 @@
 										<div class="dropdown profile-dropdown">
 											<a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
 												<span>
-													<img src="{{URL::asset('assets/images/users/16.jpg')}}" alt="img" class="avatar avatar-md brround">
+													<img src="../img/profile/{{ Auth::user()->profile_photo }}" alt="img" class="avatar avatar-md brround">
 												</span>
 											</a>
 											<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow animated">

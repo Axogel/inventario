@@ -141,12 +141,23 @@ class UsersController extends Controller
                 return redirect()->route('profile')->with('success',array('error' => $validator->getMessageBag()->toArray()));
             }else{
                 $current_password = Auth::User()->password;
+                
+
 
                 if(Hash::check($request_data['current-password'], $current_password)){
+                   
+                if($request->hasfile('upload_photo')){
+                    $file = $request->file('upload_photo');
+                    $name=time().$file->getClientOriginalName();
+                    $file->move(public_path().'/img/profile/', $name);    
+                }
+               
+
                     $user_id = Auth::User()->id;
                     $obj_user = User::find($user_id);
                     $obj_user->name = $request_data['name'];
                     $obj_user->email = $request_data['email'];
+                    $obj_user->profile_photo = $name;
                     if(($request_data['password']) != null && ($request_data['password']) != '')
                     $obj_user->password = Hash::make($request_data['password']);
                     $obj_user->save();

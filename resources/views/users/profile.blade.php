@@ -66,7 +66,7 @@
 										<div class="card-title"></div>
                                     </div>
                                     <div class="card-body">
-                                        <form method="POST" action="{{ route('credentials') }}"  role="form">
+                                        <form method="POST" action="{{ route('credentials') }}" enctype="multipart/form-data" role="form">
                                             {{ csrf_field() }}
                                     <div class=" card-body">
 										<div class="row">
@@ -74,7 +74,7 @@
 											</div>
 											<div class="col-lg-4 col-sm-12">
                                             <label for="uploadp">Upload Profile Picture</label>
-                                            <input name ="upload_photo" type="file" class="dropify" data-height="180" value="{{ Auth::user()->profile_photo }}" />
+                                            <input name ="upload_photo" type="file" class="dropify" data-height="180" data-default-file="../img/profile/{{ Auth::user()->profile_photo }}" />
                                             </div>
 											<div class="col-lg-4 col-sm-12">
 											</div>
