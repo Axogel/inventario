@@ -46,7 +46,7 @@
                                             <table id="example" class="table table-bordered text-nowrap key-buttons">
                                                 <thead>
                                                     <th class="border-bottom-0">#</th>
-                                                    <th class="border-bottom-0">SID</th>
+                                                    <th class="border-bottom-0">ID</th>
                                                     <th class="border-bottom-0">DOB</th>
                                                     <th class="border-bottom-0">Store Code</th>
                                                     <th class="border-bottom-0">Store Name</th>
@@ -67,7 +67,7 @@
                                                         @foreach($promos as $promo)
                                                             <tr class="bold">
                                                                 <td>{{$promo->id}}</td>
-                                                                <td>{{$promo->sid}}</td>
+                                                                <td>{{$promo->id}}</td>
                                                                 <td>{{$promo->dob}}</td>
                                                                 <td>{{$promo->store_code}}</td>
                                                                 <td>{{$promo->store_name}}</td>
@@ -80,9 +80,9 @@
                                                                 <td>{{$promo->amount}}</td>
                                                                 <td>{{$promo->emp_id}}</td>
                                                                 <td>{{$promo->man_id}}</td>
-                                                                <td><a class="btn btn-primary btn-xs" href="{{action('PromoController@edit', $promo->id)}}" ><span class="fa fa-pencil"></span></a></td>
+                                                                <td><a class="btn btn-primary btn-xs" href="{{ route('promo.edit', ['id' => $promo->id]) }}" ><span class="fa fa-pencil"></span></a></td>
                                                                 <td>
-                                                                    <form action="{{action('PromoController@destroy', $promo->id)}}" method="post">
+                                                                    <form action="{{ route('promo.destroy', ['id' => $promo->id]) }}" method="post">
                                                                         {{csrf_field()}}
                                                                         <input name="_method" type="hidden" value="DELETE">
                                                                         <button class="btn btn-danger btn-xs" type="submit"><span class="fa fa-trash"></span></button>

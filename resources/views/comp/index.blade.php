@@ -47,7 +47,7 @@
                                             <table id="example" class="table table-bordered text-nowrap key-buttons">
                                                 <thead>
                                                     <th class="border-bottom-0">#</th>
-                                                    <th class="border-bottom-0">SID</th>
+                                                    <th class="border-bottom-0">ID</th>
                                                     <th class="border-bottom-0">DOB</th>
                                                     <th class="border-bottom-0">Store Code</th>
                                                     <th class="border-bottom-0">Store Name</th>
@@ -68,7 +68,7 @@
                                                         @foreach($comps as $comp)
                                                             <tr class="bold">
                                                                 <td>{{$comp->id}}</td>
-                                                                <td>{{$comp->sid}}</td>
+                                                                <td>{{$comp->id}}</td>
                                                                 <td>{{$comp->dob}}</td>
                                                                 <td>{{$comp->store_code}}</td>
                                                                 <td>{{$comp->store_name}}</td>
@@ -81,9 +81,9 @@
                                                                 <td>{{$comp->comp_type}}</td>
                                                                 <td>{{$comp->qty}}</td>
                                                                 <td>{{$comp->amount}}</td>
-                                                                <td><a class="btn btn-primary btn-xs" href="{{action('CompController@edit', $comp->id)}}" ><span class="fa fa-pencil"></span></a></td>
+                                                                <td><a class="btn btn-primary btn-xs" href="{{ route('comp.edit', ['id' => $comp->id]) }}" ><span class="fa fa-pencil"></span></a></td>
                                                                 <td>
-                                                                    <form action="{{action('CompController@destroy', $comp->id)}}" method="post">
+                                                                    <form action="{{ route('comp.destroy', ['id' => $comp->id]) }}" method="post">
                                                                         {{csrf_field()}}
                                                                         <input name="_method" type="hidden" value="DELETE">
                                                                         <button class="btn btn-danger btn-xs" type="submit"><span class="fa fa-trash"></span></button>

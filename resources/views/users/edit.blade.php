@@ -77,9 +77,9 @@
                                                     <select class="form-control" name="region">
                                                         @foreach($regions as $region)
                                                             @if($user->region_id == $region->id)
-                                                                <option value="{{ $region->id }}" selected>{{ $region->namer }}</option>
+                                                                <option value="{{ $region->id }}" selected>{{ $region->name }}</option>
                                                             @else
-                                                                <option value="{{ $region->id }}">{{ $region->namer }}</option>
+                                                                <option value="{{ $region->id }}">{{ $region->name }}</option>
                                                             @endif
                                                         @endforeach
                                                     </select>

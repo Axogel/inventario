@@ -47,7 +47,7 @@
                                             <table id="example" class="table table-bordered text-nowrap key-buttons">
                                                 <thead>
                                                     <th class="border-bottom-0">#</th>
-                                                    <th class="border-bottom-0">SID</th>
+                                                    <th class="border-bottom-0">ID</th>
                                                     <th class="border-bottom-0">DOB</th>
                                                     <th class="border-bottom-0">Store Code</th>
                                                     <th class="border-bottom-0">Store Name</th>
@@ -67,7 +67,7 @@
                                                         @foreach($mixes as $mix)
                                                             <tr class="bold">
                                                                 <td>{{$mix->id}}</td>
-                                                                <td>{{$mix->sid}}</td>
+                                                                <td>{{$mix->id}}</td>
                                                                 <td>{{$mix->dob}}</td>
                                                                 <td>{{$mix->store_code}}</td>
                                                                 <td>{{$mix->store_name}}</td>
@@ -79,9 +79,9 @@
                                                                 <td>{{$mix->tax}}</td>
                                                                 <td>{{$mix->cost_price}}</td>
                                                                 <td>{{$mix->profit}}</td>
-                                                                <td><a class="btn btn-primary btn-xs" href="{{action('MixController@edit', $mix->id)}}" ><span class="fa fa-pencil"></span></a></td>
+                                                                <td><a class="btn btn-primary btn-xs" href="{{ route('mix.edit', ['id' => $mix->id]) }}" ><span class="fa fa-pencil"></span></a></td>
                                                                 <td>
-                                                                    <form action="{{action('MixController@destroy', $mix->id)}}" method="post">
+                                                                    <form action="{{ route('mix.destroy', ['id' => $mix->id]) }}" method="post">
                                                                         {{csrf_field()}}
                                                                         <input name="_method" type="hidden" value="DELETE">
                                                                         <button class="btn btn-danger btn-xs" type="submit"><span class="fa fa-trash"></span></button>

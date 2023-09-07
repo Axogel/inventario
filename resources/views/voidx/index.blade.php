@@ -47,7 +47,7 @@
                                             <table id="example" class="table table-bordered text-nowrap key-buttons">
                                                 <thead>
                                                     <th class="border-bottom-0">#</th>
-                                                    <th class="border-bottom-0">SID</th>
+                                                    <th class="border-bottom-0">ID</th>
                                                     <th class="border-bottom-0">DOB</th>
                                                     <th class="border-bottom-0">Store Code</th>
                                                     <th class="border-bottom-0">Store Name</th>
@@ -68,7 +68,7 @@
                                                         @foreach($voids as $void)
                                                             <tr class="bold">
                                                                 <td>{{$void->id}}</td>
-                                                                <td>{{$void->sid}}</td>
+                                                                <td>{{$void->id}}</td>
                                                                 <td>{{$void->dob}}</td>
                                                                 <td>{{$void->store_code}}</td>
                                                                 <td>{{$void->store_name}}</td>
@@ -81,9 +81,9 @@
                                                                 <td>{{$void->server}}</td>
                                                                 <td>{{$void->server_id}}</td>
                                                                 <td>{{$void->amount}}</td>
-                                                                <td><a class="btn btn-primary btn-xs" href="{{action('VoidxController@edit', $void->id)}}" ><span class="fa fa-pencil"></span></a></td>
+                                                                <td><a class="btn btn-primary btn-xs" href="{{ route('voidx.edit', ['id' => $void->id]) }}" ><span class="fa fa-pencil"></span></a></td>
                                                                 <td>
-                                                                    <form action="{{action('VoidxController@destroy', $void->id)}}" method="post">
+                                                                    <form action="{{ route('voidx.destroy', ['id' => $void->id]) }}" method="post">
                                                                         {{csrf_field()}}
                                                                         <input name="_method" type="hidden" value="DELETE">
                                                                         <button class="btn btn-danger btn-xs" type="submit"><span class="fa fa-trash"></span></button>

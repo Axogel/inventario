@@ -47,7 +47,7 @@
                                             <table id="example" class="table table-bordered text-nowrap key-buttons">
                                                 <thead>
                                                     <th class="border-bottom-0">#</th>
-                                                    <th class="border-bottom-0">SID</th>
+                                                    <th class="border-bottom-0">ID</th>
                                                     <th class="border-bottom-0">DOB</th>
                                                     <th class="border-bottom-0">Store Code</th>
                                                     <th class="border-bottom-0">Store Name</th>
@@ -68,7 +68,7 @@
                                                         @foreach($payments as $payment)
                                                             <tr class="bold">
                                                                 <td>{{$payment->id}}</td>
-                                                                <td>{{$payment->sid}}</td>
+                                                                <td>{{$payment->id}}</td>
                                                                 <td>{{$payment->dob}}</td>
                                                                 <td>{{$payment->store_code}}</td>
                                                                 <td>{{$payment->store_name}}</td>
@@ -81,9 +81,9 @@
                                                                 <td>{{$payment->total}}</td>
                                                                 <td>{{$payment->empployee_name}}</td>
                                                                 <td>{{$payment->empployee_id}}</td>
-                                                                <td><a class="btn btn-primary btn-xs" href="{{action('PaymentController@edit', $payment->id)}}" ><span class="fa fa-pencil"></span></a></td>
+                                                                <td><a class="btn btn-primary btn-xs" href="{{ route('payment.edit', ['id' => $payment->id]) }}" ><span class="fa fa-pencil"></span></a></td>
                                                                 <td>
-                                                                    <form action="{{action('PaymentController@destroy', $payment->id)}}" method="post">
+                                                                    <form action="{{ route('payment.destroy', ['id' => $payment->id]) }}" method="post">
                                                                         {{csrf_field()}}
                                                                         <input name="_method" type="hidden" value="DELETE">
                                                                         <button class="btn btn-danger btn-xs" type="submit"><span class="fa fa-trash"></span></button>

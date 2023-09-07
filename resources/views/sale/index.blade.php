@@ -48,7 +48,7 @@
                                                 <table id="example" class="table table-bordered text-nowrap key-buttons">
                                                 <thead>
                                                 <tr>
-                                                    <th class="border-bottom-0">SID</th>
+                                                    <th class="border-bottom-0">ID</th>
                                                     <th class="border-bottom-0">DOB</th>
                                                     <th class="border-bottom-0">Store Code</th>
                                                     <th class="border-bottom-0">Store Name</th>
@@ -69,7 +69,7 @@
                                                         @foreach($sales as $sale)
                                                             <tr>
 
-                                                                <td>{{$sale->sid}}</td>
+                                                                <td>{{$sale->id}}</td>
                                                                 <td>{{$sale->dob}}</td>
                                                                 <td>{{$sale->store_code}}</td>
                                                                 <td>{{$sale->store_name}}</td>
@@ -81,9 +81,9 @@
                                                                 <td>{{$sale->void}}</td>
                                                                 <td>{{$sale->taxe}}</td>
                                                                 <td>{{$sale->grs_sale}}</td>
-                                                                <td><a class="btn btn-primary btn-xs" href="{{action('SaleController@edit', $sale->id)}}" ><span class="fa fa-pencil"></span></a></td>
+                                                                <td><a class="btn btn-primary btn-xs" href="{{ route('sales.edit', ['id' => $sale->id]) }}" ><span class="fa fa-pencil"></span></a></td>
                                                                 <td>
-                                                                    <form action="{{action('SaleController@destroy', $sale->id)}}" method="post">
+                                                                    <form action="{{ route('sales.destroy', ['id' => $sale->id]) }}" method="post">
                                                                         {{csrf_field()}}
                                                                         <input name="_method" type="hidden" value="DELETE">
                                                                         <button class="btn btn-danger btn-xs" type="submit"><span class="fa fa-trash"></span></button>

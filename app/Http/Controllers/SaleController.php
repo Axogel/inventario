@@ -1,20 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Storage;
 
-use App\Sale;
+use App\Models\Sale;
 use Illuminate\Http\Request;
-use SimpleXMLElement;
-use Exception;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class SaleController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -24,8 +19,6 @@ class SaleController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -34,9 +27,6 @@ class SaleController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
@@ -51,12 +41,12 @@ class SaleController extends Controller
 
             if($nodename == 'CATEGORIES'){
                 Sale::where([
-                    ['sid', '=', $SALES->attributes()->SID],
+                    ['id', '=', $SALES->attributes()->ID],
                     ['dob', '=', $SALES->attributes()->DOB],
                 ])->delete();
                 foreach ($SALES->children() as $sale) {
                     $temp = new Sale();
-                    $temp->sid = $SALES->attributes()->SID;
+                    $temp->id = $SALES->attributes()->ID;
                     $temp->dob = $SALES->attributes()->DOB;
                     $temp->store_code = $SALES->attributes()->STORECODE;
                     $temp->store_name = $SALES->attributes()->STORENAME;
@@ -88,9 +78,6 @@ class SaleController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $id)
     {
@@ -106,41 +93,52 @@ class SaleController extends Controller
         }
         return $sales;
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function download()
     {
         return response()->download(storage_path('/app/public/20201110_131483_sales.xml'));
 
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit($id)
+    {
+        $sales = Sale::find($id);
+        $stores = DB::table('sales')->groupBy(['store_code', 'id'])->get();
+        $comps = DB::table('comps')->groupBy(['name', 'id'])->get();
+        $promos = DB::table('promos')->groupBy(['store_code', 'id'])->get();
+        $voidxes = DB::table('voidxes')->groupBy(['store_code', 'id'])->get();
+        
+        return view('sale.edit', compact(['sales', 'stores','comps','promos','voidxes']));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
     public function update(Request $request, $id)
     {
-        //
+      //  $this->validate($request,['license_key'=>'required', 'store_name'=>'required', 'store_address'=>'required']);
+
+        $temp = Sale::find($id);
+        $temp->dob = $request->get('dob');
+        $temp->store_code =  $request->get('store');
+        $temp->store_name = $request->get('store_name');
+        $temp->name =  $request->get('name');
+        $temp->id_sale =   $temp->id_sale ;
+        $temp->net_sale = $temp->net_sale;
+        $temp->comp = $request->get('comp');
+        $temp->promo = $request->get('promo');
+        $temp->void = $request->get('void');
+        $temp->taxes =  $request->get('taxes');
+        $temp->timestamps = true;
+        $temp->update();
+
+        return redirect()->route('sale.index')->with('success','Sale update');
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {

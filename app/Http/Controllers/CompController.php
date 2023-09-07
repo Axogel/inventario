@@ -2,40 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Comp;
 use Illuminate\Http\Request;
-use SimpleXMLElement;
-use Exception;
+use App\Models\Comp;
+use Illuminate\Support\Facades\Auth;
 
 class CompController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $comps = Comp::all();
         return view('comp.index')->with("comps", $comps);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    } 
+    
     public function store(Request $request)
     {
         try {
@@ -49,13 +27,13 @@ class CompController extends Controller
             if($nodename == 'COMPS'){
 
                 Comp::where([
-                    ['sid', '=', $COMPS->attributes()->SID],
+                    ['id', '=', $COMPS->attributes()->ID],
                     ['dob', '=', $COMPS->attributes()->DOB],
                 ])->delete();
 
                 foreach ($COMPS->children() as $comp) {
                     $temp = new Comp();
-                    $temp->sid = $COMPS->attributes()->SID;
+                    $temp->id = $COMPS->attributes()->ID;
                     $temp->dob = $COMPS->attributes()->DOB;
                     $temp->store_code = $COMPS->attributes()->STORECODE;
                     $temp->store_name = $COMPS->attributes()->STORENAME;
@@ -82,47 +60,26 @@ class CompController extends Controller
             return redirect()->route('comp.index')->with('success', $success);
         }
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Comp  $comp
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Comp $comp)
+    public function edit($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Comp  $comp
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Comp $comp)
-    {
-        //
+        $Comp = Comp::find($id);
+        return view('comp.edit', compact(['Comp']));
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Comp  $comp
-     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comp $comp)
+    public function update(Request $request, $id)
     {
-        //
-    }
+        $this->validate($request,[ 'name'=>'required']);
+        $temp = Comp::find($id);
+        $temp->name = $request->get('name');
+        $temp->last_modified_by = Auth::user()->id;
+        $temp->timestamps = true;
+        $temp->update();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Comp  $comp
-     * @return \Illuminate\Http\Response
-     */
+        return redirect()->route('region.index')->with('success','Region update');
+    }
     public function destroy($id)
     {
         Comp::find($id)->delete;

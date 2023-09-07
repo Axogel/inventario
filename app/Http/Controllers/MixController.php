@@ -2,40 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Mix;
 use Illuminate\Http\Request;
-use SimpleXMLElement;
-use Exception;
+use App\Models\Mix;
 
 class MixController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $mixes = Mix::all();
         return view('mix.index')->with("mixes", $mixes);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         try {
@@ -49,13 +25,13 @@ class MixController extends Controller
             if($nodename == 'SALESMIX'){
 
                 Mix::where([
-                    ['sid', '=', $MIXES->attributes()->SID],
+                    ['id', '=', $MIXES->attributes()->ID],
                     ['dob', '=', $MIXES->attributes()->DOB],
                 ])->delete();
 
                 foreach ($MIXES->children() as $mix) {
                     $temp = new Mix();
-                    $temp->sid = $MIXES->attributes()->SID;
+                    $temp->id = $MIXES->attributes()->ID;
                     $temp->dob = $MIXES->attributes()->DOB;
                     $temp->store_code = $MIXES->attributes()->STORECODE;
                     $temp->store_name = $MIXES->attributes()->STORENAME;
@@ -82,47 +58,6 @@ class MixController extends Controller
             return redirect()->route('mix.index')->with('success', $success);
         }
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Mix  $mix
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Mix $mix)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Mix  $mix
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Mix $mix)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Mix  $mix
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Mix $mix)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Mix  $mix
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         Mix::find($id)->delete;

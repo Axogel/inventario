@@ -57,9 +57,9 @@
                                                                 <td>{{$region->name}}</td>
                                                                 <td>{{$region->created_at}}</td>
                                                                 <td>{{$region->updated_at}}</td>
-                                                                <td><a class="btn btn-primary btn-xs" href="{{action('RegionController@edit', $region->id)}}" ><span class="fa fa-pencil"></span></a></td>
+                                                                <td><a class="btn btn-primary btn-xs" href="{{ route('region.edit', ['id' => $region->id]) }}" ><span class="fa fa-pencil"></span></a></td>
                                                                 <td>
-                                                                    <form action="{{action('RegionController@destroy', $region->id)}}" method="post">
+                                                                    <form action=" {{ route('region.destroy', ['id' => $region->id]) }}" method="post">
                                                                         {{csrf_field()}}
                                                                         <input name="_method" type="hidden" value="DELETE">
                                                                         <button class="btn btn-danger btn-xs" type="submit"><span class="fa fa-trash"></span></button>

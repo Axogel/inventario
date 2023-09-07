@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Payment;
+use App\Models\Payment;
 use Illuminate\Http\Request;
-use SimpleXMLElement;
-use Exception;
 
 class PaymentController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -20,10 +16,9 @@ class PaymentController extends Controller
         return view('payment.index')->with("payments", $payments);
     }
 
+
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -32,9 +27,6 @@ class PaymentController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
@@ -48,13 +40,13 @@ class PaymentController extends Controller
 
             if($nodename == 'PAYMENTS'){
                 Payment::where([
-                    ['sid', '=', $PAYMENTS->attributes()->SID],
+                    ['id', '=', $PAYMENTS->attributes()->ID],
                     ['dob', '=', $PAYMENTS->attributes()->DOB],
                 ])->delete();
 
                 foreach ($PAYMENTS->children() as $payment) {
                     $temp = new Payment();
-                    $temp->sid = $PAYMENTS->attributes()->SID;
+                    $temp->id = $PAYMENTS->attributes()->ID;
                     $temp->dob = $PAYMENTS->attributes()->DOB;
                     $temp->store_code = $PAYMENTS->attributes()->STORECODE;
                     $temp->store_name = $PAYMENTS->attributes()->STORENAME;
@@ -87,50 +79,36 @@ class PaymentController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  \App\Payment  $payment
-     * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Payment $payment)
     {
         //
     }
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  \App\Payment  $payment
-     * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Payment $payment)
     {
         //
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Payment  $payment
-     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Payment $payment)
     {
         //
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  \App\Payment  $payment
-     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         Payment::find($id)->delete;
         return redirect()->route('payment.index')->with('success','Payment dropped.');
     }
-
     public function downloadpayment()
     {
         return response()->download(storage_path('/app/public/20201110_131483_payments.xml'));

@@ -31,7 +31,7 @@
 												<table id="example" class="table table-bordered text-nowrap key-buttons">
 													<thead>
 														<tr>
-															<th class="border-bottom-0">SID</th>
+															<th class="border-bottom-0">ID</th>
                                                     		<th class="border-bottom-0">DOB</th>
 															<th class="border-bottom-0">STORE CODE</th>
 															<th class="border-bottom-0">STORE NAME</th>

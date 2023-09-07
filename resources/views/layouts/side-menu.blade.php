@@ -13,10 +13,17 @@
 					<div class="app-sidebar__user">
 						<div class="dropdown user-pro-body text-center">
 							<div class="user-pic">
+								@if (Auth::user())
 								<img src="../img/profile/{{ Auth::user()->profile_photo }}" alt="user-img" class="avatar-xl rounded-circle mb-1">
+
+								@endif
 							</div>
 							<div class="user-info">
-								<h5 class=" mb-1 font-weight-bold">{{ Auth::user()->name }}</h5>
+								@if (Auth::user())
+								<h5 class=" mb-1 font-weight-bold">{{ Auth::user()->name }} 
+								</h5>
+								@endif
+							
 								{{-- <span class="text-muted app-sidebar__user-name text-sm">App Developer</span> --}}
 							</div>
 						</div>

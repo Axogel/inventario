@@ -26,10 +26,5 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/dashboard';
-
-    public function __construct()
-    {
-        $this->middleware('guest');
-    }
+    protected $redirectTo = RouteServiceProvider::HOME;
 }

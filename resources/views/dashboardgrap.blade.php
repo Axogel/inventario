@@ -12,16 +12,19 @@
 <!--Daterangepicker css-->
 <link href="{{URL::asset('assets/plugins/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet" />
 @endsection
+
 @section('page-header')
 						<!--Page header-->
 						<div class="page-header">
 							<div class="page-leftheader">
 								<div class="form-group">
                                     <div class="row">     
-                                        <div class="col-3"><label class="form-label"><h2 class="card-title">Store</h2></label></div>
-                                            <div class="col-9">
+                                        <div class="col-6"><label class="form-label"><h2 class="card-title">sStore</h2></label></div>
+                                            <div class="col-6">
+                                    
                                                 <select name="store" id="store" class="form-control custom-select select2" onchange="storeCharge(this.value)">
-                                               @if(Auth::user()->isAdmin())
+                              
+                                                @if(Auth::user()->isAdmin())
                                                     @foreach( $sales as $sale)
                                                         @if(Auth::user()->store_code == $sale->store_code)
                                                         <option value="{{ $sale->store_code }}">{{ $sale->store_name }}</option>

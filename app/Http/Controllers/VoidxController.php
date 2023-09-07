@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Voidx;
+use App\Models\Voidx;
 use Illuminate\Http\Request;
-use SimpleXMLElement;
-use Exception;
 
 class VoidxController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -22,8 +18,6 @@ class VoidxController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -32,9 +26,6 @@ class VoidxController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
@@ -45,15 +36,14 @@ class VoidxController extends Controller
             $safestring = preg_replace("|&([^;]+?)[\s<&]|","&amp;$1 ",$safestring);
             $VOIDS = simplexml_load_string($safestring);
             $nodename = $VOIDS->getName();
-
             if($nodename == 'VOIDS'){
                 Voidx::where([
-                    ['sid', '=', $VOIDS->attributes()->SID],
+                    ['id', '=', $VOIDS->attributes()->ID],
                     ['dob', '=', $VOIDS->attributes()->DOB],
                 ])->delete();
                 foreach ($VOIDS->children() as $void) {
                     $temp = new Voidx();
-                    $temp->sid = $VOIDS->attributes()->SID;
+         
                     $temp->dob = $VOIDS->attributes()->DOB;
                     $temp->store_code = $VOIDS->attributes()->STORECODE;
                     $temp->store_name = $VOIDS->attributes()->STORENAME;
@@ -66,7 +56,6 @@ class VoidxController extends Controller
                     $temp->amount = $void->AMOUNT;
                     $temp->manager_id = $void->MANAGERID;
                     $temp->server_id = $void->SERVERID;
-
                     $temp->save();
                 }
                 $success = array("message" => "Voids created successfully", "alert" => "success");
@@ -83,9 +72,6 @@ class VoidxController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  \App\Voidx  $voidx
-     * @return \Illuminate\Http\Response
      */
     public function show(Voidx $voidx)
     {
@@ -94,9 +80,6 @@ class VoidxController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  \App\Voidx  $voidx
-     * @return \Illuminate\Http\Response
      */
     public function edit(Voidx $voidx)
     {
@@ -105,10 +88,6 @@ class VoidxController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Voidx  $voidx
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Voidx $voidx)
     {
@@ -117,9 +96,6 @@ class VoidxController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  \App\Voidx  $voidx
-     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
@@ -133,5 +109,4 @@ class VoidxController extends Controller
 
     }
 
-    
 }

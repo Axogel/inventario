@@ -1,20 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Auth;
 
-use App\Region;
-use App\User;
+use App\Models\Region;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 
 
 class RegionController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -24,8 +20,6 @@ class RegionController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -35,16 +29,13 @@ class RegionController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $this->validate($request,['name'=>'required']);
 
         $temp = new Region();
-        $temp->namer = $request->get('name');
+        $temp->name = $request->get('name');
         $temp->timestamps = true;
         $temp->last_modified_by = Auth::user()->id;
         $temp->save();
@@ -54,20 +45,15 @@ class RegionController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         $regions=Region::find($id);
         return  view('region.index',compact('regions'));
     }
+
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
@@ -77,33 +63,21 @@ class RegionController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         $this->validate($request,[ 'name'=>'required']);
-
         $temp = Region::find($id);
-        $temp->namer = $request->get('name');
+        $temp->name = $request->get('name');
         $temp->last_modified_by = Auth::user()->id;
         $temp->timestamps = true;
         $temp->update();
 
-        
         return redirect()->route('region.index')->with('success','Region update');
-        
-          
-       
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
