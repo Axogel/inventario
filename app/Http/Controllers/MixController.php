@@ -69,4 +69,49 @@ class MixController extends Controller
         return response()->download(storage_path('/app/public/20201110_131483_mix.xml'));
 
     }
+    public function edit($id)
+    {
+        $mix = Mix::find($id);
+        return view('mix.edit')->with('mix', $mix);
+    }
+
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, $id)
+    {
+      $request->validate([
+        'dob' => 'required|string',
+        'store_name' => 'required|string',
+        'item_id' => 'required|string',
+        'name' => 'required|string|min:5',
+        'qty_sold' => 'required|string',
+        'item_price' => 'required|string',
+        'total_price' => 'required|string',
+        'tax' => 'required|numeric',
+        'cost_price' => 'required|string',
+        'profit' => 'required|string',
+     ], $message = [
+        'required' => 'All fields are required.',]);
+
+        $temp = Mix::find($id);
+        $temp->dob =   $request->get('dob') ;
+        $temp->store_code =   $temp->store_code;
+        $temp->store_name =   $request->get('store_name');
+        $temp->item_id =  $request->get('item_id');
+        $temp->name =  $request->get('name');
+        $temp->qty_sold =  $request->get('qty_sold');
+        $temp->item_price =  $request->get('item_price');
+        $temp->total_price =  $request->get('total_price');
+        $temp->tax =  $request->get('tax');
+        $temp->cost_price =  $request->get('cost_price') ;
+        $temp->profit =  $request->get('profit');
+        $temp->timestamps = true;
+        $temp->update();
+        $message = array("message" => "Mix updated successfully", "alert" => "success");
+
+        return redirect()->route('mix.index')->with('success', $message);
+
+    }
 }

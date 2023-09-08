@@ -41,85 +41,80 @@
                                    
                                   @endif
                                     <div class="card-body">
-                                        <form method="POST" action="{{ route('comp.update', $comp->id) }}"  role="form">
+                                        <form method="POST" action="{{ route('mix.update', $mix->id) }}"  role="form">
                                             {{ csrf_field() }}
                                             <input name="_method" type="hidden" value="PATCH">
                                             <div class="form-group row">
                                                 <label for="license_key" class="col-md-4 col-form-label text-md-right">DOB</label>
                                                 <div class="col-md-6">
-                                                    <input type="text" name="dob" id="dob" class="form-control input-sm" value="{{ $comp->dob }}">
+                                                    <input type="text" name="dob" id="dob" class="form-control input-sm" value="{{ $mix->dob }}">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="store_name" class="col-md-4 col-form-label text-md-right">Store Name</label>
                                                 <div class="col-md-6">
-                                                    <input type="text" name="store_name" id="store_name" class="form-control input-sm" value="{{ $comp->store_name }}">
+                                                    <input type="text" name="store_name" id="store_name" class="form-control input-sm" value="{{ $mix->store_name }}">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="store_address" class="col-md-4 col-form-label text-md-right">Name</label>
+                                                <label for="store_address" class="col-md-4 col-form-label text-md-right">Item id</label>
                                                 <div class="col-md-6">
-                                                    <input type="text" name="name" id="name" class="form-control input-sm" value="{{ $comp->name }}">
+                                                    <input type="text" name="item_id" id="item_id" class="form-control input-sm" value="{{ $mix->item_id }}">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="store_name" class="col-md-4 col-form-label text-md-right">Check comps</label>
+                                                <label for="store_name" class="col-md-4 col-form-label text-md-right">	Name</label>
                                                 <div class="col-md-6">
-                                                    <input type="text" name="check_comps" id="check_comps" class="form-control input-sm" value="{{ $comp->check_comps }}">
+                                                    <input type="text" name="name" id="name" class="form-control input-sm" value="{{ $mix->name }}">
+                                                </div>
+                                            </div>
+                                 
+                                            <div class="form-group row">
+                                                <label for="store_name" class="col-md-4 col-form-label text-md-right">	Qty sold</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" name="qty_sold" id="qty_sold" class="form-control input-sm" value="{{ $mix->qty_sold }}">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="store_name" class="col-md-4 col-form-label text-md-right">Employee</label>
+                                                <label for="store_name" class="col-md-4 col-form-label text-md-right">	Item price</label>
                                                 <div class="col-md-6">
-                                                    <input type="text" name="employee" id="employee" class="form-control input-sm" value="{{ $comp->employee }}">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="store_name" class="col-md-4 col-form-label text-md-right">Manager</label>
-                                                <div class="col-md-6">
-                                                    <input type="text" name="manager" id="manager" class="form-control input-sm" value="{{ $comp->manager }}">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="store_name" class="col-md-4 col-form-label text-md-right">	Comp type</label>
-                                                <div class="col-md-6">
-                                                    <input type="text" name="comp_type" id="comp_type" class="form-control input-sm" value="{{ $comp->comp_type }}">
+                                                    <input type="text" name="item_price" id="item_price" class="form-control input-sm" value="{{ $mix->item_price }}">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label for="store_name" class="col-md-4 col-form-label text-md-right">	Qty</label>
+                                                <label for="store_name" class="col-md-4 col-form-label text-md-right">	Total price</label>
                                                 <div class="col-md-6">
-                                                    <input type="text" name="qty" id="qty" class="form-control input-sm" value="{{ $comp->qty }}">
+                                                    <input type="text" name="total_price" id="total_price" class="form-control input-sm" value="{{ $mix->total_price }}">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="store_name" class="col-md-4 col-form-label text-md-right">	Amount</label>
+                                                <label for="store_name" class="col-md-4 col-form-label text-md-right">	Tax</label>
                                                 <div class="col-md-6">
-                                                    <input type="text" name="amount" id="amount" class="form-control input-sm" value="{{ $comp->amount }}">
+                                                    <input type="text" name="tax" id="tax" class="form-control input-sm" value="{{ $mix->tax }}">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label for="store_name" class="col-md-4 col-form-label text-md-right">	Emp id</label>
+                                                <label for="store_name" class="col-md-4 col-form-label text-md-right">	Cost price</label>
                                                 <div class="col-md-6">
-                                                    <input type="text" name="emp_id" id="emp_id" class="form-control input-sm" value="{{ $comp->emp_id }}">
+                                                    <input type="text" name="cost_price" id="cost_price" class="form-control input-sm" value="{{ $mix->cost_price }}">
                                                 </div>
                                             </div>
-                                    
-                                            
                                             <div class="form-group row">
-                                                <label for="store_name" class="col-md-4 col-form-label text-md-right">	Man id</label>
+                                                <label for="store_name" class="col-md-4 col-form-label text-md-right">	Profit</label>
                                                 <div class="col-md-6">
-                                                    <input type="text" name="man_id" id="man_id" class="form-control input-sm" value="{{ $comp->man_id }}">
+                                                    <input type="text" name="profit" id="profit" class="form-control input-sm" value="{{ $mix->profit }}">
                                                 </div>
                                             </div>
+                                            
+ 
                                  
                                             <div class="form-group row">
                                                 <div class="col-md-12 text-md-right">
                                                     <button type="submit" class="btn btn-lg btn-primary">Updated</button>
                                                    
-                                                        <a href="{{ route('comp.index') }}" class="btn btn-lg btn-danger">Cancel</a>
+                                                        <a href="{{ route('mix.index') }}" class="btn btn-lg btn-danger">Cancel</a>
                                                    
                                                 </div>
                                             </div>

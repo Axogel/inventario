@@ -79,8 +79,8 @@
                                                                 <td>{{$payment->qty}}</td>
                                                                 <td>{{$payment->amount}}</td>
                                                                 <td>{{$payment->total}}</td>
-                                                                <td>{{$payment->empployee_name}}</td>
-                                                                <td>{{$payment->empployee_id}}</td>
+                                                                <td>{{$payment->employee_name}}</td>
+                                                                <td>{{$payment->employee_id}}</td>
                                                                 <td><a class="btn btn-primary btn-xs" href="{{ route('payment.edit', ['id' => $payment->id]) }}" ><span class="fa fa-pencil"></span></a></td>
                                                                 <td>
                                                                     <form action="{{ route('payment.destroy', ['id' => $payment->id]) }}" method="post">

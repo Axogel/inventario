@@ -42,8 +42,8 @@
                                                     			<th class="border-bottom-0">QTY</th>
                                                     			<th class="border-bottom-0">AMOUNT</th>
                                                     			<th class="border-bottom-0">TOTAL</th>
-                                                   				<th class="border-bottom-0">EMPPLOYEENAME</th>
-                                                    			<th class="border-bottom-0">EMPPLOYEEID</th> 
+                                                   				<th class="border-bottom-0">EMPLOYEENAME</th>
+                                                    			<th class="border-bottom-0">EMPLOYEEID</th> 
 														
 														</tr>
 													</thead>

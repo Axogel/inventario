@@ -74,10 +74,10 @@ class CompController extends Controller
         $request->validate([
             'dob' => 'required|date',
             'store_name' => 'required|string',
-            'check_comps' => 'required|boolean',
+            'check_comps' => 'required|string',
             'name' => 'required|string|min:5',
-            'employee' => 'required|integer',
-            'manager' => 'required|integer',
+            'employee' => 'required|string',
+            'manager' => 'required|string',
             'comp_type' => 'required|string',
             'qty' => 'required|integer',
             'amount' => 'required|numeric',

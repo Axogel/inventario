@@ -23,8 +23,8 @@ return new class extends Migration
             $table->string('qty');
             $table->string('amount');
             $table->string('total');
-            $table->string('empployee_name');
-            $table->string('empployee_id');
+            $table->string('employee_name');
+            $table->string('employee_id');
             $table->timestamps();
 
         });

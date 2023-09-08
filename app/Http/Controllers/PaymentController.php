@@ -60,8 +60,8 @@ class PaymentController extends Controller
                     $temp->qty = $payment->QTY;
                     $temp->amount = $payment->AMOUNT;
                     $temp->total = $payment->TOTAL;
-                    $temp->empployee_name = $payment->EMPPLOYEENAME;
-                    $temp->empployee_id = $payment->EMPPLOYEEID;
+                    $temp->employee_name = $payment->EMPLOYEENAME;
+                    $temp->employee_id = $payment->EMPLOYEEID;
 
                     $temp->save();
                 }
@@ -88,17 +88,55 @@ class PaymentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Payment $payment)
+    public function edit($id)
     {
-        //
+        $payment = Payment::find($id);
+        return view('payment.edit')->with('payment', $payment);
     }
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Payment $payment)
+    public function update(Request $request, $id)
     {
-        //
+
+      $request->validate([
+        'dob' => 'required|string',
+        'store_name' => 'required|string',
+        'check_promo' => 'required|string',
+        'employee' => 'required|string|min:5',
+        'manager' => 'required|string',
+        'promo_type' => 'required|string',
+        'qty' => 'required|string',
+        'amount' => 'required|numeric',
+        'emp_id' => 'required|string',
+        'man_id' => 'required|string',
+        'check_name' => 'required|string',
+     ], $message = [
+        'required' => 'All fields are required.',]);
+
+        $temp = Payment::find($id);
+        
+        $temp->dob =$request->get('dob');
+        $temp->store_code = $temp->store_code ;
+        $temp->check_promo  =  $request->get('check_promo');
+        $temp->check_name = $request->get('check_name') ;
+        $temp->employee =  $request->get('employee');
+        $temp->manager =  $request->get('manager') ;
+        $temp->store_name =  $request->get('store_name');
+        $temp->promo_type =  $request->get('promo_type') ;
+        $temp->qty =  $request->get('qty');
+        $temp->amount =  $request->get('amount');
+        $temp->emp_id =  $request->get('emp_id') ;
+        $temp->man_id =  $request->get('man_id') ;
+
+        $temp->timestamps = true;
+        $temp->update();
+        $message = array("message" => "Payment updated successfully", "alert" => "success");
+
+        return redirect()->route('payment.index')->with('success', $message);
+
     }
 
     /**

@@ -81,17 +81,52 @@ class VoidxController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Voidx $voidx)
+    public function edit($id)
     {
-        //
+        $voidx = Voidx::find($id);
+  
+        return view('voidx.edit', compact(['voidx']));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Voidx $voidx)
+    public function update(Request $request, $id)
     {
-        //
+
+      $request->validate([
+        'dob' => 'required|string',
+        'store_name' => 'required|string',
+        'check_void' => 'required|string',
+        'item' => 'required|string|min:5',
+        'reason' => 'required|string',
+        'manager' => 'required|string',
+        'time' => 'required|string',
+        'server' => 'required|string',
+        'amount' => 'required|numeric',
+        'manager_id' => 'required|string',
+        'server_id' => 'required|string',
+     ], $message = [
+        'required' => 'All fields are required.',]);
+        $temp = Voidx::find($id);
+        $temp->dob = $request->get('dob');
+        $temp->store_code =  $temp->store_code ;
+        $temp->store_name = $request->get('store_name');
+        $temp->check_void =  $request->get('check_void');
+        $temp->item = $request->get('item');
+        $temp->reason = $request->get('reason');
+        $temp->manager = $request->get('manager');
+        $temp->time =  $request->get('time');
+        $temp->server =  $request->get('server');
+        $temp->amount =  $request->get('amount');
+        $temp->manager_id =  $request->get('manager_id');
+        $temp->server_id =  $request->get('server_id');
+        $temp->timestamps = true;
+        $temp->update();
+        $message = array("message" => "voidx updated successfully", "alert" => "success");
+
+        return redirect()->route('voidx.index')->with('success', $message);
+
     }
 
     /**

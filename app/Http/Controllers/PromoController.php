@@ -99,10 +99,46 @@ class PromoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Promo $promo)
+    public function update(Request $request, $id)
     {
-        //
+
+      $request->validate([
+        'dob' => 'required|string',
+        'store_name' => 'required|string',
+        'check_promo' => 'required|string',
+        'employee' => 'required|string|min:5',
+        'manager' => 'required|string',
+        'promo_type' => 'required|string',
+        'qty' => 'required|string',
+        'amount' => 'required|numeric',
+        'emp_id' => 'required|string',
+        'man_id' => 'required|string',
+        'check_name' => 'required|string',
+     ], $message = [
+        'required' => 'All fields are required.',]);
+
+        $temp = Promo::find($id);
+        $temp->dob =$request->get('dob');
+        $temp->store_code = $temp->store_code ;
+        $temp->check_promo  =  $request->get('check_promo');
+        $temp->check_name = $request->get('check_name') ;
+        $temp->employee =  $request->get('employee');
+        $temp->manager =  $request->get('manager') ;
+        $temp->store_name =  $request->get('store_name');
+        $temp->promo_type =  $request->get('promo_type') ;
+        $temp->qty =  $request->get('qty');
+        $temp->amount =  $request->get('amount');
+        $temp->emp_id =  $request->get('emp_id') ;
+        $temp->man_id =  $request->get('man_id') ;
+
+        $temp->timestamps = true;
+        $temp->update();
+        $message = array("message" => "Promo updated successfully", "alert" => "success");
+
+        return redirect()->route('promo.index')->with('success', $message);
+
     }
+
 
     /**
      * Remove the specified resource from storage.

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 use App\Mail\WelcomeMail;
 use App\Models\{User, Role,Region,Sale};
 
@@ -83,18 +85,15 @@ class UserController extends Controller
 
     public function admin_credential_rules(array $data)
     {
-        $messages = [
-            'current-password.required' => 'Please enter current password',
-            'password.required' => 'Please enter password',
-        ];
-
         $validator = Validator::make($data, [
-
             'current-password' => 'required',
             'password' => 'same:password',
             'password-confirmation' => 'same:password',
-        ], $messages);
-
+        ], [
+            'current-password.required' => 'Please enter current password',
+            'password.required' => 'Please enter password',
+        ]);
+    
         return $validator;
     }
 
@@ -102,6 +101,7 @@ class UserController extends Controller
     {
         if(Auth::Check()){
             $request_data = $request->All();
+
             $validator = $this->admin_credential_rules($request_data);
 
             if($validator->fails()){
@@ -116,15 +116,18 @@ class UserController extends Controller
                 if($request->hasfile('upload_photo')){
                     $file = $request->file('upload_photo');
                     $name=time().$file->getClientOriginalName();
+        
                     $file->move(public_path().'/img/profile/', $name);    
                 }
-               
-
+  
                     $user_id = Auth::User()->id;
+               
                     $obj_user = User::find($user_id);
                     $obj_user->name = $request_data['name'];
                     $obj_user->email = $request_data['email'];
+                    if($request->hasfile('upload_photo')){
                     $obj_user->profile_photo = $name;
+                }
                     if(($request_data['password']) != null && ($request_data['password']) != '')
                     $obj_user->password = Hash::make($request_data['password']);
                     $obj_user->save();
