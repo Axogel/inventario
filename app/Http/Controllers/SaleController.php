@@ -118,8 +118,10 @@ class SaleController extends Controller
      */
     public function update(Request $request, $id)
     {
-      //  $this->validate($request,['license_key'=>'required', 'store_name'=>'required', 'store_address'=>'required']);
-
+      $request->validate([
+        '*' => 'required',
+     ], $message = [
+        'required' => 'All fields are required.',]);
         $temp = Sale::find($id);
         $temp->dob = $request->get('dob');
         $temp->store_code =  $request->get('store');

@@ -27,94 +27,99 @@
                                     <div class="card-header">
 										<div class="card-title">Edit Sale</div>
                                     </div>
+                                    @if ($errors->any())
+                                    @foreach ($errors->all() as $error)
+                                    <div class="alert alert-{{ session('success.alert') }} alert-dismissible fade show" role="alert">
+                                        {{ $error }}
+        
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                         
+                                     @endforeach
+                                   
+                                  @endif
                                     <div class="card-body">
-                                        <form method="POST" action="{{ route('sale.update', $sales->id) }}"  role="form">
+                                        <form method="POST" action="{{ route('comp.update', $comp->id) }}"  role="form">
                                             {{ csrf_field() }}
                                             <input name="_method" type="hidden" value="PATCH">
                                             <div class="form-group row">
                                                 <label for="license_key" class="col-md-4 col-form-label text-md-right">DOB</label>
                                                 <div class="col-md-6">
-                                                    <input type="text" name="dob" id="dob" class="form-control input-sm" value="{{ $sales->dob }}">
+                                                    <input type="text" name="dob" id="dob" class="form-control input-sm" value="{{ $comp->dob }}">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="store_name" class="col-md-4 col-form-label text-md-right">Store Name</label>
                                                 <div class="col-md-6">
-                                                    <input type="text" name="store_name" id="store_name" class="form-control input-sm" value="{{ $sales->store_name }}">
+                                                    <input type="text" name="store_name" id="store_name" class="form-control input-sm" value="{{ $comp->store_name }}">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="store_address" class="col-md-4 col-form-label text-md-right">Name</label>
                                                 <div class="col-md-6">
-                                                    <input type="text" name="name" id="name" class="form-control input-sm" value="{{ $sales->name }}">
+                                                    <input type="text" name="name" id="name" class="form-control input-sm" value="{{ $comp->name }}">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="store_name" class="col-md-4 col-form-label text-md-right">Taxes</label>
+                                                <label for="store_name" class="col-md-4 col-form-label text-md-right">check_comps</label>
                                                 <div class="col-md-6">
-                                                    <input type="text" name="taxes" id="taxes" class="form-control input-sm" value="{{ $sales->taxes }}">
+                                                    <input type="text" name="check_comps" id="check_comps" class="form-control input-sm" value="{{ $comp->check_comps }}">
                                                 </div>
                                             </div>
-                                            {{-- <div class="row"> --}}
-                                            @if( Auth::user()->isSuper())
                                             <div class="form-group row">
-                                                <label for="region" class="col-md-4 col-form-label text-md-right">Store</label>
+                                                <label for="store_name" class="col-md-4 col-form-label text-md-right">employee</label>
                                                 <div class="col-md-6">
-                                                    <select class="form-control" name="store">
-                                                        @foreach($stores as $store)
-                                                            @if($sales->store_code == $store->store_code)
-                                                                <option value="{{ $store->store_code }}" selected>{{ $store->store_name }}</option>
-                                                            @else
-                                                                <option value="{{ $store->store_code }}">{{ $store->store_name }}</option>
-                                                            @endif
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <label for="region" class="col-md-4 col-form-label text-md-right">Comp</label>
-                                                <div class="col-md-6 my-3">
-                                                    <select class="form-control" name="comp">
-                                                        @foreach($comps as $comp)
-                                                            @if($sales->comp == $comp->id)
-                                                                <option value="{{ $comp->id }}" selected>{{ $comp->name }}</option>
-                                                            @else
-                                                                <option value="{{ $comp->id }}">{{ $comp->name  }}</option>
-                                                            @endif
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <label for="region" class="col-md-4 col-form-label text-md-right">Promo</label>
-                                                <div class="col-md-6 my-3">
-                                                    <select class="form-control" name="promo">
-                                                        @foreach($promos as $promo)
-                                                            @if($sales->promo == $promo->id)
-                                                                <option value="{{ $promo->id }}" selected>{{ $promo->store_name }}</option>
-                                                            @else
-                                                                <option value="{{ $promo->id }}">{{ $promo->store_name  }}</option>
-                                                            @endif
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <label for="region" class="col-md-4 col-form-label text-md-right">Voidx</label>
-                                                <div class="col-md-6 my-3">
-                                                    <select class="form-control" name="void">
-                                                        @foreach($voidxes as $voidx)
-                                                            @if($sales->void == $voidx->id)
-                                                                <option value="{{ $voidx->id }}" selected>{{ $voidx->store_name }}</option>
-                                                            @else
-                                                                <option value="{{ $voidx->id }}">{{ $voidx->store_name  }}</option>
-                                                            @endif
-                                                        @endforeach
-                                                    </select>
+                                                    <input type="text" name="employee" id="employee" class="form-control input-sm" value="{{ $comp->employee }}">
                                                 </div>
                                             </div>
-                                            @else
-                                                <input type="hidden" name="region" id="region" class="form-control input-sm" value="{{ $sales->region_id }}">
-                                                <input value="{{ $voidx->id }}" selected>{{ $voidx->store_name }}</input>
-                                                <input value="{{ $promo->id }}" selected>{{ $promo->store_name }}</input>
-                                                <input value="{{ $comp->id }}" selected>{{ $comp->name }}</input>
-
-
-                                            @endif
+                                            <div class="form-group row">
+                                                <label for="store_name" class="col-md-4 col-form-label text-md-right">manager</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" name="manager" id="manager" class="form-control input-sm" value="{{ $comp->manager }}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="store_name" class="col-md-4 col-form-label text-md-right">	comp_type</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" name="comp_type" id="comp_type" class="form-control input-sm" value="{{ $comp->comp_type }}">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label for="store_name" class="col-md-4 col-form-label text-md-right">	qty</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" name="qty" id="qty" class="form-control input-sm" value="{{ $comp->qty }}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="store_name" class="col-md-4 col-form-label text-md-right">	amount</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" name="amount" id="amount" class="form-control input-sm" value="{{ $comp->amount }}">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label for="store_name" class="col-md-4 col-form-label text-md-right">	emp_id</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" name="emp_id" id="emp_id" class="form-control input-sm" value="{{ $comp->emp_id }}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="store_name" class="col-md-4 col-form-label text-md-right">	emp_id</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" name="emp_id" id="emp_id" class="form-control input-sm" value="{{ $comp->emp_id }}">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label for="store_name" class="col-md-4 col-form-label text-md-right">	man_id</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" name="man_id" id="man_id" class="form-control input-sm" value="{{ $comp->man_id }}">
+                                                </div>
+                                            </div>
+                                 
                                             <div class="form-group row">
                                                 <div class="col-md-12 text-md-right">
                                                     <button type="submit" class="btn btn-lg btn-primary">Updated</button>

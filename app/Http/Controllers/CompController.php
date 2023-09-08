@@ -62,8 +62,8 @@ class CompController extends Controller
     }
     public function edit($id)
     {
-        $Comp = Comp::find($id);
-        return view('comp.edit', compact(['Comp']));
+        $comp = Comp::find($id);
+        return view('comp.edit', compact(['comp']));
     }
 
     /**
@@ -71,14 +71,39 @@ class CompController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request,[ 'name'=>'required']);
+        $request->validate([
+            'dob' => 'required|date',
+            'store_name' => 'required|string',
+            'check_comps' => 'required|boolean',
+            'name' => 'required|string|min:5',
+            'employee' => 'required|integer',
+            'manager' => 'required|integer',
+            'comp_type' => 'required|string',
+            'qty' => 'required|integer',
+            'amount' => 'required|numeric',
+            'emp_id' => 'required|integer',
+            'man_id' => 'required|integer',
+        ] , $message = [
+            'required' => 'All fields are required.',]);
+            
         $temp = Comp::find($id);
-        $temp->name = $request->get('name');
-        $temp->last_modified_by = Auth::user()->id;
+        $temp->dob =$request->get('dob');
+        $temp->store_code =  $temp->store_code ;
+        $temp->store_name = $request->get('store_name') ;
+        $temp->check_comps = $request->get('check_comps');
+        $temp->name = $request->get('name') ;
+        $temp->employee =  $request->get('employee');
+        $temp->manager = $request->get('manager') ;
+        $temp->comp_type =  $request->get('comp_type');
+        $temp->qty = $request->get('qty') ;
+        $temp->amount = $request->get('amount') ;
+        $temp->emp_id = $request->get('emp_id') ;
+        $temp->man_id = $request->get('man_id') ;
         $temp->timestamps = true;
         $temp->update();
+        $message = array("message" => "Comps updated successfully", "alert" => "success");
 
-        return redirect()->route('region.index')->with('success','Region update');
+        return redirect()->route('comp.index')->with('success', $message);
     }
     public function destroy($id)
     {

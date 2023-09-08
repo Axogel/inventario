@@ -19,7 +19,7 @@
 							<div class="page-leftheader">
 								<div class="form-group">
                                     <div class="row">     
-                                        <div class="col-6"><label class="form-label"><h2 class="card-title">sStore</h2></label></div>
+                                        <div class="col-6"><label class="form-label"><h2 class="card-title">Store</h2></label></div>
                                             <div class="col-6">
                                     
                                                 <select name="store" id="store" class="form-control custom-select select2" onchange="storeCharge(this.value)">
