@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('card');
             $table->string('exp');
             $table->string('qty');
-            $table->string('amount');
-            $table->string('total');
+            $table->integer('amount');
+            $table->integer('total');
             $table->string('employee_name');
             $table->string('employee_id');
             $table->timestamps();

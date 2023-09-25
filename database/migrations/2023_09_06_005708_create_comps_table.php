@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('manager');
             $table->string('comp_type');
             $table->string('qty');
-            $table->string('amount');
+            $table->integer('amount');
             $table->string('emp_id');
             $table->string('man_id');
             $table->timestamps();

@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('store_name');
             $table->string('item_id');
             $table->string('name');
-            $table->string('qty_sold');
+            $table->integer('qty_sold');
             $table->string('item_price');
-            $table->string('total_price');
+            $table->integer('total_price');
             $table->string('tax');
             $table->string('cost_price');
             $table->string('profit');

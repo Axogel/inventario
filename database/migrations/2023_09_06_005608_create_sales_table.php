@@ -14,16 +14,16 @@ return new class extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
             $table->string('dob');
-            $table->string('store_code');
+            $table->integer('store_code');
             $table->string('store_name');
             $table->string('name');
             $table->string('id_sale');
             $table->string('net_sale');
-            $table->string('comp');
-            $table->string('promo');
-            $table->string('void');
-            $table->string('taxes');
-            $table->string('grs_sale');
+            $table->integer('comp');
+            $table->integer('promo');
+            $table->integer('void');
+            $table->integer('taxes');
+            $table->integer('grs_sale');
             $table->timestamps();
         });
     }
