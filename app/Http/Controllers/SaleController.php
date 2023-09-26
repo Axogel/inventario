@@ -84,10 +84,9 @@ class SaleController extends Controller
         $dateStart = date($request->dateStart);
         $dateEnd = $request->dateEnd;
         if($request->dateStart != null){
-            //$sales = Sale::whereBetween('dob',[$dateStart,$dateEnd]);
             $sales = DB::table('sales')
-           ->whereBetween('dob', [$dateStart, $dateEnd])
-           ->get();
+            ->whereBetween(DB::raw("STR_TO_DATE(dob, '%Y%m%d')"), [$dateStart, $dateEnd])
+            ->get();
         }else{
             $sales = Sale::where('store_code', $id)->get()->toarray();
         }
@@ -105,12 +104,8 @@ class SaleController extends Controller
     public function edit($id)
     {
         $sales = Sale::find($id);
-        $stores = DB::table('sales')->groupBy(['store_code', 'id'])->get();
-        $comps = DB::table('comps')->groupBy(['name', 'id'])->get();
-        $promos = DB::table('promos')->groupBy(['store_code', 'id'])->get();
-        $voidxes = DB::table('voidxes')->groupBy(['store_code', 'id'])->get();
-        
-        return view('sale.edit', compact(['sales', 'stores','comps','promos','voidxes']));
+        $stores = DB::table('sales')->groupBy(['store_code', 'id'])->get();   
+        return view('sale.edit', compact(['sales', 'stores']));
     }
 
     /**
@@ -118,17 +113,24 @@ class SaleController extends Controller
      */
     public function update(Request $request, $id)
     {
-      $request->validate([
-        '*' => 'required',
-     ], $message = [
-        'required' => 'All fields are required.',]);
+        $request->validate([
+            'comp' => 'required|integer',
+            'promo' => 'required|integer',
+            'taxes' => 'required|integer',
+            'net_sale' => 'required|integer',
+            'void' => 'required|integer',
+        ], $message = [
+            'required' => 'All fields are required.',
+            'integer' => 'The :attribute field must be an integer.',
+        ]);
+        
         $temp = Sale::find($id);
         $temp->dob = $request->get('dob');
         $temp->store_code =  $request->get('store');
         $temp->store_name = $request->get('store_name');
         $temp->name =  $request->get('name');
         $temp->id_sale =   $temp->id_sale ;
-        $temp->net_sale = $temp->net_sale;
+        $temp->net_sale =  $request->get('net_sale') ;
         $temp->comp = $request->get('comp');
         $temp->promo = $request->get('promo');
         $temp->void = $request->get('void');

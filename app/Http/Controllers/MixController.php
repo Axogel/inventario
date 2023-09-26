@@ -86,11 +86,11 @@ class MixController extends Controller
         'store_name' => 'required|string',
         'item_id' => 'required|string',
         'name' => 'required|string|min:5',
-        'qty_sold' => 'required|string',
-        'item_price' => 'required|string',
-        'total_price' => 'required|string',
+        'qty_sold' => 'required|numeric',
+        'item_price' => 'required|numeric',
+        'total_price' => 'required|numeric',
         'tax' => 'required|numeric',
-        'cost_price' => 'required|string',
+        'cost_price' => 'required|numeric',
         'profit' => 'required|string',
      ], $message = [
         'required' => 'All fields are required.',]);

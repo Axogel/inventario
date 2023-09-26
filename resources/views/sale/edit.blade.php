@@ -85,39 +85,24 @@
                                                 </div>
                                                 <label for="region" class="col-md-4 col-form-label text-md-right">Comp</label>
                                                 <div class="col-md-6 my-3">
-                                                    <select class="form-control" name="comp">
-                                                        @foreach($comps as $comp)
-                                                            @if($sales->comp == $comp->id)
-                                                                <option value="{{ $comp->id }}" selected>{{ $comp->name }}</option>
-                                                            @else
-                                                                <option value="{{ $comp->id }}">{{ $comp->name  }}</option>
-                                                            @endif
-                                                        @endforeach
-                                                    </select>
+                                                    <input type="text" name="comp" id="comp" class="form-control input-sm" value="{{ $sales->comp }}">
+
                                                 </div>
                                                 <label for="region" class="col-md-4 col-form-label text-md-right">Promo</label>
                                                 <div class="col-md-6 my-3">
-                                                    <select class="form-control" name="promo">
-                                                        @foreach($promos as $promo)
-                                                            @if($sales->promo == $promo->id)
-                                                                <option value="{{ $promo->id }}" selected>{{ $promo->store_name }}</option>
-                                                            @else
-                                                                <option value="{{ $promo->id }}">{{ $promo->store_name  }}</option>
-                                                            @endif
-                                                        @endforeach
-                                                    </select>
+                                                    <input type="text" name="promo" id="promo" class="form-control input-sm" value="{{ $sales->promo }}">
+
+    
                                                 </div>
                                                 <label for="region" class="col-md-4 col-form-label text-md-right">Voidx</label>
                                                 <div class="col-md-6 my-3">
-                                                    <select class="form-control" name="void">
-                                                        @foreach($voidxes as $voidx)
-                                                            @if($sales->void == $voidx->id)
-                                                                <option value="{{ $voidx->id }}" selected>{{ $voidx->store_name }}</option>
-                                                            @else
-                                                                <option value="{{ $voidx->id }}">{{ $voidx->store_name  }}</option>
-                                                            @endif
-                                                        @endforeach
-                                                    </select>
+                                                    <input type="text" name="void" id="void" class="form-control input-sm" value="{{ $sales->void }}">
+
+                                                </div>
+                                                <label for="region" class="col-md-4 col-form-label text-md-right">net sale</label>
+                                                <div class="col-md-6 my-3">
+                                                    <input type="text" name="net_sale" id="net_sale" class="form-control input-sm" value="{{ $sales->net_sale }}">
+
                                                 </div>
                                             </div>
                                             @else

@@ -176,7 +176,7 @@
         var dateE = (f.getFullYear() + "-" + (f.getMonth() +1) + "-" + (f.getDate()-1));
      
         storeCharge(store_id, dateS, dateE);
-        
+
     });
 
     $('#daterange-btn').daterangepicker({
@@ -193,6 +193,7 @@
         }, function(start, end) {
             $('#daterange-btn span').html(start.format('MMMM DD, YYYY') + ' - ' + end.format('MMMM DD, YYYY'));
             var store_id = $('#store option:selected').val();
+            console.log(store_id)
             storeCharge(store_id, start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'));
         });
     function storeCharge(store, dateStart, dateEnd){
@@ -204,8 +205,11 @@
                 dateStart:dateStart,
                 dateEnd:dateEnd
             }
+
 		})
         .done(function(e){
+            console.log('Respuesta de la llamada AJAX:', e);
+
             var f=e, comps=0, promos=0, voids=0, taxes=0, grsals=0, maxChart = 0;
             let axisX = [], dataChart = [];
 			$.each(f,function(index, el) {
