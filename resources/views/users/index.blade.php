@@ -65,7 +65,7 @@
                                                                 <td>{{$user->store_name}}</td> 
                                                                 <td><a class="btn btn-primary btn-xs" href="{{ route('user.edit', ['id' => $user->id]) }}" ><span class="fa fa-pencil"></span></a></td>
                                                                 <td>
-                                                                    <form action="{{ route('user.destroy', ['id' => $user->id]) }}" method="post">
+                                                                    <form action="{{ route('user.destroy', ['id' => $user->id]) }}" method="delete">
                                                                         {{csrf_field()}}
                                                                         <input name="_method" type="hidden" value="DELETE">
                                                                         <button class="btn btn-danger btn-xs" type="submit"><span class="fa fa-trash"></span></button>
@@ -85,7 +85,7 @@
                                                                 <td>{{$user->store_name}}</td>
                                                                 <td><a class="btn btn-primary btn-xs" href="{{ route('user.edit', ['id' => $user->id]) }}" ><span class="fa fa-pencil"></span></a></td>
                                                                 <td>
-                                                                    <form action="{{ route('user.destroy', ['id' => $user->id]) }}" method="post">
+                                                                    <form action="{{ route('user.destroy', ['id' => $user->id]) }}" method="delete">
                                                                         {{csrf_field()}}
                                                                         <input name="_method" type="hidden" value="DELETE">
                                                                         <button class="btn btn-danger btn-xs" type="submit"><span class="fa fa-trash"></span></button>

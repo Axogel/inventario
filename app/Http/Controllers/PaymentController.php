@@ -144,7 +144,7 @@ class PaymentController extends Controller
      */
     public function destroy($id)
     {
-        Payment::find($id)->delete;
+        Payment::find($id)->delete();
         return redirect()->route('payment.index')->with('success','Payment dropped.');
     }
     public function downloadpayment()

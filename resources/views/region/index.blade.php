@@ -50,7 +50,7 @@
                                                     <th class="border-bottom-0">Delete</th>
                                                 </thead>
                                                 <tbody>
-                                                    @if($regions->isNotEmpty())
+                                                    @if($regions->count()>1)
                                                         @foreach($regions as $region)
                                                             <tr class="bold">
                                                                 <td>{{$region->id}}</td>
@@ -59,7 +59,7 @@
                                                                 <td>{{$region->updated_at}}</td>
                                                                 <td><a class="btn btn-primary btn-xs" href="{{ route('region.edit', ['id' => $region->id]) }}" ><span class="fa fa-pencil"></span></a></td>
                                                                 <td>
-                                                                    <form action=" {{ route('region.destroy', ['id' => $region->id]) }}" method="post">
+                                                                    <form action=" {{ route('region.destroy', ['id' => $region->id]) }}" method="delete">
                                                                         {{csrf_field()}}
                                                                         <input name="_method" type="hidden" value="DELETE">
                                                                         <button class="btn btn-danger btn-xs" type="submit"><span class="fa fa-trash"></span></button>

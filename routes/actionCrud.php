@@ -21,4 +21,4 @@ Route::get('promo/{id}/destroy' , [PromoController::class, 'destroy'])->name('pr
 Route::get('region/{id}/edit', [RegionController::class, 'edit'])->name('region.edit');
 Route::delete('region/{id}', [RegionController::class, 'destroy'])->name('region.destroy');
 Route::get('sales/{id}/edit', [SaleController::class, 'edit'])->name('sales.edit');
-Route::delete('sales/{id}', [SaleController::class, 'destroy'])->name('sales.destroy');
+Route::get('sales/{id}', [SaleController::class, 'destroy'])->name('sales.destroy');

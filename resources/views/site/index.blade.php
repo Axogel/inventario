@@ -65,7 +65,7 @@
                                                                 <td>{{$site->nbo_id}}</td> 
                                                                 <td><a class="btn btn-primary btn-xs" href="{{ route('site.edit', ['id' => $site->id]) }}" ><span class="fa fa-pencil"></span></a></td>
                                                                 <td>
-                                                                    <form action="{{ route('site.destroy', ['id' => $site->id]) }}" method="post">
+                                                                    <form action="{{ route('site.destroy', ['id' => $site->id]) }}" method="delete">
                                                                         {{csrf_field()}}
                                                                         <input name="_method" type="hidden" value="DELETE">
                                                                         <button class="btn btn-danger btn-xs" type="submit"><span class="fa fa-trash"></span></button>

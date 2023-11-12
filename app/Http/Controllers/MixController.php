@@ -60,7 +60,7 @@ class MixController extends Controller
     }
     public function destroy($id)
     {
-        Mix::find($id)->delete;
+        Mix::find($id)->delete();
         return redirect()->route('mix.index')->with('success','Mix dropped.');
     }
 

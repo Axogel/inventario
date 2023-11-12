@@ -83,7 +83,7 @@
                                                                 <td>{{$sale->grs_sale}}</td>
                                                                 <td><a class="btn btn-primary btn-xs" href="{{ route('sales.edit', ['id' => $sale->id]) }}" ><span class="fa fa-pencil"></span></a></td>
                                                                 <td>
-                                                                    <form action="{{ route('sales.destroy', ['id' => $sale->id]) }}" method="post">
+                                                                    <form action="{{ route('sales.destroy', ['id' => $sale->id]) }}" method="delete">
                                                                         {{csrf_field()}}
                                                                         <input name="_method" type="hidden" value="DELETE">
                                                                         <button class="btn btn-danger btn-xs" type="submit"><span class="fa fa-trash"></span></button>

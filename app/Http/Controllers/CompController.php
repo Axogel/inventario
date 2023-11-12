@@ -107,7 +107,7 @@ class CompController extends Controller
     }
     public function destroy($id)
     {
-        Comp::find($id)->delete;
+        Comp::find($id)->delete();
         return redirect()->route('comp.index')->with('success','Comp dropped.');
     }
 
