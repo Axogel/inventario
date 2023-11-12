@@ -80,7 +80,7 @@ class XmlUploadController extends Controller
 
                 $temp->save();
             }
-            $success = array("message" => "Voids created successfully");
+            $success = array("message" => "Payments created successfully");
     }
     catch (Exception $e) {
         $success = array("message" => "Wrong file, please upload a correct xml file", "alert" => "danger");
