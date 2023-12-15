@@ -35,10 +35,13 @@
 										<h3 class="card-title"></h3>
 										<div class="card-options">
                                             <div class="btn-group ml-5 mb-0">
-                                                <a class="btn btn-primary" href="{{ route('downloadpayment') }}"><i class="fa fa-download mr-2"></i>File Example</a>
+                                                <a class="btn btn-primary" href="{{ route('downloadpayment') }}"><i class="fa fa-download mr-2"></i>Descargar Excel</a>
 											</div>
 											<div class="btn-group ml-5 mb-0">
-                                                <a class="btn btn-primary" data-target="#modaldemo1" data-toggle="modal" href=""><i class="fa fa-plus mr-2"></i>Add New Payments</a>
+                                                <a class="btn btn-primary" data-target="#modaldemo1" data-toggle="modal" href=""><i class="fa fa-plus mr-2"></i>Añadir Excel</a>
+											</div>
+											<div class="btn-group ml-5 mb-0">
+                                                <a class="btn btn-primary" href="{{route('inventario.create')}}"><i class="fa fa-plus mr-2"></i>Añadir Producto</a>
 											</div>
 										</div>
 									</div>
@@ -46,44 +49,40 @@
 										<div class="table-responsive">
                                             <table id="example" class="table table-bordered text-nowrap key-buttons">
                                                 <thead>
-                                                    <th class="border-bottom-0">#</th>
                                                     <th class="border-bottom-0">ID</th>
-                                                    <th class="border-bottom-0">DOB</th>
-                                                    <th class="border-bottom-0">Store Code</th>
-                                                    <th class="border-bottom-0">Store Name</th>
-                                                    <th class="border-bottom-0">Tender</th>
-                                                    <th class="border-bottom-0">Check Payment</th>
-                                                    <th class="border-bottom-0">Card</th>
-                                                    <th class="border-bottom-0">Exp</th>
-                                                    <th class="border-bottom-0">Quantity</th>
-                                                    <th class="border-bottom-0">Amount</th>
-                                                    <th class="border-bottom-0">Total</th>
-                                                    <th class="border-bottom-0">Employee Name</th>
-                                                    <th class="border-bottom-0">Employee ID</th>
-                                                    <th class="border-bottom-0">Edit</th>
-                                                    <th class="border-bottom-0">Delete</th>
+                                                    <th class="border-bottom-0">nombre</th>
+                                                    <th class="border-bottom-0">marca</th>
+                                                    <th class="border-bottom-0">talla</th>
+                                                    <th class="border-bottom-0">tipo</th>
+                                                    <th class="border-bottom-0">precio</th>
+                                                    <th class="border-bottom-0">color</th>
+                                                    <th class="border-bottom-0">estado</th>
+                                                    <th class="border-bottom-0">alquiler</th>
                                                 </thead>
                                                 <tbody>
-                                                    @if($payments->isNotEmpty())
-                                                        @foreach($payments as $payment)
+                                                    @if($inventario->isNotEmpty())
+                                                        @foreach($inventario as $producto)
                                                             <tr class="bold">
-                                                                <td>{{$payment->id}}</td>
-                                                                <td>{{$payment->id}}</td>
-                                                                <td>{{$payment->dob}}</td>
-                                                                <td>{{$payment->store_code}}</td>
-                                                                <td>{{$payment->store_name}}</td>
-                                                                <td>{{$payment->tender}}</td>
-                                                                <td>{{$payment->check_payments}}</td>
-                                                                <td>{{$payment->card}}</td>
-                                                                <td>{{$payment->exp}}</td>
-                                                                <td>{{$payment->qty}}</td>
-                                                                <td>{{$payment->amount}}</td>
-                                                                <td>{{$payment->total}}</td>
-                                                                <td>{{$payment->employee_name}}</td>
-                                                                <td>{{$payment->employee_id}}</td>
-                                                                <td><a class="btn btn-primary btn-xs" href="{{ route('payment.edit', ['id' => $payment->id]) }}" ><span class="fa fa-pencil"></span></a></td>
+                                                                <td>{{$producto->id}}</td>
+                                                                <td>{{$producto->nombre}}</td>
+                                                                <td>{{$producto->marca}}</td>
+                                                                <td>{{$producto->talla}}</td>
+                                                                <td>{{$producto->tipo}}</td>
+                                                                <td>{{$producto->precio}}</td>
+                                                                <td>{{$producto->color}}</td>
                                                                 <td>
-                                                                    <form action="{{ route('payment.destroy', ['id' => $payment->id]) }}" method="delete">
+                                                                    @if($producto->disponibilidad == 1)
+                                                                        Disponible
+                                                                    @else
+                                                                        Alquilado
+                                                                    @endif
+                                                                </td>
+
+                                                                <td>{{$producto->alquiler}}</td>
+
+                                                                <td><a class="btn btn-primary btn-xs" href="{{ route('inventario.edit', ['id' => $producto->id]) }}" ><span class="fa fa-pencil"></span></a></td>
+                                                                <td>
+                                                                    <form action="{{ route('inventario.destroy', ['id' => $producto->id]) }}" method="delete">
                                                                         {{csrf_field()}}
                                                                         <input name="_method" type="hidden" value="DELETE">
                                                                         <button class="btn btn-danger btn-xs" type="submit"><span class="fa fa-trash"></span></button>

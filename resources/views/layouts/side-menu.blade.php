@@ -49,6 +49,9 @@
                                 <span class="side-menu__label">Upload Data</span><i class="side-menu__icon angle fa fa-angle-right"></i>
                             </a>
 							<ul class="slide-menu">
+								<li><a class="slide-item" href="{{ route('inventario.index') }}"><span>Inventario</span></a></li>
+								<li><a class="slide-item" href="{{ route('alquilado.index') }}"><span>Alquilado</span></a></li>
+								<li><a class="slide-item" href="{{ route('disponible.index') }}"><span>Disponible</span></a></li>
 								<li><a class="slide-item" href="{{ route('sale.index') }}"><span>Sales Summary</span></a></li>
 								<li><a class="slide-item" href="{{ route('comp.index') }}"><span>Comps</span></a></li>
 								<li><a class="slide-item" href="{{ route('voidx.index') }}"><span>Voids</span></a></li>

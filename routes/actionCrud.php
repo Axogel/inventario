@@ -1,9 +1,9 @@
 <?php
 use Illuminate\Support\Facades\Route;
-use App\Mail\Transfer;
-use App\Http\Middleware\Authenticate;
-use App\Http\Controllers\{HomeController,UserController, SaleController,PromoController,PaymentController,CompController,MixController,RegionController,VoidxController,SiteController};
+use App\Http\Controllers\{UserController, SaleController,InventarioController,PromoController,PaymentController,CompController,MixController,RegionController,VoidxController,SiteController};
 
+Route::get('inventario/{id}/edit' , [InventarioController::class, 'edit'])->name('inventario.edit');
+Route::get('inventario/{id}/destroy' , [InventarioController::class, 'destroy'])->name('inventario.destroy');
 Route::get('user/{id}/edit' , [UserController::class, 'edit'])->name('user.edit');
 Route::get('user/{id}/destroy' , [UserController::class, 'destroy'])->name('user.destroy');
 Route::get('comp/{id}/edit' , [CompController::class, 'edit'])->name('comp.edit');

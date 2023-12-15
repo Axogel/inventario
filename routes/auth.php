@@ -3,7 +3,7 @@ use Illuminate\Support\Facades\Route;
 use App\Mail\Transfer;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\Authenticate;
-use App\Http\Controllers\{HomeController,UserController, SaleController,PromoController,PaymentController,CompController,MixController,RegionController,VoidxController,SiteController};
+use App\Http\Controllers\{HomeController,UserController,InventarioController, OrdenEntregaController,SaleController,PromoController,PaymentController,CompController,MixController,RegionController,VoidxController,SiteController};
 
 
 
@@ -34,5 +34,11 @@ Route::middleware([Authenticate::class])->group(function () {
     Route::resource('voidx', VoidxController::class);
     Route::resource('region', RegionController::class);
     Route::resource('site', SiteController::class);
+    Route::resource('inventario', InventarioController::class);
+    Route::resource('orden', OrdenEntregaController::class);
+    Route::get('alquilado', [InventarioController::class, 'alquilado'])->name('alquilado.index');
+    Route::get('disponible', [InventarioController::class, 'disponible'])->name('disponible.index');
+ 
+    
     
 });
