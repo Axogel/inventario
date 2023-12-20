@@ -11,7 +11,7 @@
 						<!--Page header-->
 						<div class="page-header">
 							<div class="page-leftheader">
-								<h4 class="page-title">Payments Dashboard</h4>
+								<h4 class="page-title">Inventario - Disponible</h4>
 							</div>
 						</div>
 						<!--End Page header-->

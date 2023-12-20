@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Models\Inventario;
+use App\Models\Notificacion;
 use Carbon\Carbon;
 
 class VerificarProductosVencidos extends Command
@@ -18,7 +19,20 @@ class VerificarProductosVencidos extends Command
             ->where('alquiler', '<=', Carbon::now()->subDays(3))
             ->get();
 
-        dd($productosVencidos);
+            if (!$productosVencidos->isEmpty()) {  
+                foreach ($productosVencidos as $item) {
+
+                    $exist = Notificacion::where('id_nota', $item->id)->exists();
+
+                    if (!$exist) {
+                        $notificacion = new Notificacion;
+                        $notificacion->id_nota = $item->id;
+                        $notificacion->descripcion = $item->nombre . " marca ". $item->marca . " de color ". $item->color;
+                        $notificacion->save();
+                    }
+
+                }
+            }
         $this->info('Verificación de productos vencidos completada.');
     }
 }

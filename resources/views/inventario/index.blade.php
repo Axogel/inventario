@@ -11,7 +11,7 @@
 						<!--Page header-->
 						<div class="page-header">
 							<div class="page-leftheader">
-								<h4 class="page-title">Payments Dashboard</h4>
+								<h4 class="page-title">Inventario</h4>
 							</div>
 						</div>
 						<!--End Page header-->
@@ -35,13 +35,13 @@
 										<h3 class="card-title"></h3>
 										<div class="card-options">
                                             <div class="btn-group ml-5 mb-0">
-                                                <a class="btn btn-primary" href="{{ route('downloadpayment') }}"><i class="fa fa-download mr-2"></i>Descargar Excel</a>
+                                                <a class="btn btn-primary" href="{{ route('exportInventario') }}"><i class="fa fa-download mr-2"></i>Descargar Excel</a>
 											</div>
 											<div class="btn-group ml-5 mb-0">
                                                 <a class="btn btn-primary" data-target="#modaldemo1" data-toggle="modal" href=""><i class="fa fa-plus mr-2"></i>Añadir Excel</a>
 											</div>
 											<div class="btn-group ml-5 mb-0">
-                                                <a class="btn btn-primary" href="{{route('inventario.create')}}"><i class="fa fa-plus mr-2"></i>Añadir Producto</a>
+                                                <a class="btn btn-primary" href="{{route('inventario.create')}}"><i class="fa fa-plus mr-2"></i>Añadir un  Producto</a>
 											</div>
 										</div>
 									</div>

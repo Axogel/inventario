@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\WelcomeMail;
+use App\Models\Notificacion;
 use App\Models\{User, Role,Region,Sale};
 
 
@@ -14,6 +15,7 @@ class UserController extends Controller
 {
     public function index()
     { 
+    
          $users = User::join('regions', 'users.region_id', '=', 'regions.id')
         ->join('sales', 'users.store_code', '=', 'sales.store_code')
         ->select('users.*', 'regions.name as regionname', 'sales.store_name')

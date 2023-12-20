@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Inventario;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use Illuminate\Support\Facades\Storage;
+
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 
 class InventarioController extends Controller
@@ -85,7 +89,7 @@ class InventarioController extends Controller
     public function edit($id)
     {
         $inventario = Inventario::find($id);
-        return view('inventario.edit', compact('$inventario'));
+        return view('inventario.edit', compact('inventario'));
 
         //
     }
@@ -104,5 +108,51 @@ class InventarioController extends Controller
     {
         Inventario::find($id)->delete();
         return redirect()->route('inventario.index')->with('success','Producto Eliminado.');
+    }
+    public function exportExcel() {
+        $data = Inventario::all();
+
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Encabezados de columna
+        $columns = [
+            'Columna1',
+            'Columna2',
+            // ...
+            'ColumnaN',
+        ];
+
+        // Agregar encabezados a la hoja de cálculo
+        foreach ($columns as $key => $column) {
+            $sheet->setCellValueByColumnAndRow($key + 1, 1, $column);
+        }
+
+        // Agregar datos a la hoja de cálculo
+        foreach ($data as $rowIndex => $rowData) {
+            foreach ($rowData->toArray() as $columnIndex => $value) {
+                // Convierte $columnIndex a un número antes de la suma
+                $columnNumber = intval($columnIndex);
+            
+   
+                // Asigna el resultado a la celda de la hoja de cálculo
+                $sheet->setCellValueByColumnAndRow($columnNumber + 1, $rowIndex + 2,$value);
+            }
+            
+        }
+
+        // Guardar la hoja de cálculo en un archivo
+        $writer = new Xlsx($spreadsheet);
+        $filename = 'datos.xlsx';
+        $path = 'exports/' . $filename;
+
+        // Utilizar el método save para guardar el archivo
+        $writer = new Xlsx($spreadsheet);
+        $writer->save(storage_path('app/' . $path));
+
+        // Descargar el archivo
+        return response()->download(storage_path('app/' . $path))->deleteFileAfterSend(true);
+
     }
 }

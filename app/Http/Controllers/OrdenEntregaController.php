@@ -12,6 +12,8 @@ class OrdenEntregaController extends Controller
      */
     public function index()
     {
+        $ordenes = ordenEntrega::all();
+        return view('orden.index', compact('ordenes'));
         //
     }
 
@@ -20,6 +22,7 @@ class OrdenEntregaController extends Controller
      */
     public function create()
     {
+        return view("orden.create");
         //
     }
 
@@ -28,7 +31,33 @@ class OrdenEntregaController extends Controller
      */
     public function store(Request $request)
     {
-        return view('orden.create');
+        $request->validate([
+            'nombre' => 'required|string',
+            'marca' => 'required|string',
+            'precio' => 'required|numeric',
+            'talla' => 'required|string',
+            'tipo' => 'required|string',
+            'color' => 'required|string',
+             'disponibilidad' => 'nullable|string',
+        ]);
+
+            $producto = new ordenEntrega;
+            $producto->nombre = $request->input('nombre');
+            $producto->marca = $request->input('marca');
+            $producto->talla = $request->input('talla');
+            $producto->precio = $request->input('precio');
+            $producto->tipo = $request->input('tipo');
+            $producto->color = $request->input('color');
+            $producto->disponibilidad = $request->has('disponibilidad') && $request->input('disponibilidad') === 'on' ? 0 : 1;
+            // $producto->alquiler = $request->input('disponibilidad') === 'on' ? Carbon::now() :  null; // Establecerá la fecha y hora actual
+
+      
+            $producto->save();
+            if($request->input('disponibilidad') === 'on'){
+                return redirect()->route('orden.create')->with('id', $producto->id);
+            }
+            $success = array("message" => "Producto creado Satisfactoriamente", "alert" => "success");
+            return redirect()->route('inventario.index')->with('success',$success);
     }
 
     /**
