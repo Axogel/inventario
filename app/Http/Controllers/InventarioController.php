@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\AlquiladoExport;
+use App\Exports\disponibleExport;
+use App\Exports\InventarioExport;
+use App\Imports\InventarioImport;
 use App\Models\Inventario;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
+use Maatwebsite\Excel\Facades\Excel;
 
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
@@ -88,8 +94,8 @@ class InventarioController extends Controller
      */
     public function edit($id)
     {
-        $inventario = Inventario::find($id);
-        return view('inventario.edit', compact('inventario'));
+        $product = Inventario::find($id);
+        return view('inventario.edit', compact('product'));
 
         //
     }
@@ -97,10 +103,33 @@ class InventarioController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Inventario $inventario)
+    public function update(Request $request, $id)
     {
-
+        $request->validate([
+            'nombre' => 'required|string',
+            'marca' => 'required|string',
+            'precio' => 'required|numeric',
+            'talla' => 'required|string',
+            'tipo' => 'required|string',
+            'color' => 'required|string',
+        ]);
+    
+        $producto = Inventario::findOrFail($id);
+    
+        $producto->nombre = $request->input('nombre');
+        $producto->marca = $request->input('marca');
+        $producto->talla = $request->input('talla');
+        $producto->precio = $request->input('precio');
+        $producto->tipo = $request->input('tipo');
+        $producto->color = $request->input('color');
+    
+        $producto->update();
+   
+    
+        $success = array("message" => "Producto actualizado satisfactoriamente", "alert" => "success");
+        return redirect()->route('inventario.index')->with('success', $success);
     }
+    
     /**
      * Remove the specified resource from storage.
      */
@@ -109,50 +138,26 @@ class InventarioController extends Controller
         Inventario::find($id)->delete();
         return redirect()->route('inventario.index')->with('success','Producto Eliminado.');
     }
-    public function exportExcel() {
-        $data = Inventario::all();
+    public function Exportacion(){
+        return Excel::download(new InventarioExport(), 'Productos.csv', \Maatwebsite\Excel\Excel::CSV);
+    }
+    public function ExportacionAlquilado(){
+        return Excel::download(new AlquiladoExport(), 'Productos.csv', \Maatwebsite\Excel\Excel::CSV);
+    }
+    public function ExportacionDisponible(){
+        return Excel::download(new disponibleExport(), 'Productos.csv', \Maatwebsite\Excel\Excel::CSV);
+    }
+    public function Importacion(Request $request) 
+    {
+        $archivo = $request->file('excel');
 
 
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-
-        // Encabezados de columna
-        $columns = [
-            'Columna1',
-            'Columna2',
-            // ...
-            'ColumnaN',
-        ];
-
-        // Agregar encabezados a la hoja de cálculo
-        foreach ($columns as $key => $column) {
-            $sheet->setCellValueByColumnAndRow($key + 1, 1, $column);
+        if($archivo){
+            Excel::import(new InventarioImport, $archivo);
+ 
+            return redirect()->back()->with('success', 'Datos importados exitosamente');
         }
-
-        // Agregar datos a la hoja de cálculo
-        foreach ($data as $rowIndex => $rowData) {
-            foreach ($rowData->toArray() as $columnIndex => $value) {
-                // Convierte $columnIndex a un número antes de la suma
-                $columnNumber = intval($columnIndex);
-            
-   
-                // Asigna el resultado a la celda de la hoja de cálculo
-                $sheet->setCellValueByColumnAndRow($columnNumber + 1, $rowIndex + 2,$value);
-            }
-            
-        }
-
-        // Guardar la hoja de cálculo en un archivo
-        $writer = new Xlsx($spreadsheet);
-        $filename = 'datos.xlsx';
-        $path = 'exports/' . $filename;
-
-        // Utilizar el método save para guardar el archivo
-        $writer = new Xlsx($spreadsheet);
-        $writer->save(storage_path('app/' . $path));
-
-        // Descargar el archivo
-        return response()->download(storage_path('app/' . $path))->deleteFileAfterSend(true);
 
     }
+    
 }

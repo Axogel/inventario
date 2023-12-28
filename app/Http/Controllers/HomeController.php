@@ -14,40 +14,19 @@ class HomeController extends Controller
     public function index()
     {
     
-        $sales = Sale::select('store_code','store_name', DB::raw('SUM(comp) as comp_sum'), DB::raw('SUM(promo) as promo_sum'))
-        ->groupBy('store_code','store_name')
-        ->get();
 
-        $comps = Sale::sum('comp');
-     
     
-        $promos = Sale::sum('promo');
-    
-        return view('dashboardgrap', compact('sales', 'comps', 'promos'));
+        return view('dashboardgrap');
     }
 
     public function dashboardgrap()
     {   
-        $sales = Sale::select('store_code','store_name', DB::raw('SUM(comp) as comp_sum'), DB::raw('SUM(promo) as promo_sum'))
-        ->groupBy('store_code','store_name')
-        ->get();
-        $comps = Sale::sum('comp');
-
-        $promos = Sale::sum('promo');
-        
-        return view('dashboardgrap', compact( "sales", "comps", "promos"));
+    
+        return view('dashboardgrap');
     }
     public function dashboard()
     {
-        $sales = Sale::select('store_code','store_name', DB::raw('SUM(comp) as comp_sum'), DB::raw('SUM(promo) as promo_sum'))
-        ->groupBy('store_code','store_name')
-        ->get();
 
-        $comps = Sale::sum('comp');
-    
-        $promos = Sale::sum('promo');
-    
-        
-        return view('dashboardgrap', compact( "sales", "comps", "promos"));
+        return view('dashboardgrap');
     }
 }

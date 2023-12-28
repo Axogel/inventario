@@ -11,7 +11,7 @@
 						<!--Page header-->
 						<div class="page-header">
 							<div class="page-leftheader">
-								<h4 class="page-title">Ordenes</h4>
+								<h4 class="page-title">Facturas</h4>
 							</div>
 						</div>
 						<!--End Page header-->
@@ -35,9 +35,7 @@
 										<h3 class="card-title"></h3>
 										<div class="card-options">
 
-											<div class="btn-group ml-5 mb-0">
-                                                <a class="btn btn-primary" href="{{route('inventario.create')}}"><i class="fa fa-plus mr-2"></i>Añadir Ordenes</a>
-											</div>
+								
 										</div>
 									</div>
 									<div class="card-body">
@@ -46,44 +44,26 @@
                                                 <thead>
                                                     <th class="border-bottom-0">ID</th>
                                                     <th class="border-bottom-0">nombre</th>
-                                                    <th class="border-bottom-0">apellido</th>
                                                     <th class="border-bottom-0">Direccion</th>
                                                     <th class="border-bottom-0">telefono</th>
-                                                    <th class="border-bottom-0">Falta por pagar</th>
-                                                    <th class="border-bottom-0">precio</th>
-                                                    <th class="border-bottom-0">fecha_de_prestamo</th>
-                                                    <th class="border-bottom-0">fecha_de_entrega</th>
-                                                    <th class="border-bottom-0">Productos</th>
-                                                    <th></th>
-                                                    <th></th>
+                                                    <th class="border-bottom-0">Subtotal</th>
+                                                    <th class="border-bottom-0">divisa</th>
+                                                    <th class="border-bottom-0">Fecha</th>
 
 
                                                 </thead>
                                                 <tbody >
-                                                    @if($ordenes->isNotEmpty())
-                                                        @foreach($ordenes as $orden)
+                                                    @if($facturas->isNotEmpty())
+                                                        @foreach($facturas as $factura)
                                                             <tr class="bold">
-                                                                <td>{{$orden->id}}</td>
-                                                                <td>{{$orden->name}}</td>
-                                                                <td>{{$orden->apellido}}</td>
-                                                                <td>{{$orden->direccion}}</td>
-                                                                <td>{{$orden->telefono}}</td>
-                                                                <td>{{$orden->precio - $orden->abonado}}</td>
-                                                                <td>{{$orden->precio}}</td>
-                                                                <td>{{$orden->fecha_de_prestamo}}</td>
-                                                                <td @if(strtotime($orden->fecha_de_entrega) < strtotime(date('Y-m-d'))) class="bg-danger text-white" @endif>
-                                                                    {{$orden->fecha_de_entrega}}
-                                                                </td>
-                                                                <td>           <details>
-                                                                <summary>Productos</summary>
-                                                                <ul>
-                                                                    @forEach( $orden->ordenInventario as $product)
-                                                                         <li>{{$product->nombre}}</li>
-                                                                    @endforeach
-</ul>
-                                                                </details></td>
+                                                                <td>{{$factura->id}}</td>
+                                                                <td>{{$factura->name}}</td>
+                                                                <td>{{$factura->direccion}}</td>
+                                                                <td>{{$factura->Telefono}}</td>
+                                                                <td>{{$factura->subtotal }}</td>
+                                                                <td>{{$factura->divisa}}</td>
+                                                                <td>{{$factura->created_at}}</td>
 
-                                                                <td><a class="btn btn-success btn-xs" href="{{ route('factura.crear', ['id' => $orden->id]) }}" ><span class="fa fa-cart-plus"></span></a></td>
                                                        
                                                      
                                                
@@ -113,7 +93,7 @@
                             <h6 class="modal-title">File Upload</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                         </div>
                         <div class="modal-body">
-                            <form method="POST" action="{{ route('orden.store') }}" role="form" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('factura.store') }}" role="form" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 <div class="row">
                                     <div class="col-xs-6">

@@ -24,11 +24,6 @@ Route::get('/', [HomeController::class, 'index'])->name('index');
 //Dashboard login Users
 include 'auth.php';
 
-Route::get('/downloadcomp',[CompController::class, 'downloadcomp'])->name('downloadcomp');
-Route::get('/downloadvoidx', [VoidxController::class, 'downloadvoidx'])->name('downloadvoidx');
-Route::get('/downloadpromo',[PromoController::class, 'downloadpromo'] )->name('downloadpromo');
-Route::get('/downloadpayment',[PaymentController::class, 'downloadpayment'] )->name('downloadpayment');
-Route::get('/downloadmix',[MixController::class, 'downloadmix'])->name('downloadmix');
 
 //Upload 
 include 'upload.php';
@@ -39,7 +34,5 @@ include 'actionCrud.php';
 //actions downloads
 include 'download.php';
 
-
-Route::get('/download', [SaleController::class,'download'])->name('download');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -7,7 +7,7 @@
 						<!--Page header-->
 						<div class="page-header">
 							<div class="page-leftheader">
-								<h4 class="page-title">Crear Producto</h4>
+								<h4 class="page-title">Crear Orden de Entrega</h4>
 							</div>
 							<div class="page-rightheader ml-auto d-lg-flex d-none">
 								<ol class="breadcrumb">
@@ -36,47 +36,62 @@
 										<div class="card-title">Crear una Orden De Entrega</div>
                                     </div>
                                     <div class="card-body">
-                                        <form method="POST" action="{{ route('inventario.store') }}"  role="form">
+                                        <form method="POST" action="{{ route('orden.store') }}"  role="form">
                                             {{ csrf_field() }}
                                             <div class="input-group mb-3">
                                                 <span class="input-group-addon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="side-menu__icon"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></span>
-                                                <input type="text" name="nombre" id="nombre" class="form-control input-sm" placeholder="nombre">
+                                                <input type="text" name="name" id="name" class="form-control input-sm" placeholder="nombre">
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-addon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="side-menu__icon"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></span>
-                                                <input type="text" name="marca" id="marca" class="form-control input-sm" placeholder="marca">
+                                                <input type="text" name="apellido" id="apellido" class="form-control input-sm" placeholder="apellido">
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-addon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="side-menu__icon"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></span>
-                                                <input type="number" name="precio" id="precio" class="form-control input-sm" placeholder="precio">
+                                                <input type="text" name="direccion" id="direccion" class="form-control input-sm" placeholder="direccion">
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-addon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="side-menu__icon"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></span>
-                                                <input type="text" name="talla" id="talla" class="form-control input-sm" placeholder="talla">
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-addon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="side-menu__icon"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></span>
-                                                <input type="text" name="tipo" id="tipo" class="form-control input-sm" placeholder="tipo. ejm: pantalon, zapato y etc..">
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-addon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="side-menu__icon"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></span>
-                                                <input type="text" name="color" id="color" class="form-control input-sm" placeholder="color">
+                                                <input type="text" name="telefono" id="telefono" class="form-control input-sm" placeholder="telefono">
                                             </div>
 
-                                            <div class="form-group">
-                                                <div class="row">
-                                                <div class="p-2 col-2"><label class="form-label">Esta Alquilado?</label></div>
-                                                    <div class="col-1">
-                                                    <input type="checkbox" name="disponibilidad" id="disponibilidad" class="form-control input-sm" placeholder="Store Address">
-
-                                                    </div>
-                                                </div>
+                                            <!-- Abonado Logic -->
+                                            <div class="input-group mb-3">
+                                                    <span class="input-group-addon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="side-menu__icon"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></span>
+                                                    <input type="numeric" name="abonado" id="abonado" class="form-control input-sm" placeholder="abonado">
                                             </div>
+                                            <div class="input-group mb-3 w-100">
+
+                                                <span class="card-title"> Seleccione la Moneda con la que va a abonar</span>
+
+                                                <select  class="select2 " name="divisas" id="divisas" style="width : 100%">
+                                                            <option value="Bs" selected>BS</option>
+                                                            <option value="COP">COP</option>
+                                                            <option value="USD">USD</option>
+                                                </select>
+                                            </div>
+
+
+                                            <div class="input-group mb-3 w-100">
+                                                <span class="card-title"> Seleccione los Articulos</span>
+                                                <select name="products[]" id="products" class="select2" multiple style="width : 100%">
+                                                        @foreach($products as $product)
+                                                            <option value="{{ $product->id }}" @if($product->id == $numeroId) selected @endif>
+                                                                {{ $product->nombre }}
+                                                            </option>
+                                                        @endforeach
+                                                </select>
+                                                    
+                                            </div>
+                                            <div class="card-title m-5" id="suma-precio">Suma del precio: $0.00</div>
+                                            <input type="hidden" id="inputSumaPrecio" name="inputSumaPrecio">
+
+
                             
 
                                             <div class="col-xs-12">
                                                 <button type="submit" class="btn btn-lg btn-primary">Create</button>
-                                                <a href="{{ route('inventario.index') }}" class="btn btn-lg btn-danger">Cancel</a>
+                                                <a href="{{ route('orden.index') }}" class="btn btn-lg btn-danger">Cancel</a>
                                             </div>
                                         </form>
                                     </div>
@@ -91,6 +106,38 @@
 @endsection
 @section('js')
 <!--Select2 js -->
+
+<script>
+$(document).ready(function() {
+    // Manejar el cambio en el evento 'change' de #products
+    $('#products').on('change', function() {
+        // Obtener las IDs seleccionadas
+        var selectedIds = $(this).val();
+
+        // Obtener la lista de productos desde Laravel
+        var miVariableEnJS = @json($products);
+
+        // Inicializar la variable para almacenar la suma de precios
+        var totalPrecio = 0;
+
+        // Iterar sobre los productos y sumar los precios de los productos seleccionados
+        miVariableEnJS.forEach(function(product) {
+            if (selectedIds.includes(product.id.toString())) {
+                totalPrecio += product.precio;
+            }
+        });
+
+        // Mostrar o actualizar la suma de precios en algún lugar
+        $('#suma-precio').text('Suma del precio: $' + totalPrecio.toFixed(2));
+        $('#inputSumaPrecio').val(totalPrecio.toFixed(2));
+
+    });
+
+    // Simular el evento 'change' al principio para realizar el cálculo inicial
+    $('#products').trigger('change');
+});
+
+</script>
 <script src="{{URL::asset('assets/plugins/select2/select2.full.min.js')}}"></script>
 <script src="{{URL::asset('assets/js/select2.js')}}"></script>
 @endsection

@@ -1,0 +1,158 @@
+@extends('layouts.master')
+@section('css')
+<!-- Select2 css -->
+<link href="{{URL::asset('assets/plugins/select2/select2.min.css')}}" rel="stylesheet" />
+@endsection
+@section('page-header')
+						<!--Page header-->
+						<div class="page-header">
+							<div class="page-leftheader">
+								<h4 class="page-title">Crear Factura</h4>
+							</div>
+							<div class="page-rightheader ml-auto d-lg-flex d-none">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="d-flex"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/><path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon"> Dashboard</span></a></li>
+									<li class="breadcrumb-item"><a href="{{ route('inventario.index') }}">Site Panel</a></li>
+									<li class="breadcrumb-item active" aria-current="page">Create Site</li>
+								</ol>
+							</div>
+						</div>
+						<!--End Page header-->
+@endsection
+@section('content')
+                        <!-- Row -->
+                        @if(Session::has('success'))
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                {{Session::get('success')}}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+			            @endif
+						<div class="row">
+							<div class="col-xl-12 col-lg-12 col-md-12">
+								<div class="card">
+                                    <div class="card-header">
+										<div class="card-title">Crear Factura</div>
+                                    </div>
+                                    <div class="card-body">
+                                        <form method="POST" action="{{ route('factura.store') }}"  role="form">
+                                            {{ csrf_field() }}
+                                            <div class="input-group mb-5">
+                                                <span class="card-title"> Datos de la Factura:</span>
+                                            </div>
+                                            <div class="input-group mb-3 ml-3">
+                                            <ul>
+                                                    <li class="card-subtitle p-1">
+                                                        <b> Nombre Completo de la persona :</b> {{$orden->name . " " . $orden->apellido}}
+                                                        <input type="hidden" name="name" value="{{$orden->name . ' '  . $orden->apellido}}">
+                                                    </li>
+                                                    <li class="card-subtitle p-1">
+                                                        <b>Direccion: </b> {{$orden->direccion}}
+                                                        <input type="hidden" name="direccion" value="{{$orden->direccion}}">
+                                                    </li>
+                                                    <li class="card-subtitle p-1">
+                                                        <b>Telefono: </b> {{$orden->telefono}}
+                                                        <input type="hidden" name="telefono" value="{{$orden->telefono}}">
+                                                    </li>
+                                                    <li class="card-subtitle p-1">
+                                                        <b>Fecha de Entrega</b> {{ date('Y-m-d')}}
+                                                        <input type="hidden" name="fecha_entrega" value="{{ date('Y-m-d')}}">
+                                                    </li>
+                                                    <li class="card-subtitle p-1">
+                                                        <b>RIF</b> 12345678
+                                                        <input type="hidden" name="rif" value="12345678">
+                                                    </li>
+                                                    <li class="card-subtitle p-1">
+                                                        <b>Total Abonado en BS</b> {{$orden->abonado}} Bs
+                                                    </li>
+                                                    <li class="card-subtitle p-1">
+                                                        <b>Control</b>0001
+                                                        <input type="hidden" name="control" value="0001">
+
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+
+                                            <div class="input-group mb-5">
+                                                <span class="card-title"> <b>Total:</b> {{$orden->precio}} Bs.</span>
+                                            </div>
+                                            <div class="input-group mb-3 ml-3">
+                                                <ul>
+                                                    @forEach( $orden->ordenInventario as $product)
+                                                        <li class="card-subtitle p-1"><b> {{$product->nombre . " marca " . $product->marca }}:</b> {{$product->precio }} Bs</li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                   
+
+                                            <div class="input-group mb-3 w-100">
+
+                                                <span class="card-title"> Seleccione la Moneda con la que va a abonar</span>
+
+                                                <select  class="select2 " name="divisas" id="divisas" style="width : 100%">
+                                                            <option value="Bs" selected>BS</option>
+                                                            <option value="COP">COP</option>
+                                                            <option value="USD">USD</option>
+                                                </select>
+                                            </div>
+                                            <div class="input-group mb-5">
+                                                <span class="card-title" id="suma-precio"> <b>SubTotal:</b> {{$orden->precio +  $orden->precio * 0.16}} Bs</span>
+                                            </div>
+                                            <input type="hidden" id="inputSumaPrecio" name="inputSumaPrecio">
+
+
+                            
+
+                                            <div class="col-xs-12">
+                                                <button type="submit" class="btn btn-lg btn-primary">Create</button>
+                                                <a href="{{ route('orden.index') }}" class="btn btn-lg btn-danger">Cancel</a>
+                                            </div>
+                                        </form>
+                                    </div>
+								</div>
+							</div>
+						</div>
+						<!-- End Row-->
+
+					</div>
+				</div><!-- end app-content-->
+			</div>
+@endsection
+@section('js')
+
+<script>
+    $(document).ready(function() {
+       $('#divisas').on('change', function() {
+        // Obtener las IDs seleccionadas
+        let selectedIds = $(this).val();
+
+        // Obtener la lista de productos desde Laravel
+        let miVariableEnJS = @json($orden);
+        let tasa = @json($divisa);
+        let total = miVariableEnJS.precio
+        const precioTotal = total + (total*0.16)
+
+        if(selectedIds == 'Bs' ){
+            $('#suma-precio').text('SubTotal: ' +precioTotal + ' Bs ' );
+            $('#inputSumaPrecio').val(precioTotal.toFixed(3));
+        }else{
+            const TotalDivisas = precioTotal + precioTotal*0.03;
+            let tasaSelect = tasa.find(objeto => objeto.name === selectedIds);
+            const conversion =  TotalDivisas /  tasaSelect.tasa
+            $('#suma-precio').text('SubTotal: ' + conversion.toFixed(3) + ' $' + selectedIds);
+            $('#inputSumaPrecio').val(TotalDivisas.toFixed(3));
+        }
+
+    });
+    $('#divisas').trigger('change');
+
+});
+</script>
+<!--Select2 js -->
+
+
+<script src="{{URL::asset('assets/plugins/select2/select2.full.min.js')}}"></script>
+<script src="{{URL::asset('assets/js/select2.js')}}"></script>
+@endsection

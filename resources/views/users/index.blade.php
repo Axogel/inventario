@@ -46,8 +46,6 @@
                                                     <th class="border-bottom-0">Name</th>
                                                     <th class="border-bottom-0">Email</th>
                                                     <th class="border-bottom-0">Role</th>
-                                                    <th class="border-bottom-0">Region</th>
-                                                    <th class="border-bottom-0">Store</th>
                                                     <th class="border-bottom-0">Edit</th>
                                                     <th class="border-bottom-0">Delete</th>
                                                 </thead>
@@ -61,8 +59,7 @@
                                                                 <td>{{$user->name}} {{$user->last_name}}</td>
                                                                 <td>{{$user->email}}</td>
                                                                 <td>{{$user->role->description}}</td>
-                                                                <td>{{$user->region->name}}</td> 
-                                                                <td>{{$user->store_name}}</td> 
+
                                                                 <td><a class="btn btn-primary btn-xs" href="{{ route('user.edit', ['id' => $user->id]) }}" ><span class="fa fa-pencil"></span></a></td>
                                                                 <td>
                                                                     <form action="{{ route('user.destroy', ['id' => $user->id]) }}" method="delete">

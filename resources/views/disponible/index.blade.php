@@ -35,11 +35,9 @@
 										<h3 class="card-title"></h3>
 										<div class="card-options">
                                             <div class="btn-group ml-5 mb-0">
-                                                <a class="btn btn-primary" href="{{ route('downloadpayment') }}"><i class="fa fa-download mr-2"></i>Descargar Excel</a>
+                                                <a class="btn btn-primary" href="{{ route('disponible.export') }}"><i class="fa fa-download mr-2"></i>Descargar Excel</a>
 											</div>
-											<div class="btn-group ml-5 mb-0">
-                                                <a class="btn btn-primary" data-target="#modaldemo1" data-toggle="modal" href=""><i class="fa fa-plus mr-2"></i>Añadir Excel</a>
-											</div>
+							
 											<div class="btn-group ml-5 mb-0">
                                                 <a class="btn btn-primary" href="{{route('inventario.create')}}"><i class="fa fa-plus mr-2"></i>Añadir Producto</a>
 											</div>
@@ -57,7 +55,6 @@
                                                     <th class="border-bottom-0">precio</th>
                                                     <th class="border-bottom-0">color</th>
                                                     <th class="border-bottom-0">estado</th>
-                                                    <th class="border-bottom-0">alquiler</th>
                                                 </thead>
                                                 <tbody>
                                                     @if($inventario->isNotEmpty())
@@ -78,7 +75,8 @@
                                                                     @endif
                                                                 </td>
 
-                                                                <td>{{$producto->alquiler}}</td>
+                                                                <td><a class="btn btn-success btn-xs" href="{{ route('orden.crear', ['id' => $producto->id]) }}" ><span class=" fa fa-money"></span> </a></td>
+
 
                                                                 <td><a class="btn btn-primary btn-xs" href="{{ route('inventario.edit', ['id' => $producto->id]) }}" ><span class="fa fa-pencil"></span></a></td>
                                                                 <td>
@@ -112,22 +110,7 @@
                         <div class="modal-header">
                             <h6 class="modal-title">File Upload</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                         </div>
-                        <div class="modal-body">
-                            <form method="POST" action="{{ route('payment.store') }}" role="form" enctype="multipart/form-data">
-                                {{ csrf_field() }}
-                                <div class="row">
-                                    <div class="col-xs-6">
-                                        <div class="custom-file">
-                                            <input type="file" id="xmldata" name="xmldata" class="custom-file-input" data-height="250" accept="text/xml" onchange='openFile(event)'/>
-                                            <label class="custom-file-label">Choose file</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12">
-                                    <button type="submit" class="btn btn-lg btn-primary">Upload</button>
-                                </div>
-                            </form>
-                        </div>
+          
                         <div class="modal-footer">
                             <button class="btn btn-light" data-dismiss="modal" type="button">Close</button>
                         </div>

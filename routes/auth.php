@@ -3,7 +3,7 @@ use Illuminate\Support\Facades\Route;
 use App\Mail\Transfer;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\Authenticate;
-use App\Http\Controllers\{HomeController,UserController,InventarioController, OrdenEntregaController,SaleController,PromoController,PaymentController,CompController,MixController,RegionController,VoidxController,SiteController};
+use App\Http\Controllers\{DivisaController, FacturaController, HomeController,UserController,InventarioController, OrdenEntregaController};
 
 
 
@@ -23,19 +23,17 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('users', UserController::class);
-    Route::get('/sale/{id}/show',[SaleController::class, 'show'] );
 });
 Route::middleware([Authenticate::class])->group(function () {
-    Route::resource('promo',PromoController::class);
-    Route::resource('sale',SaleController::class);
-    Route::resource('payment', PaymentController::class);
-    Route::resource('comp', CompController::class);
-    Route::resource('mix', MixController::class);
-    Route::resource('voidx', VoidxController::class);
-    Route::resource('region', RegionController::class);
-    Route::resource('site', SiteController::class);
+
+    Route::resource('factura', FacturaController::class);
+    Route::get('factura/create/{id}', [FacturaController::class, 'create'])->name('factura.crear');
+    Route::resource('divisas', DivisaController::class);
+
+
     Route::resource('inventario', InventarioController::class);
     Route::resource('orden', OrdenEntregaController::class);
+    Route::get('orden/create/{id}', [OrdenEntregaController::class, 'create'])->name('orden.crear');
     Route::get('alquilado', [InventarioController::class, 'alquilado'])->name('alquilado.index');
     Route::get('disponible', [InventarioController::class, 'disponible'])->name('disponible.index');
  

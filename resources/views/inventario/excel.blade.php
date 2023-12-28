@@ -1,0 +1,30 @@
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Marca</th>
+            <th>Precio</th>
+            <th>Talla</th>
+            <th>Tipo</th>
+            <th>Color</th>
+            <th>Disponibilidad</th>
+            <th>Alquiler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($datos as $item)
+        <tr>
+            <td>{{$item['id']}}</td>
+            <td>{{$item['nombre']}}</td>
+            <td>{{$item['marca']}}</td>
+            <td>{{$item['precio']}}</td>
+            <td>{{$item['talla']}}</td>
+            <td>{{$item['tipo']}}</td>
+            <td>{{$item['color']}}</td>
+            <td>{{$item['disponibilidad']}}</td>
+            <td>{{$item['alquiler']}}</td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>

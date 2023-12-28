@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\WelcomeMail;
 use App\Models\Notificacion;
-use App\Models\{User, Role,Region,Sale};
+use App\Models\{User, Role};
 
 
 class UserController extends Controller
@@ -16,11 +16,7 @@ class UserController extends Controller
     public function index()
     { 
     
-         $users = User::join('regions', 'users.region_id', '=', 'regions.id')
-        ->join('sales', 'users.store_code', '=', 'sales.store_code')
-        ->select('users.*', 'regions.name as regionname', 'sales.store_name')
-        ->groupBy('users.id', 'regions.name', 'sales.store_name')
-        ->get();
+         $users = User::all();
     
         
         //$users = User::all();
@@ -29,10 +25,8 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::all();
-        $stores = DB::table('sales')->groupBy(['store_code', 'id'])->get();
 
-        $regions = Region::all();
-        return view('users.create', compact( "roles", "stores", "regions"));
+        return view('users.create', compact( "roles"));
     }
     public function store(Request $request)
     {
@@ -45,7 +39,6 @@ class UserController extends Controller
         $temp->email = $request->get('email');
         $temp->password = bcrypt($request->get('password'));
         $temp->role()->associate($request->get('role'));
-        $temp->store_code = $request->get('store');
         $temp->region_id = $request->get('region');
 
         if($request->get('company_admin')== NULL){
@@ -59,8 +52,6 @@ class UserController extends Controller
         $content = new \stdClass();
         $content->receiver = $request->get('name');
 
-        Mail::to($request->get('email'))->send(new WelcomeMail($request->get('email')));
-
         return redirect()->route('users.index')->with('success','User created successfully');
     }
     public function show($id)
@@ -73,11 +64,8 @@ class UserController extends Controller
         $user = user::find($id);
         $roles = Role::all();
         
-        $regions = Region::all();
 
-        $sales = DB::table('sales')->groupBy(['store_code', 'id'])->get();
-
-        return view('users.edit', compact(['user','roles','regions','sales']));
+        return view('users.edit', compact(['user','roles']));
     }
     public function profile()
     {

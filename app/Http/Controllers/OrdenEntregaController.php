@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Divisa;
+use App\Models\Inventario;
 use App\Models\ordenEntrega;
 use Illuminate\Http\Request;
 
@@ -20,11 +22,16 @@ class OrdenEntregaController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($id)
     {
-        return view("orden.create");
-        //
+        $numeroId = $id;
+        $products = Inventario::where('disponibilidad', 1)
+        ->select('id', 'nombre', 'precio')
+        ->get();
+  
+        return view("orden.create", compact('numeroId', 'products'));
     }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -32,32 +39,40 @@ class OrdenEntregaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre' => 'required|string',
-            'marca' => 'required|string',
-            'precio' => 'required|numeric',
-            'talla' => 'required|string',
-            'tipo' => 'required|string',
-            'color' => 'required|string',
-             'disponibilidad' => 'nullable|string',
+            'name' => 'required|string',
+            'apellido' => 'required|string',
+            'direccion' => 'required|string',
+            'telefono' => 'required|string',
+            'abonado' => 'required|numeric',
+            'inputSumaPrecio' => 'required|numeric',
         ]);
+        $arrayProducts = $request->input('products');
 
-            $producto = new ordenEntrega;
-            $producto->nombre = $request->input('nombre');
-            $producto->marca = $request->input('marca');
-            $producto->talla = $request->input('talla');
-            $producto->precio = $request->input('precio');
-            $producto->tipo = $request->input('tipo');
-            $producto->color = $request->input('color');
-            $producto->disponibilidad = $request->has('disponibilidad') && $request->input('disponibilidad') === 'on' ? 0 : 1;
-            // $producto->alquiler = $request->input('disponibilidad') === 'on' ? Carbon::now() :  null; // Establecerá la fecha y hora actual
+            $orden = new ordenEntrega;
+            $orden->name = $request->input('name');
+            $orden->apellido = $request->input('apellido');
+            $orden->direccion = $request->input('direccion');
+            $orden->telefono = $request->input('telefono');
+            $tasa =  Divisa::where('name', $request->input('divisas') )->select('tasa')->first();
+            $orden->abonado = $request->input('abonado') * $tasa->tasa;
+           
+            $orden->precio = $request->input('inputSumaPrecio');
+            $orden->fecha_de_prestamo = now();
+            $orden->fecha_de_entrega = now()->addDays(3);
 
       
-            $producto->save();
-            if($request->input('disponibilidad') === 'on'){
-                return redirect()->route('orden.create')->with('id', $producto->id);
+            $orden->save();
+            $orden->ordenInventario()->attach($arrayProducts);
+            foreach ($arrayProducts as $key => $id) {
+                $producto=Inventario::findOrFail($id);
+                $producto->disponibilidad = 0;
+                $producto->alquiler = now();
+                $producto->update();
             }
-            $success = array("message" => "Producto creado Satisfactoriamente", "alert" => "success");
-            return redirect()->route('inventario.index')->with('success',$success);
+
+  
+            $success = array("message" => "Orden creada Satisfactoriamente", "alert" => "success");
+            return redirect()->route('orden.index')->with('success',$success);
     }
 
     /**
