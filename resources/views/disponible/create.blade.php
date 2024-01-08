@@ -40,7 +40,7 @@
                                             {{ csrf_field() }}
                                             <div class="input-group mb-3">
                                                 <span class="input-group-addon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="side-menu__icon"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></span>
-                                                <input type="text" name="nombre" id="nombre" class="form-control input-sm" placeholder="nombre">
+                                                <input type="text" name="producto" id="producto" class="form-control input-sm" placeholder="producto">
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-addon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="side-menu__icon"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></span>
@@ -60,6 +60,10 @@
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-addon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="side-menu__icon"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></span>
+                                                <input type="text" name="almacen" id="almacen" class="form-control input-sm" placeholder="almacen">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-addon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="side-menu__icon"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></span>
                                                 <input type="text" name="color" id="color" class="form-control input-sm" placeholder="color">
                                             </div>
 
@@ -75,8 +79,8 @@
                             
 
                                             <div class="col-xs-12">
-                                                <button type="submit" class="btn btn-lg btn-primary">Create</button>
-                                                <a href="{{ route('inventario.index') }}" class="btn btn-lg btn-danger">Cancel</a>
+                                                <button type="submit" class="btn btn-lg btn-primary">Crear</button>
+                                                <a href="{{ route('inventario.index') }}" class="btn btn-lg btn-danger">Cancelar</a>
                                             </div>
                                         </form>
                                     </div>

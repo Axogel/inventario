@@ -25,18 +25,7 @@
 												<path d="M0 0h24v24H0V0z" fill="none"/><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
 											</svg>
 										</a>
-										<div class="mt-1">
-											<form class="form-inline">
-												<div class="search-element">
-													<input type="search" class="form-control header-search" placeholder="Search…" aria-label="Search" tabindex="1">
-													<button class="btn btn-primary-color" type="submit">
-													<svg class="header-icon search-icon" x="1008" y="1248" viewBox="0 0 24 24"  height="100%" width="100%" preserveAspectRatio="xMidYMid meet" focusable="false">
-														<path d="M0 0h24v24H0V0z" fill="none"/><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-													 </svg>
-													</button>
-												</div>
-											</form>
-										</div><!-- SEARCH -->
+					
 										<div class="dropdown   header-fullscreen pl-5" >
 											<a  class="nav-link icon full-screen-link p-0"  id="fullscreen-button">
 												<svg class="header-icon" x="1008" y="1248" viewBox="0 0 24 24"  height="100%" width="100%" preserveAspectRatio="xMidYMid meet" focusable="false"><path d="M7,14 L5,14 L5,19 L10,19 L10,17 L7,17 L7,14 Z M5,10 L7,10 L7,7 L10,7 L10,5 L5,5 L5,10 Z M17,17 L14,17 L14,19 L19,19 L19,14 L17,14 L17,17 Z M14,5 L14,7 L17,7 L17,10 L19,10 L19,5 L14,5 Z"></path></svg>
@@ -45,24 +34,22 @@
 										<div class="dropdown header-notify pl-4">
 											<a class="nav-link icon p-0" data-toggle="dropdown">
 												<svg class="header-icon" x="1008" y="1248" viewBox="0 0 24 24"  height="100%" width="100%" preserveAspectRatio="xMidYMid meet" focusable="false"><path opacity=".3" d="M12 6.5c-2.49 0-4 2.02-4 4.5v6h8v-6c0-2.48-1.51-4.5-4-4.5z"></path><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-11c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2v-5zm-2 6H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6zM7.58 4.08L6.15 2.65C3.75 4.48 2.17 7.3 2.03 10.5h2a8.445 8.445 0 013.55-6.42zm12.39 6.42h2c-.15-3.2-1.73-6.02-4.12-7.85l-1.42 1.43a8.495 8.495 0 013.54 6.42z"></path></svg>
-												<span class="pulse "></span>
+												
+												@if($notificaciones->isNotEmpty() )<span class="pulse "></span> @endif
 											</a>
 											<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow  animated">
 											@foreach($notificaciones as $notificacion)
-												<a href="#" class="dropdown-item d-flex pb-3">
+												<a href="{{ route('orden.index') }}" class="dropdown-item d-flex pb-3">
 													<svg class="header-icon mr-4" x="1008" y="1248" viewBox="0 0 24 24" height="100%" width="100%" preserveAspectRatio="xMidYMid meet" focusable="false">
 														<path d="M15 11V4H4v8.17l.59-.58.58-.59H6z" opacity=".3"/>
 														<path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-5 7c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10zM4.59 11.59l-.59.58V4h11v7H5.17l-.58.59z"/>
 													</svg>
 													<div>
 														<div class="font-weight-bold">Entrega Retrasada.</div>
-														<div class="small text-muted">{{$notificacion->descripcion}}</div>
+														<div class="small text-muted">{{$notificacion->descripcion}} {{$notificacion->id_nota}}</div>
 													</div>
 												</a>
 											@endforeach
-												<div class=" text-center p-2 border-top">
-													<a href="#" class="">View All Notifications</a>
-												</div>
 											</div>
 										</div>
 										<div class="dropdown profile-dropdown">

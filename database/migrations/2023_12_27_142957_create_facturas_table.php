@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('RIF');
             $table->string('control');
             $table->double('subtotal');
+            $table->boolean("factura")->default(1);
             $table->string('divisa');
             $table->timestamps();
         });

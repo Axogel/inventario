@@ -28,13 +28,13 @@
 										<div class="card-title">Editar Producto</div>
                                     </div>
                                     <div class="card-body">
-                                        <form method="POST" action="{{ route('inventario.update', $product->id) }}"  role="form">
+                                        <form method="POST" action="{{ route('inventario.update', $product->codigo) }}"  role="form">
                                             {{ csrf_field() }}
                                             @method('PUT')
 
                                             <div class="input-group mb-3">
                                                 <span class="input-group-addon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="side-menu__icon"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></span>
-                                                <input type="text" name="nombre" id="nombre" value="{{$product->nombre}}"  class="form-control input-sm" placeholder="nombre">
+                                                <input type="text" name="producto" id="producto" value="{{$product->producto}}"  class="form-control input-sm" placeholder="nombre">
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-addon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="side-menu__icon"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></span>
@@ -48,9 +48,25 @@
                                                 <span class="input-group-addon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="side-menu__icon"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></span>
                                                 <input type="text" name="talla" id="talla" value="{{$product->talla}}" class="form-control input-sm" placeholder="talla">
                                             </div>
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-addon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="side-menu__icon"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></span>
-                                                <input type="text" name="tipo" id="tipo" value="{{$product->tipo}}" class="form-control input-sm" placeholder="tipo. ejm: pantalon, zapato y etc..">
+                                            <div class="input-group mb-3 w-100">
+
+                                                <span class="card-title">Seleccione el tipo de producto Venta o Alquiler</span>
+
+                                                <select  class="select2 " name="tipo" id="tipo" style="width : 100%">
+                                                            <option value="venta" @if($product->tipo == "venta") selected @endif>Venta</option>
+                                                            <option value="alquiler " @if($product->tipo == "alquiler") selected @endif>Alquiler</option>
+                                                </select>
+                                            </div>
+                                            <div class="input-group mb-3 w-100">
+
+                                                <span class="card-title"> Seleccione el almacen del producto</span>
+
+                                                <select  class="select2 " name="almacen" id="almacen" style="width : 100%">
+                                                            <option value="Tienda" @if($product->almacen == "Tienda") selected @endif>Tienda</option>
+                                                            <option value="Almacen-1" @if($product->almacen == "Almacen-1") selected @endif>Almacen 1</option>
+                                                            <option value="alamacen-2" @if($product->almacen == "alamacen-2") selected @endif>alamacen 2</option>
+
+                                                </select>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-addon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="side-menu__icon"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></span>

@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Inventario extends Model
-{
+{    protected $primaryKey = 'codigo';
+
     protected $fillable = [
-        'ID', 'nombre', 'marca', 'precio', 'talla', 'tipo', 'color', 'disponibilidad', 'alquiler',
+        'codigo', 'nombre', 'marca', 'precio', 'talla','almacen', 'tipo', 'color', 'disponibilidad', 'alquiler',
     ];
     use HasFactory;
 

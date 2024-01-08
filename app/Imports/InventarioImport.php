@@ -18,21 +18,35 @@ class InventarioImport implements ToModel, WithHeadingRow, WithChunkReading, Wit
     */
     public function model(array $row)
     {
+    //    $var = Inventario::all();
+    //     dd($var);
+
         if($row['disponibilidad'] === 0 ){
             $alquilado = $row['alquiler'];
         }
         else{
             $alquilado = null;
         }
+        if($row['disponibilidad'] == "disponible"){
+            $disponibilidad = 1;
+        }elseif($row['disponibilidad'] == "alquilado"){
+            $disponibilidad = 0;
+
+        }else {
+            $disponibilidad = $row['disponibilidad'];
+        }
         return new Inventario([
-            'nombre' => $row['nombre'],
             'marca' => $row['marca'],
             'precio' => $row['precio'],
-            'talla' => $row['talla'],
             'tipo' => $row['tipo'],
+
+            'talla' => $row['talla'],
             'color' => $row['color'],
-            'disponibilidad' => $row['disponibilidad'],
+            'almacen' => $row['almacen'],
+            'disponibilidad' => $disponibilidad,
             'alquiler' => $alquilado,
+            'producto' => $row['producto'],
+
         ]);
     }
     public function chunkSize(): int

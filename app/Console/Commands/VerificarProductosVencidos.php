@@ -20,14 +20,17 @@ class VerificarProductosVencidos extends Command
             ->get();
 
             if (!$productosVencidos->isEmpty()) {  
+                Notificacion::truncate();
+
+
                 foreach ($productosVencidos as $item) {
 
-                    $exist = Notificacion::where('id_nota', $item->id)->exists();
+                    $exist = Notificacion::where('id_nota', $item->codigo )->exists();
 
                     if (!$exist) {
                         $notificacion = new Notificacion;
-                        $notificacion->id_nota = $item->id;
-                        $notificacion->descripcion = $item->nombre . " marca ". $item->marca . " de color ". $item->color;
+                        $notificacion->id_nota = $item->codigo ;
+                        $notificacion->descripcion = $item->producto . " marca ". $item->marca . " de color ". $item->color;
                         $notificacion->save();
                     }
 

@@ -117,8 +117,8 @@
                                                 </select>
                                             </div>
                                             <div class="col-xs-12">
-                                                <button type="submit" class="btn btn-lg btn-primary">Create</button>
-                                                <a href="{{ route('users.index') }}" class="btn btn-lg btn-danger">Cancel</a>
+                                                <button type="submit" class="btn btn-lg btn-primary">Crear</button>
+                                                <a href="{{ route('users.index') }}" class="btn btn-lg btn-danger">Cancelar</a>
                                             </div>
                                         </form>
                                     </div>

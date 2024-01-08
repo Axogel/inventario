@@ -56,13 +56,14 @@
                                             </div>
 
                                             <!-- Abonado Logic -->
-                                            <div class="input-group mb-3">
-                                                    <span class="input-group-addon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="side-menu__icon"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></span>
-                                                    <input type="numeric" name="abonado" id="abonado" class="form-control input-sm" placeholder="abonado">
-                                            </div>
+                                  
                                             <div class="input-group mb-3 w-100">
 
                                                 <span class="card-title"> Seleccione la Moneda con la que va a abonar</span>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-addon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="side-menu__icon"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></span>
+                                                    <input type="numeric" name="abonado" id="abonado" class="form-control input-sm" placeholder="abonado">
+                                            </div>
 
                                                 <select  class="select2 " name="divisas" id="divisas" style="width : 100%">
                                                             <option value="Bs" selected>BS</option>
@@ -76,8 +77,8 @@
                                                 <span class="card-title"> Seleccione los Articulos</span>
                                                 <select name="products[]" id="products" class="select2" multiple style="width : 100%">
                                                         @foreach($products as $product)
-                                                            <option value="{{ $product->id }}" @if($product->id == $numeroId) selected @endif>
-                                                                {{ $product->nombre }}
+                                                            <option value="{{ $product->codigo }}" @if($product->codigo == $numeroId) selected @endif>
+                                                                {{ $product->producto }}
                                                             </option>
                                                         @endforeach
                                                 </select>
@@ -90,8 +91,8 @@
                             
 
                                             <div class="col-xs-12">
-                                                <button type="submit" class="btn btn-lg btn-primary">Create</button>
-                                                <a href="{{ route('orden.index') }}" class="btn btn-lg btn-danger">Cancel</a>
+                                                <button type="submit" class="btn btn-lg btn-primary">Crear</button>
+                                                <a href="{{ route('orden.index') }}" class="btn btn-lg btn-danger">Cancelar</a>
                                             </div>
                                         </form>
                                     </div>
@@ -122,7 +123,7 @@ $(document).ready(function() {
 
         // Iterar sobre los productos y sumar los precios de los productos seleccionados
         miVariableEnJS.forEach(function(product) {
-            if (selectedIds.includes(product.id.toString())) {
+            if (selectedIds.includes(product.codigo.toString())) {
                 totalPrecio += product.precio;
             }
         });

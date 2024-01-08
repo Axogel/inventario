@@ -152,8 +152,10 @@
 <script>
     $(document).ready(function() {
        $('#divisas').on('change', function() {
+        // Obtener las IDs seleccionadas
         let selectedIds = $(this).val();
 
+        // Obtener la lista de productos desde Laravel
         let orden = @json($orden);
         let tasa = @json($divisa);
         let total = orden.precio

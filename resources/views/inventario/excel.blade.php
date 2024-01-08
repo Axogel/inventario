@@ -1,8 +1,8 @@
 <table>
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Nombre</th>
+            <th>Codigo</th>
+            <th>producto</th>
             <th>Marca</th>
             <th>Precio</th>
             <th>Talla</th>
@@ -15,14 +15,18 @@
     <tbody>
         @foreach($datos as $item)
         <tr>
-            <td>{{$item['id']}}</td>
-            <td>{{$item['nombre']}}</td>
+            <td>{{$item['codigo']}}</td>
+            <td>{{$item['producto']}}</td>
             <td>{{$item['marca']}}</td>
             <td>{{$item['precio']}}</td>
             <td>{{$item['talla']}}</td>
             <td>{{$item['tipo']}}</td>
             <td>{{$item['color']}}</td>
-            <td>{{$item['disponibilidad']}}</td>
+            @if($item['disponibilidad'] ==1)
+                <td>Disponible</td>
+            @else 
+                <td>Alquilado</td>
+             @endif
             <td>{{$item['alquiler']}}</td>
         </tr>
         @endforeach

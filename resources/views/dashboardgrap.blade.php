@@ -23,16 +23,7 @@
                                         </div>
                                     </div>
 							    </div>
-							<div class="page-rightheader ml-auto d-lg-flex d-none">
-									<div class="ml-5 mb-0">
-									<a class="btn btn-white date-range-btn" href="#" id="daterange-btn">
-										<svg class="header-icon2 mr-3" x="1008" y="1248" viewBox="0 0 24 24"  height="100%" width="100%" preserveAspectRatio="xMidYMid meet" focusable="false">
-											<path d="M5 8h14V6H5z" opacity=".3"/><path d="M7 11h2v2H7zm12-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-4 3h2v2h-2zm-4 0h2v2h-2z"/>
-										</svg> <span>Select Date
-                                        <i class="fa fa-caret-down"></i></span>
-									</a>
-								</div>
-							</div>
+
 						</div>
 						<!--End Page header-->
 @endsection
@@ -45,55 +36,65 @@
 									<div class="col-xl-2 col-lg-2 col-md-6">
 										<div class="card">
 											<div class="card-body">
-                                                <div class="feature">
+                                            <a href="{{route('libroMayor.index')}}">    
+                                            <div class="feature">
                                                     <i class="fa fa-line-chart feature-icon text-danger"></i>
                                                     <h3 class="font-weight-bold mb-0 mt-4" id='comps'></h3>
-                                                    <h4 class="card-title">Comps</h4>
+                                                    <h4 class="card-title">Libro Mayor</h4>
                                                 </div>
+                                            </a>
 											</div>
 										</div>
 									</div>
 									<div class="col-xl-2 col-lg-2 col-md-6">
 										<div class="card">
 											<div class="card-body">
-                                                <div class="feature">
+                                            <a href="{{route('inventario.index')}}">    
+                                            <div class="feature">
                                                     <i class="fa fa-certificate feature-icon text-warning"></i>
                                                     <h2 class="font-weight-bold mb-0 mt-4" id='promos'></h2>
-                                                    <h4 class="card-title">Promos</h4>
+                                                    <h4 class="card-title">Inventario</h4>
                                                 </div>
+                                            </a>
 											</div>
 										</div>
 									</div>
 									<div class="col-xl-2 col-lg-2 col-md-6">
 										<div class="card">
 											<div class="card-body">
-                                                <div class="feature">
+                                            <a href="{{route('libroDiario.index')}}">    
+                                            <div class="feature">
                                                     <i class="fa fa-credit-card feature-icon text-primary"></i>
                                                     <h3 class="font-weight-bold mb-0 mt-4" id='voids'></h3>
-                                                    <h4 class="card-title">Voids</h4>
+                                                    <h4 class="card-title">Libro Diario</h4>
                                                 </div>
+                                            </a>
 											</div>
 										</div>
 									</div>
 									<div class="col-xl-2 col-lg-2 col-md-6">
 										<div class="card">
 											<div class="card-body">
-                                                <div class="feature">
+                                            <a href="{{route('divisas.create')}}">    
+                                            <div class="feature">
                                                     <i class="fa fa-money feature-icon text-success"></i>
                                                     <h3 class="font-weight-bold mb-0 mt-4" id='taxes'></h3>
-                                                    <h4 class="card-title">Taxes</h4>
+                                                    <h4 class="card-title">Divisas</h4>
                                                 </div>
+                                            </a>
 											</div>
 										</div>
 									</div>
 									<div class="col-xl-2 col-lg-2 col-md-6">
 										<div class="card">
 											<div class="card-body">
-                                                <div class="feature">
+                                            <a href="{{route('orden.index')}}">    
+                                            <div class="feature">
                                                     <i class="fa fa-cart-plus feature-icon text-secondary"></i>
                                                     <h3 class="font-weight-bold mb-0 mt-4" id='grssales'></h3>
-                                                    <h4 class="card-title">Grs Sales</h4>
+                                                    <h4 class="card-title">Ordenes</h4>
                                                 </div>
+                                            </a>
 											</div>
 										</div>
 									</div>
@@ -106,7 +107,7 @@
 										<div class="col-xl-12 col-md-12 col-lg-12">
                                             <div class="card">
                                                 <div class="card-header">
-                                                    <div class="card-title">Net Sales</div>
+                                                    <div class="card-title">Ganancias</div>
                                                 </div>
                                                 <div class="card-body">
                                                     <div id="canvasCont">

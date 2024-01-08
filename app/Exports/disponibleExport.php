@@ -14,21 +14,14 @@ class disponibleExport implements FromCollection, WithHeadings
     public function collection()
     {
         return Inventario::where('disponibilidad', 1)
-        ->select('ID', 'Nombre', 'Marca', 'Precio', 'Talla', 'Tipo', 'Color')
+        ->select('codigo', 'Producto', 'Marca', 'Precio', 'Talla', 'Tipo', 'Color', 'almacen')
         ->get();
     
     }
     public function headings(): array
     {
-        // Retorna los nombres de las columnas como encabezados
         return [
-            'ID',
-            'Nombre',
-            'Marca',
-            'Precio',
-            'Talla',
-            'Tipo',
-            'Color',
+            'Codigo', 'Producto', 'Marca', 'Precio', 'Talla', 'Tipo', 'Color', 'almacen'
         ];
     }
 }

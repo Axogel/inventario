@@ -4,8 +4,9 @@ namespace App\Exports;
 
 use App\Models\Inventario;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class AlquiladoExport implements FromCollection
+class AlquiladoExport implements FromCollection, WithHeadings
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -13,20 +14,14 @@ class AlquiladoExport implements FromCollection
     public function collection()
     {
         return Inventario::where('disponibilidad', 0)
-        ->select('ID', 'Nombre', 'Marca', 'Precio', 'Talla', 'Tipo', 'Color')
-        ->get();   
+        ->select('codigo', 'Producto', 'Marca', 'Precio', 'Talla', 'Tipo', 'Color', 'almacen')
+        ->get();
+    
     }
     public function headings(): array
     {
-        // Retorna los nombres de las columnas como encabezados
         return [
-            'ID',
-            'Nombre',
-            'Marca',
-            'Precio',
-            'Talla',
-            'Tipo',
-            'Color',
+            'Codigo', 'Producto', 'Marca', 'Precio', 'Talla', 'Tipo', 'Color', 'almacen'
         ];
     }
 }

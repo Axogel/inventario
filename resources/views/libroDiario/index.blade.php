@@ -55,38 +55,7 @@
 
                                                 </thead>
                                                 <tbody >
-                                                    @if($facturas->isNotEmpty())
-                                                        @foreach($facturas as $factura)
-                                                            <tr class="bold">
-                                                                <td>{{$factura->id}}</td>
-                                                                <td>{{$factura->name}}</td>
-                                                                <td>{{$factura->direccion}}</td>
-                                                                <td>{{$factura->Telefono}}</td>
-                                                                <td>{{$factura->subtotal }}</td>
-                                                                <td>{{$factura->divisa}}</td>
-                                                                <td>
-                                                                    @php 
-                                                                    if ($factura->factura == 1){
-                                                                        echo "Factura";
-                                                                    } else{
-                                                                        echo "Recibo";
-                                                                    }
-                                                                    @endphp
-                                                                </td>
 
-                                                                <td>{{$factura->created_at}}</td>
-
-                                                       
-                                                     
-                                               
-                                                            </tr>
-                                            
-                                                        @endforeach
-                                                    @else
-                                                        <tr>
-                                                            <td colspan="8">No one there!</td>
-                                                        </tr>
-                                                    @endif
                                                 </tbody>
                                             </table>
                                         </div>

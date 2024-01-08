@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Events\NotificacionesCargadas;
 
 return new class extends Migration
 {
@@ -12,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('notificacions', function (Blueprint $table) {
+        Schema::create('libro_mayors', function (Blueprint $table) {
             $table->id();
-            $table->integer("id_nota");
-            $table->string('descripcion');
+            $table->date("ultimo_saldo");
+            $table->decimal("saldo_inicial");
+            $table->decimal('saldo');
+            $table->string('cuenta');
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('notificacions');
+        Schema::dropIfExists('libro_mayors');
     }
 };

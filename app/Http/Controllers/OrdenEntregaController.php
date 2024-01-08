@@ -6,6 +6,7 @@ use App\Models\Divisa;
 use App\Models\Inventario;
 use App\Models\ordenEntrega;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 
 class OrdenEntregaController extends Controller
 {
@@ -14,6 +15,7 @@ class OrdenEntregaController extends Controller
      */
     public function index()
     {
+        Artisan::call('verificar:productos_vencidos');
         $ordenes = ordenEntrega::all();
         return view('orden.index', compact('ordenes'));
         //
@@ -26,7 +28,7 @@ class OrdenEntregaController extends Controller
     {
         $numeroId = $id;
         $products = Inventario::where('disponibilidad', 1)
-        ->select('id', 'nombre', 'precio')
+        ->select('codigo', 'producto', 'precio')
         ->get();
   
         return view("orden.create", compact('numeroId', 'products'));
@@ -54,7 +56,7 @@ class OrdenEntregaController extends Controller
             $orden->direccion = $request->input('direccion');
             $orden->telefono = $request->input('telefono');
             $tasa =  Divisa::where('name', $request->input('divisas') )->select('tasa')->first();
-            $orden->abonado = $request->input('abonado') * $tasa->tasa;
+            $orden->abonado = $request->input('abonado') / $tasa->tasa;
            
             $orden->precio = $request->input('inputSumaPrecio');
             $orden->fecha_de_prestamo = now();
@@ -63,8 +65,8 @@ class OrdenEntregaController extends Controller
       
             $orden->save();
             $orden->ordenInventario()->attach($arrayProducts);
-            foreach ($arrayProducts as $key => $id) {
-                $producto=Inventario::findOrFail($id);
+            foreach ($arrayProducts as $key => $codigo) {
+                $producto=Inventario::findOrFail($codigo);
                 $producto->disponibilidad = 0;
                 $producto->alquiler = now();
                 $producto->update();

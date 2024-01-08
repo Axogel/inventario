@@ -3,7 +3,7 @@ use Illuminate\Support\Facades\Route;
 use App\Mail\Transfer;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\Authenticate;
-use App\Http\Controllers\{DivisaController, FacturaController, HomeController,UserController,InventarioController, OrdenEntregaController};
+use App\Http\Controllers\{DivisaController, FacturaController, HomeController,UserController,InventarioController, LibroDiarioController, LibroMayorController, OrdenEntregaController};
 
 
 
@@ -27,6 +27,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
 Route::middleware([Authenticate::class])->group(function () {
 
     Route::resource('factura', FacturaController::class);
+    Route::resource('libroMayor', LibroMayorController::class);
+    Route::resource('libroDiario', LibroDiarioController::class);
+
     Route::get('factura/create/{id}', [FacturaController::class, 'create'])->name('factura.crear');
     Route::resource('divisas', DivisaController::class);
 
@@ -36,6 +39,7 @@ Route::middleware([Authenticate::class])->group(function () {
     Route::get('orden/create/{id}', [OrdenEntregaController::class, 'create'])->name('orden.crear');
     Route::get('alquilado', [InventarioController::class, 'alquilado'])->name('alquilado.index');
     Route::get('disponible', [InventarioController::class, 'disponible'])->name('disponible.index');
+
  
     
     

@@ -33,6 +33,10 @@
 								<div class="card">
 									<div class="card-header">
 										<h3 class="card-title"></h3>
+                                        <div class="form-group">
+                                                <label for="fecha">Buscar:</label>
+                                                <input type="text" id="search" name="search" class="form-control" placeholder="buscador">
+                                            </div>
 										<div class="card-options">
 
 											<div class="btn-group ml-5 mb-0">
@@ -49,11 +53,11 @@
                                                     <th class="border-bottom-0">apellido</th>
                                                     <th class="border-bottom-0">Direccion</th>
                                                     <th class="border-bottom-0">telefono</th>
-                                                    <th class="border-bottom-0">Falta por pagar</th>
+                                                    <th class="border-bottom-0">Faltante</th>
                                                     <th class="border-bottom-0">precio</th>
-                                                    <th class="border-bottom-0">fecha_de_prestamo</th>
-                                                    <th class="border-bottom-0">fecha_de_entrega</th>
-                                                    <th class="border-bottom-0">Productos</th>
+                                                    <th class="border-bottom-0">prestamo</th>
+                                                    <th class="border-bottom-0">entrega</th>
+                                                    <th class="border-bottom-0">Lista de los Productos</th>
                                                     <th></th>
                                                     <th></th>
 
@@ -62,7 +66,7 @@
                                                 <tbody >
                                                     @if($ordenes->isNotEmpty())
                                                         @foreach($ordenes as $orden)
-                                                            <tr class="bold">
+                                                            <tr class="bold orden-row">
                                                                 <td>{{$orden->id}}</td>
                                                                 <td>{{$orden->name}}</td>
                                                                 <td>{{$orden->apellido}}</td>
@@ -78,7 +82,7 @@
                                                                 <summary>Productos</summary>
                                                                 <ul>
                                                                     @forEach( $orden->ordenInventario as $product)
-                                                                         <li>{{$product->nombre}}</li>
+                                                                         <li>{{$product->producto}}</li>
                                                                     @endforeach
 </ul>
                                                                 </details></td>
@@ -152,6 +156,26 @@
 <script src="{{URL::asset('assets/js/datatables.js')}}"></script>
 <!-- Select2 js -->
 <script src="{{URL::asset('assets/plugins/select2/select2.full.min.js')}}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.getElementById('search');
+        const productoRows = document.querySelectorAll('.orden-row');
+
+        searchInput.addEventListener('input', function () {
+            const searchTerm = searchInput.value.toLowerCase();
+
+            productoRows.forEach(function (row) {
+                const textoFila = row.innerText.toLowerCase();
+
+                if (textoFila.includes(searchTerm)) {
+                    row.style.display = ''; 
+                } else {
+                    row.style.display = 'none'; 
+                }
+            });
+        });
+    });
+</script>
 
 
 @endsection

@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Events\NotificacionesCargadas;
 
 return new class extends Migration
 {
@@ -12,10 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('notificacions', function (Blueprint $table) {
+        Schema::create('libro_diarios', function (Blueprint $table) {
             $table->id();
-            $table->integer("id_nota");
-            $table->string('descripcion');
+            $table->date('fecha');
+            $table->string('concepto');
+            $table->decimal('debe');
+            $table->decimal('haber');
+            //Relaciones
+            $table->foreignId('LibroMayorId')->references('id')->on('libro_mayors')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
@@ -25,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('notificacions');
+        Schema::dropIfExists('libro_diarios');
     }
 };

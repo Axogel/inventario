@@ -22,7 +22,7 @@ return new class extends Migration
             $table->dateTime('fecha_de_prestamo');
             $table->dateTime('fecha_de_entrega');
             $table->unsignedBigInteger('product_id')->nullable(); // Puedes cambiar a nullable si es opcional
-            $table->foreign('product_id')->references('id')->on('inventarios')->onDelete('cascade');
+            $table->foreign('product_id')->references('codigo')->on('inventarios')->onDelete('cascade');
             $table->timestamps();
         });
     }

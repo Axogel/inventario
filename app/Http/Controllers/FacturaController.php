@@ -6,6 +6,8 @@ use App\Models\Divisa;
 use App\Models\Factura;
 use App\Models\ordenEntrega;
 use Illuminate\Http\Request;
+use Barryvdh\Snappy\Facades\SnappyPdf;
+
 
 class FacturaController extends Controller
 {
@@ -38,7 +40,8 @@ class FacturaController extends Controller
      */
     public function store(Request $request)
     {
-        // Validación de los datos del formulario
+
+        $success = array("message" => "Factura creada Satisfactoriamente", "alert" => "success");
         $request->validate([
             'name' => 'required|string',
             'direccion' => 'required|string',
@@ -48,30 +51,41 @@ class FacturaController extends Controller
             'inputSumaPrecio' => 'required|numeric',
             'divisas' => 'required|string',
         ]);
-    
-        // Creación del objeto en la base de datos
-        // Supongamos que tienes un modelo llamado "Empresa"
+        $orden = ordenEntrega::findOrFail($request->input('ordenId'));
+        $products =  $orden->ordenInventario;
+        foreach ($products as $product) {
+   
+            ($product->tipo == "venta") ?$product->disponibilidad =  2 : $product->disponibilidad = 1;
+            $product->alquiler = null;
+            $product->save();
+        }
+        ordenEntrega::find($request->input('ordenId'))->delete();
+
         $factura = new Factura;
         $factura->name = $request->input('name');
         $factura->direccion = $request->input('direccion');
         $factura->telefono = $request->input('telefono');
         $factura->RIF = $request->input('rif');
+        $factura->factura =  $request->has('factura') ? 1 : 0;
         $factura->control= $request->input('control');
         $factura->subtotal = $request->input('inputSumaPrecio');
         $factura->divisa = $request->input('divisas');
+
         $factura->save();
 
 
+        if($request->input('factura') == "on"){
+            $pdf = app('dompdf.wrapper');
+            $factura->products = json_decode($request->input('products'));
+            $facturaArray = $factura->toArray();
 
+            $pdf->loadView('factura.factura', compact('factura'));      
+                  return $pdf->download('mi-archivo.pdf');
 
+        }
 
-
-
-
-    
-        // Puedes hacer más cosas aquí, como redireccionar a una vista o devolver una respuesta JSON
-        $success = array("message" => "Factura creada Satisfactoriamente", "alert" => "success");
-        return redirect()->route('factura.index')->with('success',$success);    }
+        return redirect()->route('factura.index')->with('success',$success);   
+     }
     
 
     /**
@@ -97,6 +111,7 @@ class FacturaController extends Controller
     {
         //
     }
+
 
     /**
      * Remove the specified resource from storage.

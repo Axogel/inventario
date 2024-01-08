@@ -45,8 +45,8 @@
                                         
 
                                             <div class="col-xs-12">
-                                                <button type="submit" class="btn btn-lg btn-primary">Create</button>
-                                                <a href="{{ route('region.index') }}" class="btn btn-lg btn-danger">Cancel</a>
+                                                <button type="submit" class="btn btn-lg btn-primary">Crear</button>
+                                                <a href="{{ route('region.index') }}" class="btn btn-lg btn-danger">Cancelar</a>
                                             </div>
                                         </form>
                                     </div>

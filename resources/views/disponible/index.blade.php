@@ -33,6 +33,10 @@
 								<div class="card">
 									<div class="card-header">
 										<h3 class="card-title"></h3>
+                                        <div class="form-group">
+                                                <label for="fecha">Buscar:</label>
+                                                <input type="text" id="search" name="search" class="form-control" placeholder="buscador">
+                                            </div>
 										<div class="card-options">
                                             <div class="btn-group ml-5 mb-0">
                                                 <a class="btn btn-primary" href="{{ route('disponible.export') }}"><i class="fa fa-download mr-2"></i>Descargar Excel</a>
@@ -47,8 +51,8 @@
 										<div class="table-responsive">
                                             <table id="example" class="table table-bordered text-nowrap key-buttons">
                                                 <thead>
-                                                    <th class="border-bottom-0">ID</th>
-                                                    <th class="border-bottom-0">nombre</th>
+                                                    <th class="border-bottom-0">Codigo</th>
+                                                    <th class="border-bottom-0">producto</th>
                                                     <th class="border-bottom-0">marca</th>
                                                     <th class="border-bottom-0">talla</th>
                                                     <th class="border-bottom-0">tipo</th>
@@ -59,9 +63,9 @@
                                                 <tbody>
                                                     @if($inventario->isNotEmpty())
                                                         @foreach($inventario as $producto)
-                                                            <tr class="bold">
-                                                                <td>{{$producto->id}}</td>
-                                                                <td>{{$producto->nombre}}</td>
+                                                            <tr class="bold producto-row">
+                                                                <td>{{$producto->codigo}}</td>
+                                                                <td>{{$producto->producto}}</td>
                                                                 <td>{{$producto->marca}}</td>
                                                                 <td>{{$producto->talla}}</td>
                                                                 <td>{{$producto->tipo}}</td>
@@ -75,12 +79,12 @@
                                                                     @endif
                                                                 </td>
 
-                                                                <td><a class="btn btn-success btn-xs" href="{{ route('orden.crear', ['id' => $producto->id]) }}" ><span class=" fa fa-money"></span> </a></td>
+                                                                <td><a class="btn btn-success btn-xs" href="{{ route('orden.crear', ['id' => $producto->codigo]) }}" ><span class=" fa fa-money"></span> </a></td>
 
 
-                                                                <td><a class="btn btn-primary btn-xs" href="{{ route('inventario.edit', ['id' => $producto->id]) }}" ><span class="fa fa-pencil"></span></a></td>
+                                                                <td><a class="btn btn-primary btn-xs" href="{{ route('inventario.edit', ['id' => $producto->codigo]) }}" ><span class="fa fa-pencil"></span></a></td>
                                                                 <td>
-                                                                    <form action="{{ route('inventario.destroy', ['id' => $producto->id]) }}" method="delete">
+                                                                    <form action="{{ route('inventario.destroy', ['id' => $producto->codigo]) }}" method="delete">
                                                                         {{csrf_field()}}
                                                                         <input name="_method" type="hidden" value="DELETE">
                                                                         <button class="btn btn-danger btn-xs" type="submit"><span class="fa fa-trash"></span></button>
@@ -135,6 +139,26 @@
 <script src="{{URL::asset('assets/js/datatables.js')}}"></script>
 <!-- Select2 js -->
 <script src="{{URL::asset('assets/plugins/select2/select2.full.min.js')}}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.getElementById('search');
+        const productoRows = document.querySelectorAll('.producto-row');
+
+        searchInput.addEventListener('input', function () {
+            const searchTerm = searchInput.value.toLowerCase();
+
+            productoRows.forEach(function (row) {
+                const textoFila = row.innerText.toLowerCase();
+
+                if (textoFila.includes(searchTerm)) {
+                    row.style.display = ''; 
+                } else {
+                    row.style.display = 'none'; 
+                }
+            });
+        });
+    });
+</script>
 
 <script type="text/javascript">
     var openFile = function(event) {

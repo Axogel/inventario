@@ -7,7 +7,7 @@
 						<!--Page header-->
 						<div class="page-header">
 							<div class="page-leftheader">
-								<h4 class="page-title">Crear Orden de Entrega</h4>
+								<h4 class="page-title">Divisa</h4>
 							</div>
 							<div class="page-rightheader ml-auto d-lg-flex d-none">
 								<ol class="breadcrumb">
@@ -33,13 +33,13 @@
 							<div class="col-xl-12 col-lg-12 col-md-12">
 								<div class="card">
                                     <div class="card-header">
-										<div class="card-title">Actualizar tasa de divisas</div>
+										<div class="card-title">Actualizar tasa de divisas - USD</div>
                                     </div>
                                     <div class="card-body">
                                     @foreach($divisas as $tasa)
+                                    @if($tasa->name != "USD")
                                     
-
-                                        <form class="p-5" method="POST" action="{{ route('divisas.update', $tasa->id) }}"  role="form">
+                                    <form class="p-5" method="POST" action="{{ route('divisas.update', $tasa->id) }}"  role="form">
                                             {{ csrf_field() }}
                                             @method('PUT')
 
@@ -55,6 +55,9 @@
                                                 <button type="submit" class="btn btn-lg btn-primary">Actualizar</button>
                                             </div>
                                         </form>
+                                    @endif
+                                    
+
                                         @endforeach
                                     </div>
 								</div>
