@@ -31,7 +31,11 @@
 						<div class="row row-deck">
 							<div class="col-xl-12 col-lg-12 col-md-12">
 								<div class="card">
+
 									<div class="card-header">
+                                    <div class="btn-group ml-5 mb-0">
+                                                <a class="btn btn-primary" href="{{route('factura.new')}}"><i class="fa fa-plus mr-2"></i>Añadir un  Producto</a>
+											</div>
 										<h3 class="card-title"></h3>
 										<div class="card-options">
 
@@ -39,7 +43,7 @@
 										</div>
 									</div>
 									<div class="card-body">
-										<div class="table-responsive">
+										<div class="table-responsive table-responsive-sm">
                                             <table id="example" class="table table-bordered text-nowrap key-buttons ">
                                                 <thead>
                                                     <th class="border-bottom-0">ID</th>
@@ -51,6 +55,7 @@
                                                     <th class="border-bottom-0">tipo</th>
 
                                                     <th class="border-bottom-0">Fecha</th>
+                                                    <th></th>
 
 
                                                 </thead>
@@ -75,6 +80,13 @@
                                                                 </td>
 
                                                                 <td>{{$factura->created_at}}</td>
+                                                                <td>
+                                                                <form action="{{ route('factura.destroy', ['factura' => $factura->id]) }}" method="delete">
+                                                                        {{csrf_field()}}
+                                                                        <input name="_method" type="hidden" value="DELETE">
+                                                                        <button class="btn btn-danger btn-xs" type="submit"><span class="fa fa-trash"></span></button>
+                                                                    </form>
+                                                                </td>
 
                                                        
                                                      
@@ -129,6 +141,7 @@
 @endsection
 @section('js')
 <!-- Data tables -->
+
 <script src="{{URL::asset('assets/plugins/datatable/js/jquery.dataTables.js')}}"></script>
 <script src="{{URL::asset('assets/plugins/datatable/js/dataTables.bootstrap4.js')}}"></script>
 <script src="{{URL::asset('assets/plugins/datatable/js/dataTables.buttons.min.js')}}"></script>

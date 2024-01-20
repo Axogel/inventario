@@ -33,7 +33,9 @@
 									<div class="card-header">
 										<h3 class="card-title"></h3>
 										<div class="card-options">
-
+                                        <div class="btn-group ml-5 mb-0">
+                                                <a class="btn btn-primary" href="{{route('libroDiario.create')}}"><i class="fa fa-plus mr-2"></i>Añadir un  Libro Diario</a>
+											</div>
 								
 										</div>
 									</div>

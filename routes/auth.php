@@ -27,6 +27,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
 Route::middleware([Authenticate::class])->group(function () {
 
     Route::resource('factura', FacturaController::class);
+    Route::get('factura/create/new', [FacturaController::class, 'new'])->name('factura.new');
+
     Route::resource('libroMayor', LibroMayorController::class);
     Route::resource('libroDiario', LibroDiarioController::class);
 

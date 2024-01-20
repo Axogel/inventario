@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cliente;
 use App\Models\Divisa;
 use App\Models\Inventario;
 use App\Models\ordenEntrega;
@@ -57,12 +58,9 @@ class OrdenEntregaController extends Controller
             $orden->telefono = $request->input('telefono');
             $tasa =  Divisa::where('name', $request->input('divisas') )->select('tasa')->first();
             $orden->abonado = $request->input('abonado') / $tasa->tasa;
-           
             $orden->precio = $request->input('inputSumaPrecio');
             $orden->fecha_de_prestamo = now();
             $orden->fecha_de_entrega = now()->addDays(3);
-
-      
             $orden->save();
             $orden->ordenInventario()->attach($arrayProducts);
             foreach ($arrayProducts as $key => $codigo) {
@@ -71,6 +69,14 @@ class OrdenEntregaController extends Controller
                 $producto->alquiler = now();
                 $producto->update();
             }
+
+            $client = new Cliente;
+            $client->name =   $orden->name . " " .  $orden->apellido;
+            $client->fecha_nacimiento =$request->input("fechaNacimiento");
+            $client->telefono = $request->input("telefono");
+            $client->direccion = $request->input("direccion");
+            $client->cedula =  $request->input("cedula");
+            $client->save();
 
   
             $success = array("message" => "Orden creada Satisfactoriamente", "alert" => "success");

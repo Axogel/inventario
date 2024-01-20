@@ -694,7 +694,7 @@
     }
 
     .sidebar-mini.sidenav-toggled .app-content {
-        margin-left: 70px;
+        margin-left: 0px;
     }
 
     .sidebar-mini.sidenav-toggled .app-sidebar {
@@ -1295,7 +1295,7 @@
     }
 
     .sidenav-toggled .header.top-header {
-        padding-left: 70px;
+        padding-left: 0px;
     }
 
     .sidenav-toggled .app-sidebar__logo {

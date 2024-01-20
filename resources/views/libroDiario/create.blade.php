@@ -7,7 +7,7 @@
 						<!--Page header-->
 						<div class="page-header">
 							<div class="page-leftheader">
-								<h4 class="page-title">Crear Factura</h4>
+								<h4 class="page-title">Crear Diario Diario</h4>
 							</div>
 							<div class="page-rightheader ml-auto d-lg-flex d-none">
 								<ol class="breadcrumb">
@@ -29,100 +29,57 @@
                                 </button>
                             </div>
 			            @endif
+                        @if($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
 						<div class="row">
 							<div class="col-xl-12 col-lg-12 col-md-12">
 								<div class="card">
                                     <div class="card-header">
-										<div class="card-title">Crear Factura</div>
+										<div class="card-title">Crear Libro diario</div>
                                     </div>
                                     <div class="card-body">
-                                        <form method="POST" action="{{ route('factura.store') }}"  role="form">
+                                        <form method="POST" action="{{ route('libroDiario.store') }}"  role="form">
                                             {{ csrf_field() }}
                                             <div class="input-group mb-5">
-                                                <span class="card-title"> Datos de la Factura:</span>
+                                                <span class="card-title"> Datos de la Transacción:</span>
                                             </div>
-                                            <div class="input-group mb-3 ml-3">
-                                            <ul>
-                                                    <li class="card-subtitle p-1">
-                                                        <b> Nombre Completo de la persona :</b> {{$orden->name . " " . $orden->apellido}}
-                                                        <input type="hidden" name="name" value="{{$orden->name . ' '  . $orden->apellido}}">
-                                                    </li>
-                                                    <li class="card-subtitle p-1">
-                                                        <b>Direccion: </b> {{$orden->direccion}}
-                                                        <input type="hidden" name="direccion" value="{{$orden->direccion}}">
-                                                    </li>
-                                                    <li class="card-subtitle p-1">
-                                                        <b>Telefono: </b> {{$orden->telefono}}
-                                                        <input type="hidden" name="telefono" value="{{$orden->telefono}}">
-                                                    </li>
-                                                    <li class="card-subtitle p-1">
-                                                        <b>Fecha de Entrega</b> {{ date('Y-m-d')}}
-                                                        <input type="hidden" name="fecha_entrega" value="{{ date('Y-m-d')}}">
-                                                    </li>
-                                                    <li class="card-subtitle p-1">
-                                                        <b>RIF</b> 12345678
-                                                        <input type="hidden" name="rif" value="12345678">
-                                                    </li>
-                                                    <li class="card-subtitle p-1">
-                                                        <b>Total Abonado en USD:</b> {{$orden->abonado}} $
-                                                    </li>
-                                                    <li class="card-subtitle p-1">
-                                                        <b>Control</b>0001
-                                                        <input type="hidden" name="control" value="0001">
-
-                                                    </li>
-                                                </ul>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-addon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="side-menu__icon"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></span>
+                                                <input type="text" name="concepto" id="concepto" class="form-control input-sm" placeholder="concepto">
                                             </div>
-
-
-                                            <div class="input-group mb-5">
-                                                <span class="card-title"> <b>Total:</b> {{$orden->precio}} $ USD.</span>
-                                            </div>
-                                            <div class="input-group mb-3 ml-3">
-                                                <ul>
-                                                    @forEach( $orden->ordenInventario as $product)
-                                                        <li class="card-subtitle p-1"><b> {{$product->nombre . " marca " . $product->marca }}:</b> {{$product->precio }} $</li>
-                                                    @endforeach
-                                                </ul>
-                                            </div>
-                                            <input type="hidden" id="products" name="products" value="{{$orden->ordenInventario}}">
-                                            <input type="hidden" id="ordenId" name="ordenId" value="{{$orden->id}}">
-
-
-                                            <div class="input-group mb-2">
-                                                <span class="card-title" id="suma-precio"> <b>SubTotal:</b> {{$orden->precio +  $orden->precio * 0.16}}</span> <br>
-
-                                            </div>
-                           
-
-                                   
-
                                             <div class="input-group mb-3 w-100">
 
-                                                <span class="card-title"> Seleccione la Moneda con la que va a pagar</span>
+                                                <span class="card-title">Debe</span>
 
-                                                <select  class="select2 " name="divisas" id="divisas" style="width : 100%">
-                                                            <option value="Bs" selected>BS</option>
-                                                            <option value="COP">COP</option>
-                                                            <option value="USD">USD</option>
+                                                <select  class="select2 " name="debeIdMayor" id="debeIdMayor " style="width : 100%">
+                                                    @foreach($libroMayor as $libro)
+                                                        <option value="{{$libro->id}}">{{$libro->cuenta}}</option>
+                                                    @endforeach
                                                 </select>
+                                                <input type="number" name="debe" id="debe" class="form-control input-sm" placeholder="monto">
+
                                             </div>
-                                            <span class="card-title mb-5"  id="PagarPrecio"> <b>Falta por pagar :</b></span>
+                                            <div class="input-group mb-3 w-100">
+    `
+                                                <span class="card-title">Haber</span>
+    
+                                                <select  class="select2 " name="haberIdMayor" id="haberIdMayor " style="width : 100%">
+                                                        @foreach($libroMayor as $libro)
+                                                            <option value="{{$libro->id}}">{{$libro->cuenta}}</option>
+                                                        @endforeach
+                                                </select>
+                                                <input type="number" name="haber" id="haber" class="form-control input-sm" placeholder="monto">
+`
+                                           </div>
 
-                                            <div class="form-group mt-5">
-                                                <div class="row d-flex justify-content-start">
-                                                <div class="p-2 col-2 "><label class=" card-title">Desea Factura?</label></div>
-                                                    <div class="col-1">
-                                                    <input type="checkbox" name="factura" id="factura" class="form-control input-sm" >
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                               
-                                            <input type="hidden" id="inputSumaPrecio" name="inputSumaPrecio">
-
-
-                            
+                      
 
                                             <div class="col-xs-12 mt-5">
                                                 <button type="submit" class="btn btn-lg btn-primary" onclick="redirectIndex()">Crear</button>
@@ -140,73 +97,6 @@
 			</div>
 @endsection
 @section('js')
-<script>
-   function redirectIndex() {
-        setTimeout(function() {
-        window.location.href = "{{ route('factura.index') }}";
-    }, 2000); // 2000 milisegundos = 2 segundos
-    };
-
-
-</script>
-<script>
-    $(document).ready(function() {
-       $('#divisas').on('change', function() {
-        // Obtener las IDs seleccionadas
-        let selectedIds = $(this).val();
-
-        // Obtener la lista de productos desde Laravel
-        let orden = @json($orden);
-        let tasa = @json($divisa);
-        let total = orden.precio
-        const precioTotal = total + (total*0.16)
-        let tasaSelect = tasa.find(objeto => objeto.name === selectedIds);
-        const abonado = tasaSelect.tasa * orden.abonado;
-        const conversion =  precioTotal *  tasaSelect.tasa;
-
-
-        if(selectedIds == 'Bs' ){
-            $('#PagarPrecio').text( ` Falta por pagar : ${conversion - abonado} ${tasaSelect.name}` );
-            $('#suma-precio').text('SubTotal: ' +conversion + tasaSelect.name  );
-            $('#inputSumaPrecio').val(conversion.toFixed(3));
-
-        }else{
-            const TotalDivisaS = conversion + conversion*0.03;
-            $('#PagarPrecio').text( `Falta por pagar : ${TotalDivisaS - abonado} ${tasaSelect.name}` );
-            $('#suma-precio').text(`SubTotal: ${TotalDivisaS  } ${tasaSelect.name} y en Bs ${(TotalDivisaS /  tasaSelect.tasa )  * tasa[2].tasa} `  );
-            $('#inputSumaPrecio').val(TotalDivisaS.toFixed(3));
-
-
-
-        }
-
-
-
-
-
-        // if(selectedIds == 'Bs' ){
-        //     $('#PagarPrecio').text('Falta por pagar : ' + (precioTotal - abonado));
-        //     $('#suma-precio').text('SubTotal: ' +precioTotal + ' Bs ' );
-        //     $('#inputSumaPrecio').val(precioTotal.toFixed(3));
-        // }else{
-        //     const TotalDivisas = precioTotal + precioTotal*0.03;
-        //     const conversion =  TotalDivisas *  tasaSelect.tasa;
-        //     $('#suma-precio').text('SubTotal: ' + conversion.toFixed(3) + ' $' + selectedIds);
-
-        //     $('#inputSumaPrecio').val(TotalDivisas.toFixed(3));
-        //     if(selectedIds == 'USD'){
-        //         $('#PagarPrecio').text('Falta por pagar : ' + (conversion - abonado));
-        //     }else{
-        //         $('#PagarPrecio').text('Falta por pagar : ' + (conversion - (abonado * tasaSelect.tasa )));
-
-        //     }
-        // }
-
-    });
-    $('#divisas').trigger('change');
-
-});
-</script>
 <!--Select2 js -->
 
 

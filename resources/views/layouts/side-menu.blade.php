@@ -66,9 +66,9 @@
                             </a>
 							<ul class="slide-menu">
 								<li><a class="slide-item" href="{{route('divisas.create')}}"><span>Divisas</span></a></li>
-								<!-- <li><a class="slide-item" href="{{route('libroMayor.index')}}"><span>Libro Mayor</span></a></li>
+								<li><a class="slide-item" href="{{route('libroMayor.index')}}"><span>Libro Mayor</span></a></li>
 
-								<li><a class="slide-item" href="{{route('libroDiario.index')}}"><span>Libro Diario</span></a></li> -->
+								<li><a class="slide-item" href="{{route('libroDiario.index')}}"><span>Libro Diario</span></a></li>
 
 
 							</ul>

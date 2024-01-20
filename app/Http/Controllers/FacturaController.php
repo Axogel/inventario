@@ -33,6 +33,10 @@ class FacturaController extends Controller
 
         return view("factura.create", compact('orden', 'divisa'));
     }
+    public function new()
+    {
+        return view("factura.new");
+    }
     
 
     /**

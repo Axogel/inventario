@@ -11,7 +11,7 @@
 						<!--Page header-->
 						<div class="page-header">
 							<div class="page-leftheader">
-								<h4 class="page-title">Facturas</h4>
+								<h4 class="page-title">Libro Mayor</h4>
 							</div>
 						</div>
 						<!--End Page header-->
@@ -27,9 +27,65 @@
                                 </button>
                             </div>
                         @endif
-                        <div>
-                            lista de libro Mayor
-                        </div>
+                        <div class="row row-deck">
+							<div class="col-xl-12 col-lg-12 col-md-12">
+								<div class="card">
+									<div class="card-header">
+                                            <div class="btn-group ml-5 mb-0">
+                                                <a class="btn btn-primary" href="{{route('libroMayor.create')}}"><i class="fa fa-plus mr-2"></i>Añadir un  Libro Mayor</a>
+											</div>
+										<h3 class="card-title"></h3>
+										<div class="card-options">
+
+								
+										</div>
+									</div>
+                                    <div class="card-body">
+                                    <form id="searchForm" class="mb-3">
+                                        <div class="form-group">
+                                            <label for="fecha">Buscar por Fecha:</label>
+                                            <input type="text" id="fecha" name="fecha" class="form-control">
+                                        </div>
+                                        <button type="button" onclick="" class="btn btn-primary">Buscar</button>
+                                        <button  type="button" onclick="" class="btn btn-danger" >Cancelar</button>
+                                    </form>
+                                    <div class="row pt-4">
+                                        @foreach($libroMayor as $libro)
+                                        <div class="col-xl-2 col-lg-2 col-md-6">
+                                            <div class="card ">
+                                                <div class="row p-4">
+                                                    <div class="col-5 mx-2 feature text-center">
+                                                        <a href="#">
+                                                            <i class="{{$libro->icon}} feature-icon "></i>
+                                                        </a>
+                                                        <div class="row pt-4">
+                                                            <div class="col-6">
+                                                                <button class="btn btn-danger btn-xs" type="submit"><span class="fa fa-trash"></span></button>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <a class="btn btn-primary btn-xs" href="#" ><span class="fa fa-pencil"></span></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-5 mx-2">
+                                                        <a href="#">
+                                                            <h4 class="card-title">{{$libro->cuenta}}</h4>
+                                                        </a>
+                                                        <span>{{$libro->saldo}} $</span> 
+                                                        <p>ultimo transacción: {{$libro->ultimo_saldo}} </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endforeach
+
+                                        
+
+                                    </div>
+                                    </div>
+								</div>
+							</div>
+						</div>
                         @endsection
 @section('js')
 <!-- Data tables -->

@@ -18,9 +18,7 @@ class InventarioImport implements ToModel, WithHeadingRow, WithChunkReading, Wit
     */
     public function model(array $row)
     {
-    //    $var = Inventario::all();
-    //     dd($var);
-
+ 
         if($row['disponibilidad'] === 0 ){
             $alquilado = $row['alquiler'];
         }
@@ -35,19 +33,17 @@ class InventarioImport implements ToModel, WithHeadingRow, WithChunkReading, Wit
         }else {
             $disponibilidad = $row['disponibilidad'];
         }
-        return new Inventario([
-            'marca' => $row['marca'],
-            'precio' => $row['precio'],
-            'tipo' => $row['tipo'],
-
-            'talla' => $row['talla'],
-            'color' => $row['color'],
-            'almacen' => $row['almacen'],
-            'disponibilidad' => $disponibilidad,
-            'alquiler' => $alquilado,
-            'producto' => $row['producto'],
-
-        ]);
+        $producto = new Inventario;
+        $producto->producto = $row['producto'];
+        $producto->precio = $row['precio'];
+        $producto->marca = $row['marca'];
+        $producto->tipo = $row['tipo'];
+        $producto->talla = $row['talla'];
+        $producto->color = $row['color'];
+        $producto->almacen = $row['almacen'];
+        $producto->disponibilidad = $disponibilidad;
+        $producto->alquiler = $alquilado;
+        $producto->save();
     }
     public function chunkSize(): int
     {

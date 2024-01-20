@@ -29,6 +29,15 @@
                                 </button>
                             </div>
 			            @endif
+                        @if($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
 						<div class="row">
 							<div class="col-xl-12 col-lg-12 col-md-12">
 								<div class="card">
@@ -144,7 +153,7 @@
    function redirectIndex() {
         setTimeout(function() {
         window.location.href = "{{ route('factura.index') }}";
-    }, 2000); // 2000 milisegundos = 2 segundos
+    }, 3000); 
     };
 
 
@@ -165,40 +174,18 @@
 
         if(selectedIds == 'Bs' ){
             $('#PagarPrecio').text( ` Falta por pagar : ${conversion - abonado} ${tasaSelect.name}` );
-            $('#suma-precio').text('SubTotal: ' +conversion + tasaSelect.name  );
-            $('#inputSumaPrecio').val(conversion.toFixed(3));
+            $('#suma-precio').text('SubTotal: ' +conversion.toFixed(2) + tasaSelect.name  );
+            $('#inputSumaPrecio').val(conversion.toFixed(2));
 
         }else{
             const TotalDivisaS = conversion + conversion*0.03;
             $('#PagarPrecio').text( `Falta por pagar : ${TotalDivisaS - abonado} ${tasaSelect.name}` );
-            $('#suma-precio').text(`SubTotal: ${TotalDivisaS  } ${tasaSelect.name} y en Bs ${(TotalDivisaS /  tasaSelect.tasa )  * tasa[2].tasa} `  );
+            $('#suma-precio').text(`SubTotal: ${TotalDivisaS.toFixed(2)  } ${tasaSelect.name} y en Bs ${((TotalDivisaS /  tasaSelect.tasa )  * tasa[2].tasa ).toFixed(2)} `  );
             $('#inputSumaPrecio').val(TotalDivisaS.toFixed(3));
 
 
 
         }
-
-
-
-
-
-        // if(selectedIds == 'Bs' ){
-        //     $('#PagarPrecio').text('Falta por pagar : ' + (precioTotal - abonado));
-        //     $('#suma-precio').text('SubTotal: ' +precioTotal + ' Bs ' );
-        //     $('#inputSumaPrecio').val(precioTotal.toFixed(3));
-        // }else{
-        //     const TotalDivisas = precioTotal + precioTotal*0.03;
-        //     const conversion =  TotalDivisas *  tasaSelect.tasa;
-        //     $('#suma-precio').text('SubTotal: ' + conversion.toFixed(3) + ' $' + selectedIds);
-
-        //     $('#inputSumaPrecio').val(TotalDivisas.toFixed(3));
-        //     if(selectedIds == 'USD'){
-        //         $('#PagarPrecio').text('Falta por pagar : ' + (conversion - abonado));
-        //     }else{
-        //         $('#PagarPrecio').text('Falta por pagar : ' + (conversion - (abonado * tasaSelect.tasa )));
-
-        //     }
-        // }
 
     });
     $('#divisas').trigger('change');

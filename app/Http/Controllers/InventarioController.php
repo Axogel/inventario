@@ -160,10 +160,15 @@ class InventarioController extends Controller
 
         if($archivo){
 
-            Excel::import(new InventarioImport, $archivo);
+                try {
+                    Excel::import(new InventarioImport, $archivo);
+                } catch (\Throwable $th) {
+                    $success = array("message" => "Productos no Importados" . $th, "alert" => "danger");
+                    return redirect()->back()->with('success', $success);              
+                }
 
- 
-            return redirect()->back()->with('success', 'Datos importados exitosamente');
+                $success = array("message" => "Productos importados satisfactoriamente", "alert" => "success");
+            return redirect()->back()->with('success', $success);
         }else {
             return back()->with('error', 'Error al subir el archivo');
 

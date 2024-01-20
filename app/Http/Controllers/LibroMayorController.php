@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\LibroMayor;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class LibroMayorController extends Controller
@@ -12,9 +13,8 @@ class LibroMayorController extends Controller
      */
     public function index()
     {
-        return view('libroMayor.list');
-
-        //
+        $libroMayor = LibroMayor::all();
+        return view('libroMayor.list', compact('libroMayor'));
     }
 
     /**
@@ -22,7 +22,7 @@ class LibroMayorController extends Controller
      */
     public function create()
     {
-        //
+        return view('libroMayor.create');
     }
 
     /**
@@ -30,6 +30,31 @@ class LibroMayorController extends Controller
      */
     public function store(Request $request)
     {
+        $messages = [
+            'saldo.required' => 'El campo saldo es obligatorio.',
+            'saldo.number' => 'El campo saldo debe ser un número.',
+            'cuenta.required' => 'El campo cuenta es obligatorio.',
+            'cuenta.string' => 'El campo cuenta debe ser una cadena de texto.',
+            'icon.required' => 'El campo icono es obligatorio.',
+            'icon.string' => 'El campo icono debe ser una cadena de texto.',
+        ];
+        
+        $request->validate([
+            'saldo' => 'required|numeric',
+            'cuenta' => 'required|string',
+            'icon' => 'required|string',
+        ], $messages);
+
+        $libroMayor = new LibroMayor;
+        $libroMayor->saldo = $request->input('saldo');
+        $libroMayor->saldo_inicial = $request->input('saldo');
+        $libroMayor->cuenta = $request->input('cuenta');
+        $libroMayor->icon = $request->input('icon');
+        $libroMayor->ultimo_saldo = Carbon::now();
+        $libroMayor->save();
+        $success = array("message" => "Libro Mayor creado Satisfactoriamente", "alert" => "success");
+        return redirect()->route('libroMayor.index')->with('success',$success);
+
         //
     }
 

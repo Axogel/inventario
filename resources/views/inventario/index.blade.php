@@ -60,6 +60,8 @@
                                                     <th class="border-bottom-0">talla</th>
                                                     <th class="border-bottom-0">tipo</th>
                                                     <th class="border-bottom-0">precio</th>
+                                                    <th class="border-bottom-0">almacen</th>
+
                                                     <th class="border-bottom-0">color</th>
                                                     <th class="border-bottom-0">estado</th>
                                                     <th class="border-bottom-0">alquiler</th>
@@ -78,6 +80,8 @@
                                                                 <td>{{$producto->talla}}</td>
                                                                 <td>{{$producto->tipo}}</td>
                                                                 <td>{{$producto->precio}}</td>
+                                                                <td>{{$producto->almacen}}</td>
+
                                                                 <td>{{$producto->color}}</td>
                                                                 <td>
                                                                     @if($producto->disponibilidad == 1)

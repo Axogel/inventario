@@ -20,6 +20,15 @@
 						<!--End Page header-->
 @endsection
 @section('content')
+                        @if($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
 						<!-- Row -->
 						<div class="row">
 							<div class="col-xl-12 col-lg-12 col-md-12">

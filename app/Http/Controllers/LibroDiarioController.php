@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\LibroDiario;
+use App\Models\LibroMayor;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+
 
 class LibroDiarioController extends Controller
 {
@@ -12,7 +15,6 @@ class LibroDiarioController extends Controller
      */
     public function index()
     {
-        // Obtener todas las fechas distintas de la columna 'fecha' en la tabla libro_diario
         $fechas = LibroDiario::distinct()->pluck('fecha');
  
         return view('libroDiario.list', ['fechas' => $fechas]);
@@ -22,6 +24,8 @@ class LibroDiarioController extends Controller
      */
     public function create()
     {
+        $libroMayor = LibroMayor::all();
+        return view("libroDiario.create", compact('libroMayor'));
         //
     }
 
@@ -30,7 +34,28 @@ class LibroDiarioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'debeIdMayor' => [
+                'required',
+                Rule::notIn([$request->input('haberIdMayor')]),
+            ],
+            'haberIdMayor' => [
+                'required',
+                Rule::notIn([$request->input('debeIdMayor')]),
+            ],
+            'concepto' => 'required|string',
+            'debe' => 'required|numeric',
+            'haber' => 'required|numeric',
+
+        ]);
+
+        $libroDiario = new LibroDiario;
+        $libroDiario->concepto= $request->input('concepto');
+        $libroDiario->debe=$request->input('debe');
+        $libroDiario->haber =$request->input('haber');
+        $libroDiario->haber =$request->input('haberIdMayor');
+        $libroDiario->haber =$request->input('debeIdMayor');
+
     }
 
     /**

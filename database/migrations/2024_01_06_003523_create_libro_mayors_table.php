@@ -17,6 +17,7 @@ return new class extends Migration
             $table->decimal("saldo_inicial");
             $table->decimal('saldo');
             $table->string('cuenta');
+            $table->string('icon');
             $table->timestamps();
         });
     }
