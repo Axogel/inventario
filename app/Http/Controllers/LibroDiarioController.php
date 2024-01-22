@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\LibroDiario;
 use App\Models\LibroMayor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 
@@ -34,27 +35,63 @@ class LibroDiarioController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'debeIdMayor' => [
-                'required',
-                Rule::notIn([$request->input('haberIdMayor')]),
-            ],
-            'haberIdMayor' => [
-                'required',
-                Rule::notIn([$request->input('debeIdMayor')]),
-            ],
+        $validator = Validator::make($request->all(), [
+            'debeIdMayor' => 'required|array',
+            'debe.*' => 'numeric',
+            'haberIdMayor' => 'required|array',
+            'haber.*' => 'numeric',
             'concepto' => 'required|string',
-            'debe' => 'required|numeric',
-            'haber' => 'required|numeric',
-
+        ], [
+            'debeIdMayor.required' => 'El campo de debeIdMayor es obligatorio.',
+            'debeIdMayor.array' => 'El campo de debeIdMayor debe ser un array.',
+            'debe.*.numeric' => 'Cada valor en el array de debe debe ser numérico.',
+            'haberIdMayor.required' => 'El campo de haberIdMayor es obligatorio.',
+            'haberIdMayor.array' => 'El campo de haberIdMayor debe ser un array.',
+            'haber.*.numeric' => 'Cada valor en el array de haber debe ser numérico.',
+            'concepto.required' => 'El campo de concepto es obligatorio.',
+            'concepto.string' => 'El campo de concepto debe ser una cadena de texto.',
         ]);
+        
+        $validator->after(function ($validator) use ($request) {
+            // Realiza la validación personalizada de la suma
+            $debeSum = array_sum($request->input('debe'));
+            $haberSum = array_sum($request->input('haber'));
+            $debe = $request->input("debeIdMayor");
+            $haber = $request->input("haberIdMayor");
 
+            foreach ($debe as $key => $debeItem) {
+               foreach ($haber as $key => $haberItem) {
+                    if($debeItem == $haberItem){
+                        $validator->errors()->add('debe', 'Las cuentas del libro mayor tienen que ser diferentes');
+
+                    }
+               }
+            }
+        
+            if ($debeSum != $haberSum) {
+                $validator->errors()->add('debe', 'La suma de los valores en debe debe ser igual a la suma de los valores en haber.');
+            };
+
+        });
+        
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
         $libroDiario = new LibroDiario;
         $libroDiario->concepto= $request->input('concepto');
-        $libroDiario->debe=$request->input('debe');
-        $libroDiario->haber =$request->input('haber');
-        $libroDiario->haber =$request->input('haberIdMayor');
-        $libroDiario->haber =$request->input('debeIdMayor');
+        $libroDiario->debe= json_encode($request->input('debe'));
+        $libroDiario->haber = json_encode($request->input('haber'));
+        $libroDiario->haberIdMayor   =$request->input('haberIdMayor');
+        $libroDiario->debeIdMayor =$request->input('debeIdMayor');
+        $libroDiario->save();
+
+
+
+        $success = array("message" => "Libro diario creado Satisfactoriamente", "alert" => "success");
+        return redirect()->route('libroDiario.index')->with('success',$success);
+
 
     }
 

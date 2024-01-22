@@ -37,9 +37,7 @@
 									<input type="password" class="form-control" placeholder="Password">
 								</div>
 								<div class="row">
-									<div class="col-12">
-										<a href="{{ url('/' . $page='forgot-password-1') }}" class="btn btn-link box-shadow-0 px-0">Forgot password?</a>
-									</div>
+				
 									<div class="col-12">
 										<button type="button" class="btn btn-primary btn-block"> <i class="fe fe-arrow-right"></i> Login</button>
 									</div>

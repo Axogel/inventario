@@ -63,11 +63,7 @@
 													<div class="col-12">
 														<button type="button" class="btn btn-lg btn-primary btn-block" submit><i class="fe fe-arrow-right"></i> Login</button>
 													</div>
-													<div class="col-12">
-														<a class="btn btn-link" href="{{ route('password.request') }}">
-                                                            Forgot Your Password?
-                                                        </a>
-													</div>
+											
                                                 </div>
                                                 </form>
 											</div>

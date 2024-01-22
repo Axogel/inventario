@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->date('fecha');
             $table->string('concepto');
-            $table->decimal('debe');
-            $table->decimal('haber');
+            $table->string('debe');
+            $table->string('haber');
             //Relaciones
             $table->foreignId('debeIdMayor')->references('id')->on('libro_mayors')->onDelete('cascade');
             $table->foreignId('haberIdMayor')->references('id')->on('libro_mayors')->onDelete('cascade');
