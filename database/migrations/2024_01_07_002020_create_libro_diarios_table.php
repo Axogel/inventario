@@ -15,13 +15,10 @@ return new class extends Migration
             $table->id();
             $table->date('fecha');
             $table->string('concepto');
-            $table->string('debe');
-            $table->string('haber');
-            //Relaciones
-            $table->foreignId('debeIdMayor')->references('id')->on('libro_mayors')->onDelete('cascade');
-            $table->foreignId('haberIdMayor')->references('id')->on('libro_mayors')->onDelete('cascade');
-
-
+            $table->json('debe');
+            $table->json('haber');
+            $table->json('debeIdMayor'); // Cambiado a tipo json
+            $table->json('haberIdMayor'); // Cambiado a tipo json
             $table->timestamps();
         });
     }

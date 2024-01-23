@@ -14,12 +14,16 @@ class LibroDiarioController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $fechas = LibroDiario::distinct()->pluck('fecha');
- 
+        $fechaSeleccionada = $request->input('fecha');
+    
+        // Obtén todos los registros si no se selecciona ninguna fecha
+        $fechas = empty($fechaSeleccionada) ? LibroDiario::all() : LibroDiario::where('fecha', $fechaSeleccionada)->get();
+    
         return view('libroDiario.list', ['fechas' => $fechas]);
     }
+    
     /**
      * Show the form for creating a new resource.
      */
@@ -80,11 +84,12 @@ class LibroDiarioController extends Controller
                         ->withInput();
         }
         $libroDiario = new LibroDiario;
-        $libroDiario->concepto= $request->input('concepto');
-        $libroDiario->debe= json_encode($request->input('debe'));
-        $libroDiario->haber = json_encode($request->input('haber'));
-        $libroDiario->haberIdMayor   =$request->input('haberIdMayor');
-        $libroDiario->debeIdMayor =$request->input('debeIdMayor');
+        $libroDiario->concepto = $request->input('concepto');
+        $libroDiario->debe = json_encode($request->input('debe'));  // Convertir a JSON
+        $libroDiario->haber = json_encode($request->input('haber')); // Convertir a JSON
+        $libroDiario->haberIdMayor = $request->input('haberIdMayor');
+        $libroDiario->debeIdMayor = $request->input('debeIdMayor');
+        $libroDiario->fecha = now();
         $libroDiario->save();
 
 
