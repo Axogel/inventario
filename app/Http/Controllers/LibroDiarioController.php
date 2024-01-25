@@ -16,10 +16,7 @@ class LibroDiarioController extends Controller
      */
     public function index(Request $request)
     {
-        $fechaSeleccionada = $request->input('fecha');
-    
-        // Obtén todos los registros si no se selecciona ninguna fecha
-        $fechas = empty($fechaSeleccionada) ? LibroDiario::all() : LibroDiario::where('fecha', $fechaSeleccionada)->get();
+        $fechas = LibroDiario::pluck('fecha');
     
         return view('libroDiario.list', ['fechas' => $fechas]);
     }

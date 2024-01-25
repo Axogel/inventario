@@ -46,12 +46,12 @@
                                             <label for="fecha">Buscar por Fecha:</label>
                                             <input type="text" id="fecha" name="fecha" class="form-control">
                                         </div>
-                                        <button type="button" onclick="" class="btn btn-primary">Buscar</button>
+                                        <button type="button" onclick="document.getElementById('searchForm').submit()" class="btn btn-primary">Buscar</button>
                                         <button  type="button" onclick="" class="btn btn-danger" >Cancelar</button>
                                     </form>
                                     <div class="row pt-4">
                                         @foreach($libroMayor as $libro)
-                                        <div class="col-xl-2 col-lg-2 col-md-6">
+                                        <div class="col-xl-4 col-lg-4 col-md-6">
                                             <div class="card ">
                                                 <div class="row p-4">
                                                     <div class="col-5 mx-2 feature text-center">
@@ -104,7 +104,12 @@
 <script src="{{URL::asset('assets/js/datatables.js')}}"></script>
 <!-- Select2 js -->
 <script src="{{URL::asset('assets/plugins/select2/select2.full.min.js')}}"></script>
-
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('searchForm').addEventListener('submit', function () {
+        });
+    });
+</script>
 
 @endsection
 

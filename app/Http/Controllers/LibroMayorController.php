@@ -11,9 +11,17 @@ class LibroMayorController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $libroMayor = LibroMayor::all();
+
+        $fecha = $request->input('fecha');
+
+        if ($fecha) {
+            $libroMayor = LibroMayor::where('ultimo_saldo', $fecha)->orderBy('ultimo_saldo')->get();
+        } else {
+            $libroMayor = LibroMayor::all();
+        }
+
         return view('libroMayor.list', compact('libroMayor'));
     }
 

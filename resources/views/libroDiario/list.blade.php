@@ -50,7 +50,7 @@
                                     </form>
                                         <ul id="resultList" class="list-group">
                                         @foreach($fechas as $fecha)
-                                            <a href="#"> <li class="list-group-item"> Libro Diario {{ $fecha->fecha }} </li> </a>
+                                            <a href="#"> <li class="list-group-item"> Libro Diario {{ $fecha }} </li> </a>
                                         @endforeach
                                         </ul>
                                     </div>
