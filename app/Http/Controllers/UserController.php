@@ -41,12 +41,7 @@ class UserController extends Controller
         $temp->role()->associate($request->get('role'));
         $temp->region_id = $request->get('region');
 
-        if($request->get('company_admin')== NULL){
-            $temp->company_admin = 0;
-        }else{
-            $temp->company_admin = $request->get('company_admin');
-        }
-       
+  
         $temp->save();
         
         $content = new \stdClass();

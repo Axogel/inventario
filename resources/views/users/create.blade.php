@@ -67,14 +67,7 @@
                                                 <span class="input-group-addon"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><g fill="none"><path d="M0 0h24v24H0V0z"/><path d="M0 0h24v24H0V0z" opacity=".87"/></g><path d="M6 20h12V10H6v10zm6-7c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z" opacity=".3"/><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/></svg></span>
                                                 <input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password">
                                             </div>
-                                            <div class="form-group m-0">
-													<div class="custom-controls-stacked">
-														<label class="custom-control custom-checkbox">
-															<input type="checkbox" class="custom-control-input" name="company_admin" value="1" >
-															<span class="custom-control-label">Company Admin</span>
-														</label>	
-													</div>
-											</div>
+                                 
                                             <div class="form-group">
                                                 <label class="form-label">Role</label>
                                                 <select name="role" class="form-control custom-select select2">
@@ -92,39 +85,7 @@
                                                 </select>
                                             </div>
         
-                                            <div class="form-group">
-                                                <label class="form-label">Region</label>
-                                                <select name="region" class="form-control custom-select select2">
-                                                  
-                                                @if(Auth::user()->isSuper())
-                                                    @foreach( $regions as $region)
-                                                    <option value="{{ $region->id }}">{{ $region->name }}</option>
-                                                    @endforeach
-                                                @elseif(Auth::user()->isAdmin())
-                                                    @foreach( $regions as $region)
-                                                    @if( Auth::user()->region_id == $region->id)
-                                                    <option value="{{ $region->id }}">{{ $region->name }}</option>
-                                                    @endif
-                                                    @endforeach
-                                                @endif
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="form-label">Store</label>
-                                                <select name="store" class="form-control custom-select select2">
-                                                @if(Auth::user()->isSuper())
-                                                    @foreach( $stores as $store)
-                                                    <option value="{{ $store->store_code }}">{{ $store->store_name }}</option>
-                                                    @endforeach
-                                                @elseif(Auth::user()->isAdmin())
-                                                    @foreach( $stores as $store)
-                                                    @if( Auth::user()->store_code == $store->store_code)
-                                                    <option value="{{ $store->store_code }}">{{ $store->store_name }}</option>
-                                                    @endif
-                                                    @endforeach
-                                                @endif
-                                                </select>
-                                            </div>
+                                    
                                             <div class="col-xs-12">
                                                 <button type="submit" class="btn btn-lg btn-primary">Crear</button>
                                                 <a href="{{ route('users.index') }}" class="btn btn-lg btn-danger">Cancelar</a>

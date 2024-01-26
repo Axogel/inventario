@@ -33,95 +33,179 @@
 						<div class="col-xl-12 col-md-12 col-lg-12">
 							<div class="row">
 								<div class="col-xl-1 col-lg-1"></div>
-									<div class="col-xl-2 col-lg-2 col-md-6">
-										<div class="card">
-											<div class="card-body">
-                                            <a href="{{route('libroMayor.index')}}">    
-                                            <div class="feature">
-                                                    <i class="fa fa-line-chart feature-icon text-danger"></i>
-                                                    <h3 class="font-weight-bold mb-0 mt-4" id='comps'></h3>
-                                                    <h4 class="card-title">Libro Mayor</h4>
-                                                </div>
-                                            </a>
-											</div>
-										</div>
-									</div>
-									<div class="col-xl-2 col-lg-2 col-md-6">
-										<div class="card">
-											<div class="card-body">
-                                            <a href="{{route('inventario.index')}}">    
-                                            <div class="feature">
-                                                    <i class="fa fa-certificate feature-icon text-warning"></i>
-                                                    <h2 class="font-weight-bold mb-0 mt-4" id='promos'></h2>
-                                                    <h4 class="card-title">Inventario</h4>
-                                                </div>
-                                            </a>
-											</div>
-										</div>
-									</div>
-									<div class="col-xl-2 col-lg-2 col-md-6">
-										<div class="card">
-											<div class="card-body">
-                                            <a href="{{route('libroDiario.index')}}">    
-                                            <div class="feature">
-                                                    <i class="fa fa-credit-card feature-icon text-primary"></i>
-                                                    <h3 class="font-weight-bold mb-0 mt-4" id='voids'></h3>
-                                                    <h4 class="card-title">Libro Diario</h4>
-                                                </div>
-                                            </a>
-											</div>
-										</div>
-									</div>
-									<div class="col-xl-2 col-lg-2 col-md-6">
-										<div class="card">
-											<div class="card-body">
-                                            <a href="{{route('divisas.create')}}">    
-                                            <div class="feature">
-                                                    <i class="fa fa-money feature-icon text-success"></i>
-                                                    <h3 class="font-weight-bold mb-0 mt-4" id='taxes'></h3>
-                                                    <h4 class="card-title">Divisas</h4>
-                                                </div>
-                                            </a>
-											</div>
-										</div>
-									</div>
-									<div class="col-xl-2 col-lg-2 col-md-6">
-										<div class="card">
-											<div class="card-body">
-                                            <a href="{{route('orden.index')}}">    
-                                            <div class="feature">
-                                                    <i class="fa fa-cart-plus feature-icon text-secondary"></i>
-                                                    <h3 class="font-weight-bold mb-0 mt-4" id='grssales'></h3>
-                                                    <h4 class="card-title">Ordenes</h4>
-                                                </div>
-                                            </a>
-											</div>
-										</div>
-									</div>
+                                @if( Auth::user()->isAdmin())
 
-								</div>
-							</div>
-							<div class="col-xl-12 col-md-12 col-lg-12">
-								<div class="card">
-									<div class="row">
-										<div class="col-xl-12 col-md-12 col-lg-12">
-                                            <div class="card">
-                                                <div class="card-header">
-                                                    <div class="card-title">Ganancias</div>
+							   
+                                    <div class="col-xl-2 col-lg-3 col-md-5">
+                                    <a href="{{route('libroMayor.index')}}">    
+
+                                         <div class="card text-center mx-auto card-index">
+											<div class="card-body">
+                                            <img width="200rem" src="{{ asset('assets/images/iconsIndex/951626.webp') }}" alt="Libro Mayor">
+                                            <div class="">
+                                            <h4 class="card-title">Ver todos los Libros</h4>
                                                 </div>
-                                                <div class="card-body">
-                                                    <div id="canvasCont">
-                                                        <canvas id="chartBar1" class="h-300"></canvas>
-                                                    </div>
-                                                </div>
-                                            </div>
+											</div>
 										</div>
+                                        </a>
+
 									</div>
+                                    <div class="col-xl-2 col-lg-3 col-md-5">
+                                    <a href="{{route('libroMayor.create')}}">    
+
+                                         <div class="card text-center mx-auto card-index">
+											<div class="card-body">
+                                            <img width="200rem" src="{{ asset('assets/images/iconsIndex/4647777.webp') }}" alt="Libro Mayor">
+                                            <div class="">
+                                                    <h4 class="card-title">Crear un Libro mayor</h4>
+                                                </div>
+											</div>
+										</div>
+                                        </a>
+
+									</div>   
+                                    <div class="col-xl-2 col-lg-3 col-md-5">
+                                    <a href="{{route('libroMayor.create')}}">    
+
+                                    <div class="card text-center mx-auto card-index">
+											<div class="card-body">
+                                            <img width="200rem" src="{{ asset('assets/images/iconsIndex/9546659.webp') }}" alt="Libro Mayor">
+                                            <div class="">
+                                                    <h4 class="card-title">Ver libros Diarios</h4>
+                                                </div>
+											</div>
+										</div>
+                                        </a>
+
+									</div> 
+                                    <div class="col-xl-2 col-lg-3 col-md-5">
+                                    <a href="{{route('libroMayor.create')}}">    
+
+                                    <div class="card text-center mx-auto card-index">
+											<div class="card-body">
+                                            <img width="200rem" src="{{ asset('assets/images/iconsIndex/descargar-_1_.webp') }}" alt="Libro Mayor">
+                                            <div class="">
+                                                    <h4 class="card-title">Crear un Libro Diario</h4>
+                                                </div>
+											</div>
+										</div>
+                                        </a>
+
+									</div> 
+                                     @endif
+                                     
+                                     <div class="col-xl-2 col-lg-3 col-md-5">
+                                         <a href="{{route('inventario.create')}}">    
+
+                                        <div class="card text-center mx-auto card-index">
+											<div class="card-body">
+                                            <img width="200rem" src="{{ asset('assets/images/iconsIndex/3207415.webp') }}" alt="Libro Mayor">
+                                            <div class="">
+                                            <h4 class="card-title">Ingresar producto </h4>
+                                                </div>
+											</div>
+										</div>
+                                        </a>
+
+									</div> 
+                                    <div class="col-xl-2 col-lg-3 col-md-5">
+                                    <a href="{{route('inventario.index')}}">    
+
+                                        <div class="card text-center mx-auto card-index">
+
+											<div class="card-body">
+                                            <img width="200rem" src="{{ asset('assets/images/iconsIndex/clothing_shop_icon_192653.webp') }}" alt="Libro Mayor">
+                                            <div class="">
+                                            <h4 class="card-title">Ver todos los productos </h4>
+                                                </div>
+											</div>
+										</div>
+                                        </a>
+
+									</div> 
+                                    
+                                    <div class="col-xl-2 col-lg-3 col-md-5">
+                                        <a href="{{route('cliente.index')}}">    
+
+                                        <div class="card text-center mx-auto card-index">
+											<div class="card-body">
+                                            <img width="200rem" src="{{ asset('assets/images/iconsIndex/6009864.webp') }}" alt="Libro Mayor">
+                                            <div class="">
+                                            <h4 class="card-title">Ver todos los clientes </h4>
+                                                </div>
+											</div>
+										</div>
+                                        </a>
+
+									</div> 
+                                    <div class="col-xl-2 col-lg-3 col-md-5">
+                                        <a href="{{route('cliente.create')}}">    
+
+                                        <div class="card text-center mx-auto card-index">
+											<div class="card-body">
+                                            <img width="200rem" src="{{ asset('assets/images/iconsIndex/descargar.webp') }}" alt="Libro Mayor">
+                                            <div class="">
+                                            <h4 class="card-title">Registrar un cliente en el sistema</h4>
+                                                </div>  
+											</div>
+										</div>
+                                        </a>
+
+									</div>
+                                    <div class="col-xl-2 col-lg-3 col-md-5">
+                                    <a href="{{route('orden.index')}}">    
+
+                                        <div class="card text-center mx-auto card-index">
+											<div class="card-body">
+                                            <img width="200rem" src="{{ asset('assets/images/iconsIndex/5220625.webp') }}" alt="Libro Mayor">
+                                            <div class="">
+                                            <h4 class="card-title">Ver todas las ordenes de entrega </h4>
+                                                </div>
+											</div>
+										</div>
+                                        </a>
+
+									</div>
+                                    <div class="col-xl-2 col-lg-3 col-md-5">
+                                    <a href="{{route('orden.create')}}">    
+
+                                        <div class="card text-center mx-auto card-index">
+											<div class="card-body">
+                                            <img width="200rem" src="{{ asset('assets/images/iconsIndex/2082194.webp') }}" alt="Libro Mayor">
+                                            <div class="">
+                                            <h4 class="card-title">crear una Orden de entraga </h4>
+                                                </div>
+											</div>
+										</div>
+                                        </a>
+
+									</div>
+                                    <div class="col-xl-2 col-lg-2 col-md-5">
+                                    <a href="{{route('cliente.index')}}">    
+
+                                        <div class="card text-center mx-auto card-index">
+											<div class="card-body">
+                                            <img width="200rem" src="{{ asset('assets/images/iconsIndex/invoice_icon_155913.webp') }}" alt="Libro Mayor">
+                                            <div class="">
+                                            <h4 class="card-title">Ingresar datos de una nueva  Factura </h4>
+                                                </div>
+											</div>
+										</div>
+                                        </a>
+
+									</div>
+							
+
 								</div>
 							</div>
 					</div>
 				</div><!-- end app-content-->
 			</div>
+            <style>
+  .card-index:hover { 
+    background-color: #e6e6ff;
+  }
+</style>
 @endsection
 @section('js')
 <!-- Peitychart js-->

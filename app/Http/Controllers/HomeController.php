@@ -12,7 +12,11 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        Artisan::call('verificar:productos_vencidos');
+        // Artisan::call('verificar:productos_vencidos');
+        // Artisan::call('app:update-ves');
+
+        // Artisan::call('app:scraping');
+
 
     }
     public function index()

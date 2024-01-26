@@ -25,14 +25,15 @@ class OrdenEntregaController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create($id)
+    public function create($id = null)
     {
         $numeroId = $id;
+        $clientes = Cliente::all();
         $products = Inventario::where('disponibilidad', 1)
         ->select('codigo', 'producto', 'precio')
         ->get();
   
-        return view("orden.create", compact('numeroId', 'products'));
+        return view("orden.create", compact('numeroId', 'products', 'clientes'));
     }
     
 
@@ -48,6 +49,7 @@ class OrdenEntregaController extends Controller
             'telefono' => 'required|string',
             'abonado' => 'required|numeric',
             'inputSumaPrecio' => 'required|numeric',
+            "products" => 'required'
         ]);
         $arrayProducts = $request->input('products');
 
@@ -69,14 +71,18 @@ class OrdenEntregaController extends Controller
                 $producto->alquiler = now();
                 $producto->update();
             }
+            
+            if(!$request->input('cliente')){
+                $client = new Cliente;
+                $client->name =   $orden->name . " " .  $orden->apellido;
+                $client->fecha_nacimiento =$request->input("fechaNacimiento");
+                $client->telefono = $request->input("telefono");
+                $client->direccion = $request->input("direccion");
+                $client->cedula =  $request->input("cedula");
+                $client->save();
+            }
 
-            $client = new Cliente;
-            $client->name =   $orden->name . " " .  $orden->apellido;
-            $client->fecha_nacimiento =$request->input("fechaNacimiento");
-            $client->telefono = $request->input("telefono");
-            $client->direccion = $request->input("direccion");
-            $client->cedula =  $request->input("cedula");
-            $client->save();
+    
 
   
             $success = array("message" => "Orden creada Satisfactoriamente", "alert" => "success");

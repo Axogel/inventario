@@ -52,6 +52,8 @@
 								<li><a class="slide-item" href="{{ route('inventario.index') }}"><span>Inventario</span></a></li>
 								<li><a class="slide-item" href="{{ route('alquilado.index') }}"><span>Alquilado</span></a></li>
 								<li><a class="slide-item" href="{{ route('disponible.index') }}"><span>Disponible</span></a></li>
+								<li><a class="slide-item" href="{{ route('cliente.index') }}"><span>Clientes</span></a></li>
+
 								<li><a class="slide-item" href="{{ route('orden.index') }}"><span>Ordenes</span></a></li>
 								<li><a class="slide-item" href="{{ route('factura.index') }}"><span>Facturas</span></a></li>
 

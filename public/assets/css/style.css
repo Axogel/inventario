@@ -8,6 +8,8 @@
 /*white variables*/
 /*black variables*/
 /*------ Accordion -------*/
+
+
 .accordion .card:not(:first-of-type):not(:last-of-type) {
     border-bottom: 0;
     border-radius: 0;

@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('last_name')->nullable();
             $table->string('username')->nullable();
-            $table->string('company_admin')->nullable();
             $table->string('email')->unique();
             $table->string('profile_photo')->default('1608069288perfil-empresario-dibujos-animados_18591-58479.jpg');
             $table->string('store_code')->nullable();

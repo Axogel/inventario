@@ -12,9 +12,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command('verificar:productos_vencidos')->everyMinute();
-
-        $schedule->command('verificar:productos_vencidos')->daily();
+        $schedule->command('app:scraping')->twiceDaily(0, 12);
+        $schedule->command('app:update-ves')->twiceDaily(0, 12);
+ 
+        $schedule->command('verificar:productos_vencidos')->twiceDaily(0, 12);
 
         // $schedule->command('inspire')->hourly();
     }

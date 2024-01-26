@@ -40,7 +40,7 @@
 										<div class="card-options">
 
 											<div class="btn-group ml-5 mb-0">
-                                                <a class="btn btn-primary" href="{{route('inventario.create')}}"><i class="fa fa-plus mr-2"></i>Añadir Ordenes</a>
+                                                <a class="btn btn-primary" href="{{route('orden.create')}}"><i class="fa fa-plus mr-2"></i>Añadir Ordenes</a>
 											</div>
 										</div>
 									</div>

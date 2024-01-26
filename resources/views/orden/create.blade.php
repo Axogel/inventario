@@ -2,6 +2,8 @@
 @section('css')
 <!-- Select2 css -->
 <link href="{{URL::asset('assets/plugins/select2/select2.min.css')}}" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 @endsection
 @section('page-header')
 						<!--Page header-->
@@ -47,6 +49,23 @@
                                     <div class="card-body">
                                         <form method="POST" action="{{ route('orden.store') }}"  role="form">
                                             {{ csrf_field() }}
+                                            <div class="input-group mb-3 w-100">
+                                                <span class="card-title"> Busque al cliente registrado</span>
+
+                                                <select name="cliente" id="cliente" class="select2" style="width: 100%">
+                                                    <option value="" disabled selected>Seleccione un cliente</option>
+                                                    <option value=""  >No seleccionar</option>
+
+                                                    @foreach($clientes as $cliente)
+                                                        <option value="{{ $cliente->cedula }}">
+                                                            {{ $cliente->cedula }} - {{ $cliente->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                    
+                                            </div>
+
+                                            
                                             <div class="input-group mb-3">
                                                 <span class="input-group-addon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="side-menu__icon"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></span>
                                                 <input type="text" name="name" id="name" class="form-control input-sm" placeholder="nombre">
@@ -92,7 +111,7 @@
 
                                             <div class="input-group mb-3 w-100">
                                                 <span class="card-title"> Seleccione los Articulos</span>
-                                                <select name="products[]" id="products" class="select2" multiple style="width : 100%">
+                                                <select name="products[]" id="products" class="select2"  multiple="multiple" style="width : 100%">
                                                         @foreach($products as $product)
                                                             <option value="{{ $product->codigo }}" @if($product->codigo == $numeroId) selected @endif>
                                                                 {{ $product->producto }}
@@ -127,25 +146,19 @@
 
 <script>
 $(document).ready(function() {
-    // Manejar el cambio en el evento 'change' de #products
     $('#products').on('change', function() {
-        // Obtener las IDs seleccionadas
-        var selectedIds = $(this).val();
+        let selectedIds = $(this).val();
 
-        // Obtener la lista de productos desde Laravel
-        var miVariableEnJS = @json($products);
+        let miVariableEnJS = @json($products);
 
-        // Inicializar la variable para almacenar la suma de precios
-        var totalPrecio = 0;
+        let totalPrecio = 0;
 
-        // Iterar sobre los productos y sumar los precios de los productos seleccionados
         miVariableEnJS.forEach(function(product) {
             if (selectedIds.includes(product.codigo.toString())) {
                 totalPrecio += product.precio;
             }
         });
 
-        // Mostrar o actualizar la suma de precios en algún lugar
         $('#suma-precio').text('Suma del precio: $' + totalPrecio.toFixed(2));
         $('#inputSumaPrecio').val(totalPrecio.toFixed(2));
 
@@ -156,6 +169,46 @@ $(document).ready(function() {
 });
 
 </script>
+<script>
+    let clientes = @json($clientes);
+    let clienteSelect;
+
+    $(document).ready(function() {
+        $('#cliente').on('change', function() {
+            let selectedIds = $(this).val();
+
+            clientes.forEach(function(cliente) {
+                if (selectedIds.includes(cliente.cedula.toString())) {
+                    clienteSelect = cliente;
+                }
+            });
+
+            if (clienteSelect) {
+                // Separar el nombre y el apellido
+                let nombreCompleto = clienteSelect.name.split(' ');
+let nombre = nombreCompleto.shift(); // Obtiene el primer elemento (nombre)
+let apellido = nombreCompleto.join(' ');// Obtiene el resto como apellido
+                console.log(nombreCompleto,nombre, apellido,clienteSelect.name)
+                // Actualizar los elementos en el DOM
+                $('#name').val(nombre); // Usa .val() para campos de texto
+                $('#apellido').val(apellido); // Usa .val() para campos de texto
+                $('#direccion').val(clienteSelect.direccion);
+                $('#cedula').val(clienteSelect.cedula);
+                $('#fechaNacimiento').val(clienteSelect.fecha_nacimiento);
+                $('#telefono').val(clienteSelect.telefono);
+            }
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
+</script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<!-- 
 <script src="{{URL::asset('assets/plugins/select2/select2.full.min.js')}}"></script>
-<script src="{{URL::asset('assets/js/select2.js')}}"></script>
+<script src="{{URL::asset('assets/js/select2.js')}}"></script> -->
 @endsection

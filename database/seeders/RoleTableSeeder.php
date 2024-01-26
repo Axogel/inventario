@@ -20,14 +20,14 @@ class RoleTableSeeder extends Seeder
             'updated_at' => now()
         ],
         [
-            'name' =>  'compadmin',
-            'description' => 'Company Admin',
+            'name' =>  'contador',  
+            'description' => 'Contador',
             'created_at' => now(),
             'updated_at' => now()
         ],
         [
-            'name' =>  'user',
-            'description' => 'Site User',
+            'name' =>  'empleado',
+            'description' => 'empleado',
             'created_at' => now(),
             'updated_at' => now()
         ],
