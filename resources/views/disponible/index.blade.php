@@ -37,12 +37,12 @@
                                                 <label for="fecha">Buscar:</label>
                                                 <input type="text" id="search" name="search" class="form-control" placeholder="buscador">
                                             </div>
-										<div class="card-options">
+										<div class="card-options d-flex flex-wrap  flex-column flex-sm-row">
                                             <div class="btn-group ml-5 mb-0">
                                                 <a class="btn btn-primary" href="{{ route('disponible.export') }}"><i class="fa fa-download mr-2"></i>Descargar Excel</a>
 											</div>
 							
-											<div class="btn-group ml-5 mb-0">
+											<div class="btn-group ml-5 mb-0 mt-1 mt-lg-0">
                                                 <a class="btn btn-primary" href="{{route('inventario.create')}}"><i class="fa fa-plus mr-2"></i>Añadir Producto</a>
 											</div>
 										</div>

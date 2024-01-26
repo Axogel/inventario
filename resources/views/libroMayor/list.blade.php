@@ -51,7 +51,7 @@
                                     </form>
                                     <div class="row pt-4">
                                         @foreach($libroMayor as $libro)
-                                        <div class="col-xl-4 col-lg-4 col-md-6">
+                                        <div class="col-xl-4 col-lg-5 col-md-8 col-sm-10 col-12">
                                             <div class="card ">
                                                 <div class="row p-4">
                                                     <div class="col-5 mx-2 feature text-center">
@@ -72,7 +72,7 @@
                                                             <h4 class="card-title">{{$libro->cuenta}}</h4>
                                                         </a>
                                                         <span>{{$libro->saldo}} $</span> 
-                                                        <p>ultimo transacción: {{$libro->ultimo_saldo}} </p>
+                                                        <p class="fs-13 text-responsive font-weight-bold">ultimo transacción: {{$libro->ultimo_saldo}} </p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -110,6 +110,14 @@
         });
     });
 </script>
+
+<style>
+    @media(max-width:576px) {
+        .text-responsive {
+            font-size: 10px;
+        }
+    }
+</style>
 
 @endsection
 

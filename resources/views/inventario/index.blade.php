@@ -37,18 +37,24 @@
                                                 <label for="fecha">Buscar:</label>
                                                 <input type="text" id="search" name="search" class="form-control" placeholder="buscador">
                                             </div>
-										<div class="card-options">
-                                  
-                                            <div class="btn-group ml-5 mb-0">
-                                                <a class="btn btn-primary" href="{{ route('exportInventario') }}"><i class="fa fa-download mr-2"></i>Descargar Excel</a>
-											</div>
-											<div class="btn-group ml-5 mb-0">
-                                                <a class="btn btn-primary" data-target="#modaldemo1" data-toggle="modal" href=""><i class="fa fa-plus mr-2"></i>Añadir Excel</a>
-											</div>
-											<div class="btn-group ml-5 mb-0">
-                                                <a class="btn btn-primary" href="{{route('inventario.create')}}"><i class="fa fa-plus mr-2"></i>Añadir un  Producto</a>
-											</div>
-										</div>
+                                            <div class="card-options d-flex flex-wrap  flex-column flex-sm-row">
+                                                <div class="btn-group ml-5 mb-2">
+                                                    <a class="btn btn-primary" href="{{ route('exportInventario') }}">
+                                                        <i class="fa fa-download mr-2"></i>Descargar Excel
+                                                    </a>
+                                                </div>
+                                                <div class="btn-group ml-5 mb-2">
+                                                    <a class="btn btn-primary" data-target="#modaldemo1" data-toggle="modal" href="">
+                                                        <i class="fa fa-plus mr-2"></i>Añadir Excel
+                                                    </a>
+                                                </div>
+                                                <div class="btn-group ml-5 mb-2">
+                                                    <a class="btn btn-primary" href="{{ route('inventario.create') }}">
+                                                        <i class="fa fa-plus mr-2"></i>Añadir un Producto
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            
 									</div>
 									<div class="card-body">
 										<div class="table-responsive">
@@ -218,4 +224,10 @@
         reader.readAsText(input.files[0]);
     };
 </script>
+
+<style>
+    .btn-primary {
+        width: 200px;
+    }
+</style>
 @endsection
