@@ -39,17 +39,17 @@
                                             </div>
                                             <div class="card-options d-flex flex-wrap  flex-column flex-sm-row">
                                                 <div class="btn-group ml-5 mb-2">
-                                                    <a class="btn btn-primary" href="{{ route('exportInventario') }}">
+                                                    <a class="btn btn-primary btn-responsive" href="{{ route('exportInventario') }}">
                                                         <i class="fa fa-download mr-2"></i>Descargar Excel
                                                     </a>
                                                 </div>
                                                 <div class="btn-group ml-5 mb-2">
-                                                    <a class="btn btn-primary" data-target="#modaldemo1" data-toggle="modal" href="">
+                                                    <a class="btn btn-primary  btn-responsive" data-target="#modaldemo1" data-toggle="modal" href="">
                                                         <i class="fa fa-plus mr-2"></i>Añadir Excel
                                                     </a>
                                                 </div>
                                                 <div class="btn-group ml-5 mb-2">
-                                                    <a class="btn btn-primary" href="{{ route('inventario.create') }}">
+                                                    <a class="btn btn-primary  btn-responsive" href="{{ route('inventario.create') }}">
                                                         <i class="fa fa-plus mr-2"></i>Añadir un Producto
                                                     </a>
                                                 </div>
@@ -226,7 +226,7 @@
 </script>
 
 <style>
-    .btn-primary {
+    .btn-responsive {
         width: 200px;
     }
 </style>
