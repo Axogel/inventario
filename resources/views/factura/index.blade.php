@@ -55,7 +55,7 @@
                                                     <th class="border-bottom-0">tipo</th>
 
                                                     <th class="border-bottom-0">Fecha</th>
-                                                    <th></th>
+                                                    <th style="border-color:#eff0f6;"></th>
 
 
                                                 </thead>
