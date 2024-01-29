@@ -46,7 +46,7 @@
 									</div>
 									<div class="card-body">
 										<div class="table-responsive">
-                                            <table id="example" class="table table-bordered text-nowrap key-buttons ">
+                                            <table id="example" class="table table-bordered text-nowrap key-buttons " style="border-color:#eff0f6;">
                                                 <thead>
                                                     <th class="border-bottom-0">ID</th>
                                                     <th class="border-bottom-0">nombre</th>
@@ -58,8 +58,8 @@
                                                     <th class="border-bottom-0">prestamo</th>
                                                     <th class="border-bottom-0">entrega</th>
                                                     <th class="border-bottom-0">Lista de los Productos</th>
-                                                    <th></th>
-                                                    <th></th>
+                                                    <th style="border-color:#eff0f6;"></th>
+                                                    <th style="border-color:#eff0f6;"></th>
 
 
                                                 </thead>

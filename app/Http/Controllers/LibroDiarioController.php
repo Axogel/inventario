@@ -89,6 +89,32 @@ class LibroDiarioController extends Controller
         $libroDiario->fecha = now();
         $libroDiario->save();
 
+        $haberIdMayor = $request->input('haberIdMayor');
+        $debeIdMayor = $request->input('debeIdMayor');
+
+        $debe = array_sum($request->input('debe'));
+
+        $libroMayor = LibroMayor::where('id', $haberIdMayor)->first();
+
+        $libroMayorSuma = LibroMayor::where('id', $debeIdMayor)->first();
+
+        if ($libroMayor) {
+            $libroMayor->saldo -= $debe;
+            $libroMayor->save();
+        } else {
+            throw new \Exception('No se pudo encontrar la cuenta en el Libro Mayor.');
+            }
+
+          
+
+
+            if ($libroMayorSuma) {
+                $libroMayorSuma->saldo += $debe;
+                $libroMayorSuma->save();
+            }else {
+                throw new \Exception('No se pudo encontrar la cuenta en el Libro Mayor.');
+                }
+
 
 
         $success = array("message" => "Libro diario creado Satisfactoriamente", "alert" => "success");

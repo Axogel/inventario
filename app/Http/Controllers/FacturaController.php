@@ -39,7 +39,7 @@ class FacturaController extends Controller
     {
         $divisa = Divisa::all();
         $clientes = Cliente::all();
-        $products = Inventario::all();
+        $products = Inventario::where("disponibilidad", 1)->get();
         return view("factura.new", compact('clientes', 'products', 'divisa'));
     }
     public function storeNew(Request $request) {
@@ -192,6 +192,8 @@ class FacturaController extends Controller
      */
     public function destroy(Factura $factura)
     {
-        //
+        $factura->delete();
+        return redirect()->route('factura.index')->with('success', 'Factura Borrada');
     }
+    
 }

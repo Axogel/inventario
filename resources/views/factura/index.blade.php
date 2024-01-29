@@ -57,7 +57,7 @@
                                                     <th class="border-bottom-0">Fecha</th>
                                                     @if(Auth::user()->isSuper())
 
-                                                    <th></th>
+                                                    <th style="border-color:#eff0f6;"></th>
                                                     @endif
 
 
@@ -86,11 +86,13 @@
                                                                 @if(Auth::user()->isSuper())
 
                                                                 <td>
-                                                                <form action="{{ route('factura.destroy', ['factura' => $factura->id]) }}" method="delete">
-                                                                        {{csrf_field()}}
-                                                                        <input name="_method" type="hidden" value="DELETE">
-                                                                        <button class="btn btn-danger btn-xs" type="submit"><span class="fa fa-trash"></span></button>
-                                                                    </form>
+                                                                <form id="deleteForm" action="{{ route('factura.destroy', ['factura' => $factura]) }}" method="POST">
+                                                                        {{ csrf_field() }}
+                                                                        {{ method_field('DELETE') }}
+
+                                                                        <button class="btn btn-danger btn-xs" type="button" onclick="confirmDelete()"><span class="fa fa-trash"></span></button>
+                                                                </form>
+
                                                                 </td>
                                                                 @endif
 
@@ -147,6 +149,19 @@
 @endsection
 @section('js')
 <!-- Data tables -->
+<script>
+    function confirmDelete() {
+        var confirmation = confirm("¿Estás seguro de que deseas eliminar esta factura?");
+        if (confirmation) {
+            document.getElementById('deleteForm').submit();
+        } else {
+            // Si el usuario hace clic en "Cancelar", evitamos el envío del formulario.
+            console.log("Eliminación cancelada por el usuario.");
+        }
+    }
+</script>
+
+
 
 <script src="{{URL::asset('assets/plugins/datatable/js/jquery.dataTables.js')}}"></script>
 <script src="{{URL::asset('assets/plugins/datatable/js/dataTables.bootstrap4.js')}}"></script>

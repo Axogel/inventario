@@ -58,8 +58,8 @@
 									</div>
 									<div class="card-body">
 										<div class="table-responsive">
-                                            <table id="table" class="table table-bordered text-nowrap key-buttons">
-                                                <thead>
+                                            <table id="table" class=" table table-bordered text-nowrap key-buttons" style="border-color:#eff0f6;">
+                                                <thead style="border-color:#eff0f6;">
                                                     <th class="border-bottom-0">Codigo</th>
                                                     <th class="border-bottom-0">Producto</th>
                                                     <th class="border-bottom-0">marca</th>
@@ -71,12 +71,12 @@
                                                     <th class="border-bottom-0">color</th>
                                                     <th class="border-bottom-0">estado</th>
                                                     <th class="border-bottom-0">alquiler</th>
-                                                    <th></th>
-                                                    <th></th>
+                                                    <th style="border-color:#eff0f6;"></th>
+                                                    <th style="border-color:#eff0f6;"></th>
                                                     @if(Auth::user()->isSuper())
 
-                                                    <th></th>
-                                                    <th></th>
+                                                    <th style="border-color:#eff0f6;"></th>
+                                                    <th style="border-color:#eff0f6;"></th>
                                                     @endif
                                                 </thead>
                                                 <tbody id="contentTable">
