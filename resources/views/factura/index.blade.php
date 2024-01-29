@@ -55,7 +55,10 @@
                                                     <th class="border-bottom-0">tipo</th>
 
                                                     <th class="border-bottom-0">Fecha</th>
+                                                    @if(Auth::user()->isSuper())
+
                                                     <th></th>
+                                                    @endif
 
 
                                                 </thead>
@@ -80,6 +83,8 @@
                                                                 </td>
 
                                                                 <td>{{$factura->created_at}}</td>
+                                                                @if(Auth::user()->isSuper())
+
                                                                 <td>
                                                                 <form action="{{ route('factura.destroy', ['factura' => $factura->id]) }}" method="delete">
                                                                         {{csrf_field()}}
@@ -87,6 +92,7 @@
                                                                         <button class="btn btn-danger btn-xs" type="submit"><span class="fa fa-trash"></span></button>
                                                                     </form>
                                                                 </td>
+                                                                @endif
 
                                                        
                                                      

@@ -85,15 +85,18 @@
                                                                 </td>
 
                                                                 <td>{{$producto->alquiler}}</td>
+                                                                @if(Auth::user()->isSuper())
+
 
                                                                 <td><a class="btn btn-primary btn-xs" href="{{ route('inventario.edit', ['id' => $producto->codigo]) }}" ><span class="fa fa-pencil"></span></a></td>
                                                                 <td>
-                                                                    <form action="{{ route('inventario.destroy', ['id' => $producto->codigo]) }}" method="delete">
-                                                                        {{csrf_field()}}
-                                                                        <input name="_method" type="hidden" value="DELETE">
-                                                                        <button class="btn btn-danger btn-xs" type="submit"><span class="fa fa-trash"></span></button>
-                                                                    </form>
+                                                                <form id="deleteForm" action="{{ route('inventario.destroy', ['id' => $producto->codigo]) }}" method="POST">
+                                                                    {{ csrf_field() }}
+                                                                    {{ method_field('DELETE') }}
+                                                                    <button class="btn btn-danger btn-xs" onclick="confirmDelete()" type="button"><span class="fa fa-trash"></span></button>
+                                                                </form>
                                                                 </td>
+                                                                @endif
                                                             </tr>
                                                         @endforeach
                                                     @else
@@ -143,7 +146,13 @@
 <script src="{{URL::asset('assets/js/datatables.js')}}"></script>
 <!-- Select2 js -->
 <script src="{{URL::asset('assets/plugins/select2/select2.full.min.js')}}"></script>
-
+<script>
+    function confirmDelete() {
+        if (confirm("¿Está seguro de que desea eliminar este elemento?")) {
+            document.getElementById('deleteForm').submit();
+        }
+    }
+</script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const searchInput = document.getElementById('search');
