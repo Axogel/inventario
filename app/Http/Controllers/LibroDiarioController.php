@@ -7,7 +7,9 @@ use App\Models\LibroMayor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-
+use App\Models\Fecha;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 
 class LibroDiarioController extends Controller
 {
@@ -16,7 +18,7 @@ class LibroDiarioController extends Controller
      */
     public function index(Request $request)
     {
-        $fechas = LibroDiario::pluck('fecha');
+        $fechas = Fecha::pluck('fecha');
     
         return view('libroDiario.list', ['fechas' => $fechas]);
     }
@@ -80,13 +82,23 @@ class LibroDiarioController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
+
+        $fecha = Carbon::now()->format('Y-m-d');;
+
+        $fechaExistente = Fecha::whereDate('fecha', $fecha)->first();
+
+        if (!$fechaExistente) {
+            $fechaExistente = Fecha::create(['fecha' => $fecha]);
+        }
+
         $libroDiario = new LibroDiario;
         $libroDiario->concepto = $request->input('concepto');
-        $libroDiario->debe = json_encode($request->input('debe'));  // Convertir a JSON
-        $libroDiario->haber = json_encode($request->input('haber')); // Convertir a JSON
+        $libroDiario->debe = json_encode($request->input('debe'));  
+        $libroDiario->haber = json_encode($request->input('haber')); 
         $libroDiario->haberIdMayor = $request->input('haberIdMayor');
         $libroDiario->debeIdMayor = $request->input('debeIdMayor');
-        $libroDiario->fecha = now();
+        $libroDiario->fecha_id = $fechaExistente->id; 
+        $libroDiario->fecha = $fecha;
         $libroDiario->save();
 
         $haberIdMayor = $request->input('haberIdMayor');
@@ -123,6 +135,43 @@ class LibroDiarioController extends Controller
 
     }
 
+    public function librosPorFecha($fecha)
+    {
+        $fechaCarbon = Carbon::parse($fecha);
+    
+        $librosDiarios = LibroDiario::whereDate('fecha', $fechaCarbon)->get();
+    
+        $registrosRelacionados = [];
+    
+        foreach ($librosDiarios as $libroDiario) {
+            $debeIdMayorArray = $libroDiario->debeIdMayor;
+            $haberIdMayorArray = $libroDiario->haberIdMayor;
+    
+            $registrosRelacionadosDebe = [];
+            $registrosRelacionadosHaber = [];
+    
+            foreach ($debeIdMayorArray as $id) {
+                $registroRelacionadoDebe = LibroMayor::find($id);
+                $registrosRelacionadosDebe[] = $registroRelacionadoDebe;
+            }
+    
+            foreach ($haberIdMayorArray as $id) {
+                $registroRelacionadoHaber = LibroMayor::find($id);
+                $registrosRelacionadosHaber[] = $registroRelacionadoHaber;
+            }
+    
+            $registrosRelacionados[] = [
+                'debe' => $registrosRelacionadosDebe,
+                'haber' => $registrosRelacionadosHaber,
+                'libroDiario' => $libroDiario, 
+            ];
+        }
+
+        
+    
+        return view('libroDiario.list-per-date', ['registrosRelacionados' => $registrosRelacionados, 'fecha' => $fecha]);
+    }
+    
     /**
      * Display the specified resource.
      */
@@ -152,6 +201,8 @@ class LibroDiarioController extends Controller
      */
     public function destroy(LibroDiario $libroDiario)
     {
-        //
+        $libroDiario->delete();
+        return redirect()->route('libroDiario.index')->with('success', 'Libro Diario Eliminado.');
     }
+    
 }

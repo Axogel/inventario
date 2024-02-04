@@ -11,15 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('libro_diarios', function (Blueprint $table) {
+        Schema::create('fechas', function (Blueprint $table) {
             $table->id();
-            $table->integer('fecha_id');
             $table->date('fecha');
-            $table->string('concepto');
-            $table->json('debe');
-            $table->json('haber');
-            $table->json('debeIdMayor'); // Cambiado a tipo json
-            $table->json('haberIdMayor'); // Cambiado a tipo json
             $table->timestamps();
         });
     }
@@ -29,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('libro_diarios');
+        Schema::dropIfExists('fechas');
     }
 };

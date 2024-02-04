@@ -4,8 +4,7 @@ use App\Mail\Transfer;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\Authenticate;
 use App\Http\Controllers\{ClienteController, DivisaController, FacturaController, HomeController,UserController,InventarioController, LibroDiarioController, LibroMayorController, OrdenEntregaController};
-
-
+use App\Models\LibroDiario;
 
 Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
@@ -31,6 +30,8 @@ Route::middleware([Authenticate::class])->group(function () {
 
     Route::resource('libroMayor', LibroMayorController::class);
     Route::resource('libroDiario', LibroDiarioController::class);
+    Route::get('/libros-diarios/{fecha}', [LibroDiarioController::class, 'librosPorFecha'])->name('libros-por-fecha');
+
     Route::resource('cliente', ClienteController::class);
 
 
