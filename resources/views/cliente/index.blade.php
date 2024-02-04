@@ -52,9 +52,12 @@
                                                     <th class="border-bottom-0">telefono</th>
                                                     <th class="border-bottom-0">direccion</th>
                                                     <th class="border-bottom-0">cedula</th>
+                                                    @if(Auth::user()->isSuper())
+
 
                                                     <th class="border-bottom-0"></th>
                                                     <th class="border-bottom-0"></th>
+                                                    @endif
                                                 </thead>
                                                 <tbody>
                                                     @if($clientes->isNotEmpty())
@@ -69,15 +72,19 @@
 
 
 
+                                                                @if(Auth::user()->isSuper())
 
                                                                 <td><a class="btn btn-primary btn-xs" href="{{ route('cliente.edit', ['cliente' => $producto]) }}" ><span class="fa fa-pencil"></span></a></td>
                                                                 <td>
-                                                                    <form action="{{ route('cliente.destroy', ['cliente' => $producto]) }}" method="delete">
-                                                                        {{csrf_field()}}
-                                                                        <input name="_method" type="hidden" value="DELETE">
-                                                                        <button class="btn btn-danger btn-xs" type="submit"><span class="fa fa-trash"></span></button>
+                                                                    <form id="deleteForm" action="{{ route('cliente.destroy', ['cliente' => $producto]) }}" method="POST">
+                                                                    @csrf
+                                                                        @method('DELETE')
+                                                                        <button class="btn btn-danger btn-xs" onclick="confirmDelete()" type="button">
+                                                                            <span class="fa fa-trash"></span>
+                                                                        </button>
                                                                     </form>
                                                                 </td>
+                                                                @endif
                                                             </tr>
                                                         @endforeach
                                                     @else
@@ -125,7 +132,14 @@
 <script src="{{URL::asset('assets/plugins/datatable/dataTables.responsive.min.js')}}"></script>
 <script src="{{URL::asset('assets/plugins/datatable/responsive.bootstrap4.min.js')}}"></script>
 <script src="{{URL::asset('assets/js/datatables.js')}}"></script>
-<!-- Select2 js -->
+<!-- Select2 js -->    
+<script>
+        function confirmDelete() {
+            if (confirm("¿Está seguro de que desea eliminar este elemento?")) {
+                document.getElementById('deleteForm').submit();
+            }
+        }
+    </script>
 <script src="{{URL::asset('assets/plugins/select2/select2.full.min.js')}}"></script>
 
 

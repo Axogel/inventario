@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cliente;
 use App\Models\Divisa;
 use App\Models\Factura;
+use App\Models\Inventario;
 use App\Models\ordenEntrega;
 use Illuminate\Http\Request;
 use Barryvdh\Snappy\Facades\SnappyPdf;
@@ -35,7 +37,75 @@ class FacturaController extends Controller
     }
     public function new()
     {
-        return view("factura.new");
+        $divisa = Divisa::all();
+        $clientes = Cliente::all();
+        $products = Inventario::where("disponibilidad", 1)->get();
+        return view("factura.new", compact('clientes', 'products', 'divisa'));
+    }
+    public function storeNew(Request $request) {
+        
+        $success = array("message" => "Factura creada Satisfactoriamente", "alert" => "success");
+        $request->validate([
+            'name' => 'required|string',
+            'direccion' => 'required|string',
+            'telefono' => 'required|string',
+            'rif' => 'required|string',
+            'control' => 'required|string',
+            'inputSumaPrecio' => 'required|numeric',
+            'divisas' => 'required|string',
+            'products' => 'required'
+        ]);
+        $products = $request->input('products');
+        $foundProducts = []; 
+
+        foreach ($products as $productId) {
+            $product = Inventario::find($productId);
+            if ($product) {
+                ($product->tipo == "venta") ?$product->disponibilidad =  2 : $product->disponibilidad = 1;
+                $product->alquiler = null;
+                $product->save();
+                $foundProducts[] = $product;
+
+            }
+    
+        }
+
+        $factura = new Factura;
+        $factura->name = $request->input('name') . " ".  $request->input('apellido');
+        $factura->direccion = $request->input('direccion');
+        $factura->telefono = $request->input('telefono');
+        $factura->RIF = $request->input('rif');
+        $factura->factura =  $request->has('factura') ? 1 : 0;
+        $factura->control= $request->input('control');
+        $factura->subtotal = $request->input('inputSumaPrecio');
+        $factura->divisa = $request->input('divisas');
+        $factura->products =json_encode($products);
+        $factura->tasa_dia = Divisa::where("name", $request->input('divisas'))->first()->tasa;
+
+
+        $factura->save();
+        if(!$request->input('cliente')){
+            $client = new Cliente;
+            $client->name =   $factura->name;
+            $client->fecha_nacimiento =$request->input("fechaNacimiento");
+            $client->telefono = $request->input("telefono");
+            $client->direccion = $request->input("direccion");
+            $client->cedula =  $request->input("cedula");
+            $client->save();
+        }
+
+
+        if($request->input('factura') == "on"){
+            $pdf = app('dompdf.wrapper');
+            $factura->products = $foundProducts;
+            $facturaArray = $factura->toArray();
+
+            $pdf->loadView('factura.factura', compact('factura'));      
+                  return $pdf->download('mi-archivo.pdf');
+
+        }
+
+        return redirect()->route('factura.index')->with('success',$success);   
     }
     
 
@@ -122,6 +192,8 @@ class FacturaController extends Controller
      */
     public function destroy(Factura $factura)
     {
-        //
+        $factura->delete();
+        return redirect()->route('factura.index')->with('success', 'Factura Borrada');
     }
+    
 }

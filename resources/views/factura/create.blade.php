@@ -120,11 +120,11 @@
 
                                             <div class="form-group mt-5">
                                                 <div class="row d-flex justify-content-start">
-                                                <div class="p-2 col-2 "><label class=" card-title">Desea Factura?</label></div>
-                                                    <div class="col-1">
-                                                    <input type="checkbox" name="factura" id="factura" class="form-control input-sm" >
+                                                <div class="p-2 col-2 "><label class=" card-title">Desea Factura?</label>
+                                                <input type="checkbox" name="factura" id="factura" class=" ms-3 form-check-input">
 
-                                                    </div>
+                                            </div>
+
                                                 </div>
                                             </div>
                                

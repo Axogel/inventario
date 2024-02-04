@@ -29,9 +29,9 @@
 @endsection
 @section('content')
 						<!--Row-->
-					<div class="row">
+                        <div class="row justify-content-center align-items-center">
 						<div class="col-xl-12 col-md-12 col-lg-12">
-							<div class="row">
+                        <div class="row justify-content-center align-items-center">
 								<div class="col-xl-1 col-lg-1"></div>
                                 @if( Auth::user()->isAdmin())
 
@@ -181,11 +181,11 @@
 
 									</div>
                                     <div class="col-xl-2 col-lg-2 col-md-5">
-                                    <a href="{{route('cliente.index')}}">    
+                                    <a href="{{route('factura.new')}}">    
 
                                         <div class="card text-center mx-auto card-index">
 											<div class="card-body">
-                                            <img width="200rem" src="{{ asset('assets/images/iconsIndex/invoice_icon_155913.webp') }}" alt="Libro Mayor">
+                                            <img width="200rem" src="{{ asset('assets/images/iconsIndex/factura.webp') }}" alt="Libro Mayor">
                                             <div class="">
                                             <h4 class="card-title">Ingresar datos de una nueva  Factura </h4>
                                                 </div>

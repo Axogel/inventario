@@ -27,6 +27,7 @@ Route::middleware([Authenticate::class])->group(function () {
 
     Route::resource('factura', FacturaController::class);
     Route::get('factura/create/new', [FacturaController::class, 'new'])->name('factura.new');
+    Route::post('factura/storeNew/new', [FacturaController::class, 'storeNew'])->name('factura.storeNew');
 
     Route::resource('libroMayor', LibroMayorController::class);
     Route::resource('libroDiario', LibroDiarioController::class);
