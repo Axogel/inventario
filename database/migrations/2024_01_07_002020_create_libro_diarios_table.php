@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('concepto');
             $table->json('debe');
             $table->json('haber');
-            $table->json('debeIdMayor'); // Cambiado a tipo json
-            $table->json('haberIdMayor'); // Cambiado a tipo json
+            $table->json('debeIdMayor')->nullable(); // Cambiado a tipo json
+            $table->json('haberIdMayor')->nullable(); // Cambiado a tipo json
             $table->timestamps();
         });
     }

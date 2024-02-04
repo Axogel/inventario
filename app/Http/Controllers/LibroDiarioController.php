@@ -56,7 +56,6 @@ class LibroDiarioController extends Controller
         ]);
         
         $validator->after(function ($validator) use ($request) {
-            // Realiza la validación personalizada de la suma
             $debeSum = array_sum($request->input('debe'));
             $haberSum = array_sum($request->input('haber'));
             $debe = $request->input("debeIdMayor");
