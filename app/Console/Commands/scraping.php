@@ -4,7 +4,9 @@ namespace App\Console\Commands;
 
 use App\Models\Divisa;
 use Goutte\Client;
+use GuzzleHttp\Promise\Promise;
 use Illuminate\Console\Command;
+use Illuminate\Support\Sleep;
 
 class scraping extends Command
 {
@@ -25,6 +27,7 @@ class scraping extends Command
     /**
      * Execute the console command.
      */
+
     public function handle()
     {
         $client = new Client;
@@ -32,16 +35,23 @@ class scraping extends Command
 
         $crawler = $client->request('GET', $url);
 
-// Utiliza selectores CSS para extraer información específica del sitio web
+        
+       $sleep =  Sleep::sleep(30);
+        
+
         $secondColumnValue = $crawler->filter('.currency-conversion-tables__ConverterTable-sc-3fg8ob-5.kwmBWW tbody tr:first-child td:nth-child(2)')->text();
         $numericString = preg_replace("/[^0-9,.]/", "", $secondColumnValue);
-
+        $fecha = $crawler->filter('.result__FlippingContainer-sc-1bsijpp-5')->text();
         $numericString = str_replace(",", ".", $numericString);
+
+        $test = $crawler->filter('.result__BigRate-sc-1bsijpp-1')->text();
+        echo $test . "testing de la promesa";
 
         $number = floatval($numericString);
         $cop = Divisa::where('name', "COP")->first();
         $cop->tasa = $number;
         $cop->save();
+
         
 
     }

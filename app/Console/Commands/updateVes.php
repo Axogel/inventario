@@ -32,6 +32,7 @@ class updateVes extends Command
 
         $crawler = $client->request('GET', $url);
 
+
         $secondColumnValue = $crawler->filter('.currency-conversion-tables__ConverterTable-sc-3fg8ob-5.kwmBWW tbody tr:first-child td:nth-child(2)')->text();
         $numericString = preg_replace("/[^0-9,.]/", "", $secondColumnValue);
 
@@ -41,6 +42,8 @@ class updateVes extends Command
         $bs = Divisa::where('name', "Bs")->first();
         $bs->tasa = $number;
         $bs->save();
+
+
 
 
     }

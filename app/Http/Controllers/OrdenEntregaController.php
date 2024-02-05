@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use App\Models\Divisa;
+use App\Models\Fecha;
 use App\Models\Inventario;
+use App\Models\LibroDiario;
 use App\Models\ordenEntrega;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 
@@ -71,6 +74,35 @@ class OrdenEntregaController extends Controller
                 $producto->alquiler = now();
                 $producto->update();
             }
+            $fecha = Carbon::now()->format('Y-m-d');;
+
+            $fechaExistente = Fecha::whereDate('fecha', $fecha)->first();
+    
+            if (!$fechaExistente) {
+                $fechaExistente = Fecha::create(['fecha' => $fecha]);
+            }
+    
+            //cu
+            $libroDiario = new LibroDiario;
+            $libroDiario->concepto="Falta por Pagar";
+            $libroDiario->debeIdMayor = null;
+            $libroDiario->haberIdMayor = ["2"] ;
+            $libroDiario->debe = "[\"0\"]";
+            $libroDiario->haber = "[\"".( number_format((float)$orden->precio,2) -  number_format((float)$orden->abonado,2)  )."\"]";
+            $libroDiario->fecha_id = $fechaExistente->id; 
+            $libroDiario->fecha = $fecha;
+            $libroDiario->save();
+
+            //deudas
+            $libroVenta = new LibroDiario;
+            $libroVenta->concepto="Venta";
+            $libroVenta->debeIdMayor = null;
+            $libroVenta->haberIdMayor = ["1"] ;
+            $libroVenta->debe = "[\"0\"]";
+            $libroVenta->haber = "[\"". number_format((float)$orden->abonado,2)."\"]";
+            $libroVenta->fecha_id = $fechaExistente->id; 
+            $libroVenta->fecha = $fecha;
+            $libroVenta->save();
             
             if(!$request->input('cliente')){
                 $client = new Cliente;

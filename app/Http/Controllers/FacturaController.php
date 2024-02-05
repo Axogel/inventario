@@ -114,7 +114,7 @@ class FacturaController extends Controller
      */
     public function store(Request $request)
     {
-
+        // dd($request->all());
         $success = array("message" => "Factura creada Satisfactoriamente", "alert" => "success");
         $request->validate([
             'name' => 'required|string',
@@ -127,6 +127,8 @@ class FacturaController extends Controller
         ]);
         $orden = ordenEntrega::findOrFail($request->input('ordenId'));
         $products =  $orden->ordenInventario;
+
+        dd($products);
         foreach ($products as $product) {
    
             ($product->tipo == "venta") ?$product->disponibilidad =  2 : $product->disponibilidad = 1;
