@@ -90,4 +90,21 @@ class LibroMayorController extends Controller
         return view('libroMayor.edit', compact('libro'));
 
     }
+
+    public function update (Request $request, $id) {
+
+       $libro = LibroMayor::find($id);
+
+       $libro->cuenta = $request->input('cuenta');
+       $libro->icon = $request->input('icon');
+       $libro->save();
+
+       return redirect()->route('libroMayor.index');
+        
+    }
+
+    public function show() 
+    {
+
+    }
 }

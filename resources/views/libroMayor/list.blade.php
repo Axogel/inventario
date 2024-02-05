@@ -67,7 +67,7 @@
                                                                 </form>
                                                             </div>
                                                             <div class="col-6">
-                                                                <a class="btn btn-primary btn-xs" href="#" ><span class="fa fa-pencil"></span></a>
+                                                                <a class="btn btn-primary btn-xs" href="{{ route('libroMayor.edit', ['libroMayor' => $libro->id]) }}" ><span class="fa fa-pencil"></span></a>
                                                             </div>
                                                             <div class="col-6">
                                                                 <a class="btn btn-primary btn-xs mt-3" href="{{ route('showLibroDiario', ['id' => $libro->id]) }}" >Libros Diarios</a>
