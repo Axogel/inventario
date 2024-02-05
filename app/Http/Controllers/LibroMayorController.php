@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\LibroMayor;
 use Carbon\Carbon;
+use App\Models\LibroDiario;
 use Illuminate\Http\Request;
 
 class LibroMayorController extends Controller
@@ -66,35 +67,15 @@ class LibroMayorController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(LibroMayor $libroMayor)
-    {
-        //
+    public function showLibroDiario($idMayor) {
+         $resultados = LibroDiario::whereJsonContains('debeIdMayor', $idMayor)
+         ->orWhereJsonContains('haberIdMayor', $idMayor)
+         ->get();
+
+
+         return view("libroMayor.libro-diario-list", compact('resultados'));
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(LibroMayor $libroMayor)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, LibroMayor $libroMayor)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(LibroMayor $libroMayor)
-    {
-        //
-    }
 }

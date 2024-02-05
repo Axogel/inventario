@@ -65,6 +65,9 @@
                                                             <div class="col-6">
                                                                 <a class="btn btn-primary btn-xs" href="#" ><span class="fa fa-pencil"></span></a>
                                                             </div>
+                                                            <div class="col-6">
+                                                                <a class="btn btn-primary btn-xs mt-3" href="{{ route('showLibroDiario', ['id' => $libro->id]) }}" >Libros Diarios</a>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-5 mx-2">

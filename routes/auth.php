@@ -30,6 +30,7 @@ Route::middleware([Authenticate::class])->group(function () {
     Route::post('factura/storeNew/new', [FacturaController::class, 'storeNew'])->name('factura.storeNew');
 
     Route::resource('libroMayor', LibroMayorController::class);
+    Route::get('/librosDiarioMayor/{id}', [LibroMayorController::class, 'showLibroDiario'])->name('showLibroDiario');
     Route::resource('libroDiario', LibroDiarioController::class);
     Route::get('/libros-diarios/{fecha}', [LibroDiarioController::class, 'librosPorFecha'])->name('libros-por-fecha');
 
