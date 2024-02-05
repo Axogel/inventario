@@ -6,6 +6,9 @@ use App\Models\Cliente;
 use App\Models\Divisa;
 use App\Models\Factura;
 use App\Models\Inventario;
+use App\Models\LibroDiario;
+use App\Models\Fecha;
+use Illuminate\Support\Carbon;
 use App\Models\ordenEntrega;
 use Illuminate\Http\Request;
 use Barryvdh\Snappy\Facades\SnappyPdf;
@@ -81,9 +84,27 @@ class FacturaController extends Controller
         $factura->divisa = $request->input('divisas');
         $factura->products =json_encode($products);
         $factura->tasa_dia = Divisa::where("name", $request->input('divisas'))->first()->tasa;
-
-
         $factura->save();
+
+
+        $fecha = Carbon::now()->format('Y-m-d');;
+
+            $fechaExistente = Fecha::whereDate('fecha', $fecha)->first();
+    
+            if (!$fechaExistente) {
+                $fechaExistente = Fecha::create(['fecha' => $fecha]);
+            }
+            //deudas
+            $libroVenta = new LibroDiario;
+            $libroVenta->concepto="Venta";
+            $libroVenta->debeIdMayor = null;
+            $libroVenta->haberIdMayor = ["1"] ;
+            $libroVenta->debe = "[\"0\"]";
+            $libroVenta->haber = "[\"". number_format((float)$factura->subtotal,2)."\"]";
+            $libroVenta->fecha_id = $fechaExistente->id; 
+            $libroVenta->fecha = $fecha;
+            $libroVenta->save();
+        
         if(!$request->input('cliente')){
             $client = new Cliente;
             $client->name =   $factura->name;
@@ -126,9 +147,9 @@ class FacturaController extends Controller
             'divisas' => 'required|string',
         ]);
         $orden = ordenEntrega::findOrFail($request->input('ordenId'));
+
         $products =  $orden->ordenInventario;
 
-        dd($products);
         foreach ($products as $product) {
    
             ($product->tipo == "venta") ?$product->disponibilidad =  2 : $product->disponibilidad = 1;
@@ -146,8 +167,44 @@ class FacturaController extends Controller
         $factura->control= $request->input('control');
         $factura->subtotal = $request->input('inputSumaPrecio');
         $factura->divisa = $request->input('divisas');
+        $factura->products =json_encode($products);
 
         $factura->save();
+
+
+        $fecha = Carbon::now()->format('Y-m-d');;
+
+        $fechaExistente = Fecha::whereDate('fecha', $fecha)->first();
+
+        if (!$fechaExistente) {
+            $fechaExistente = Fecha::create(['fecha' => $fecha]);
+        }
+
+        if($orden->precio === $orden->abonado) {
+
+            $libroVenta = new LibroDiario;
+            $libroVenta->concepto="Venta";
+            $libroVenta->debeIdMayor = null;
+            $libroVenta->haberIdMayor = ["1"] ;
+            $libroVenta->debe = "[\"0\"]";
+            $libroVenta->haber = "[\"". number_format((float)$factura->subtotal,2)."\"]";
+            $libroVenta->fecha_id = $fechaExistente->id; 
+            $libroVenta->fecha = $fecha;
+            $libroVenta->save();
+
+        }else {
+            //cu
+        $libroDiario = new LibroDiario;
+        $libroDiario->concepto="Falta por Pagar";
+        $libroDiario->debeIdMayor = null;
+        $libroDiario->haberIdMayor = ["2"] ;
+        $libroDiario->debe = "[\"0\"]";
+        $libroDiario->haber = "[\"".( number_format((float)$orden->precio,2) -  number_format((float)$orden->abonado,2)  )."\"]";
+        $libroDiario->fecha_id = $fechaExistente->id; 
+        $libroDiario->fecha = $fecha;
+        $libroDiario->save();
+        }
+
 
 
         if($request->input('factura') == "on"){
