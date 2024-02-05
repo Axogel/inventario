@@ -60,7 +60,11 @@
                                                         </a>
                                                         <div class="row pt-4">
                                                             <div class="col-6">
-                                                                <button class="btn btn-danger btn-xs" type="submit"><span class="fa fa-trash"></span></button>
+                                                                <form action="{{ route('libroMayor.destroy', ['libroMayor' => $libro->id]) }}" method="POST">
+                                                                    {{ csrf_field() }}
+                                                                    @method('DELETE')
+                                                                    <button class="btn btn-danger btn-xs" type="submit"><span class="fa fa-trash"></span></button>
+                                                                </form>
                                                             </div>
                                                             <div class="col-6">
                                                                 <a class="btn btn-primary btn-xs" href="#" ><span class="fa fa-pencil"></span></a>

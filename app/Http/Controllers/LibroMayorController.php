@@ -78,4 +78,16 @@ class LibroMayorController extends Controller
     }
 
 
+    public function destroy(LibroMayor $libroMayor)
+    {
+        $libroMayor->delete();
+        return redirect()->route('libroMayor.index')->with('success', 'Libro Mayor Eliminado.');
+
+    }
+
+    public function edit($id) {
+        $libro = LibroMayor::find($id);
+        return view('libroMayor.edit', compact('libro'));
+
+    }
 }

@@ -65,7 +65,7 @@
 
 									</div>   
                                     <div class="col-xl-2 col-lg-3 col-md-5">
-                                    <a href="{{route('libroMayor.create')}}">    
+                                    <a href="{{route('libroDiario.index')}}">    
 
                                     <div class="card text-center mx-auto card-index">
 											<div class="card-body">
@@ -79,7 +79,7 @@
 
 									</div> 
                                     <div class="col-xl-2 col-lg-3 col-md-5">
-                                    <a href="{{route('libroMayor.create')}}">    
+                                    <a href="{{route('libroDiario.create')}}">    
 
                                     <div class="card text-center mx-auto card-index">
 											<div class="card-body">
@@ -173,7 +173,7 @@
 											<div class="card-body">
                                             <img width="200rem" src="{{ asset('assets/images/iconsIndex/2082194.webp') }}" alt="Libro Mayor">
                                             <div class="">
-                                            <h4 class="card-title">crear una Orden de entraga </h4>
+                                            <h4 class="card-title">Crear una Orden de entrega </h4>
                                                 </div>
 											</div>
 										</div>
