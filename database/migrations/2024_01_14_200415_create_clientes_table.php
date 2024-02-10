@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string("name");
             $table->date("fecha_nacimiento");
             $table->string("telefono");
+            $table->string("correo");
             $table->string("direccion");
             $table->string("cedula");
             $table->timestamps();

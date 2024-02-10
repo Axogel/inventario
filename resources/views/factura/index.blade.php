@@ -34,7 +34,7 @@
 
 									<div class="card-header">
                                     <div class="btn-group ml-5 mb-0">
-                                                <a class="btn btn-primary" href="{{route('factura.new')}}"><i class="fa fa-plus mr-2"></i>Añadir un  Producto</a>
+                                                <a class="btn btn-primary" href="{{route('factura.new')}}"><i class="fa fa-plus mr-2"></i>Crear Una Nueva Factura</a>
 											</div>
 										<h3 class="card-title"></h3>
 										<div class="card-options">
@@ -47,12 +47,12 @@
                                             <table id="example" class="table table-bordered text-nowrap key-buttons ">
                                                 <thead>
                                                     <th class="border-bottom-0">ID</th>
-                                                    <th class="border-bottom-0">nombre</th>
+                                                    <th class="border-bottom-0">Nombre</th>
                                                     <th class="border-bottom-0">Direccion</th>
-                                                    <th class="border-bottom-0">telefono</th>
+                                                    <th class="border-bottom-0">Telefono</th>
                                                     <th class="border-bottom-0">Subtotal</th>
-                                                    <th class="border-bottom-0">divisa</th>
-                                                    <th class="border-bottom-0">tipo</th>
+                                                    <th class="border-bottom-0">Divisa</th>
+                                                    <th class="border-bottom-0">Tipo</th>
 
                                                     <th class="border-bottom-0">Fecha</th>
                                                     @if(Auth::user()->isSuper())

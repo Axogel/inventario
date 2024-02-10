@@ -12,6 +12,7 @@ class NotificacionController extends Controller
      */
     public function index()
     {
+
         //
     }
 
@@ -28,14 +29,25 @@ class NotificacionController extends Controller
      */
     public function store(Request $request)
     {
+
         //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Notificacion $notificacion)
+    public function show( $id)
     {
+        $notificacion = Notificacion::where("id", $id)->first();
+        if($notificacion->tipo == "Cumpleaños"){
+            $notificacion->delete();
+            return redirect()->route('cliente.index');
+        }
+        if($notificacion->tipo == "Alquiler"){
+            $notificacion->delete();
+            return redirect()->route('orden.index');
+        }
+        return redirect()->route('orden.index');    
         //
     }
 

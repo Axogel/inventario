@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('notificacions', function (Blueprint $table) {
             $table->id();
             $table->integer("id_nota");
+            $table->string('tipo');
             $table->string('descripcion');
             $table->timestamps();
         });

@@ -62,6 +62,20 @@
                                             </div>
 
                                             </div>
+                                            <div class="input-group mb-3 w-100">
+
+                                                <span class="card-title"> Seleccione el tipo de Cuenta Ingreso/ Egreso</span>
+
+                                                <select class="select2 icon-select" name="tipo" id="tipo" style="width: 100%">
+                                                    <option value="fa fa-line-chart" selected> Seleccionar</option>
+                                                    <option value="ingreso"> -Ingreso</option>
+                                                    <option value="egreso">Egreso</option>
+
+                                                </select>
+
+                                                <p>Note: el tipo de transaccion cambia</p>
+
+                                            </div>
 
                                             <div class="col-xs-12 mt-5">
                                                 <button type="submit" class="btn btn-lg btn-primary">Editar</button>

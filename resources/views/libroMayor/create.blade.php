@@ -9,6 +9,12 @@
 							<div class="page-leftheader">
 								<h4 class="page-title">Crear Libro Mayor</h4>
 							</div>
+                            <div class="page-rightheader ml-auto d-lg-flex d-none">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="d-flex"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/><path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon"> Dashboard</span></a></li>
+									<li class="breadcrumb-item"><a href="{{ route('libroMayor.index') }}">Site Panel</a></li>
+								</ol>
+							</div>
 	
 						</div>
 						<!--End Page header-->
@@ -65,6 +71,22 @@
                                             </div>
 
                                             </div>
+                                            <div class="input-group mb-3 w-100">
+
+                                                <span class="card-title"> Seleccione el tipo de Cuenta Ingreso/ Egreso</span>
+
+                                                <select class="select2 icon-select" name="tipo" id="tipo" style="width: 100%">
+                                                    <option value="fa fa-line-chart" selected> Seleccionar</option>
+                                                    <option value="ingreso"> -Ingreso</option>
+                                                    <option value="egreso">Egreso</option>
+
+                                                </select>
+
+                                                <p>Ingreso,  aumentan por el debe,  disminuyen por el haber</p>
+
+                                            </div>
+                                            <p>Egreso,aumentan por el haber, disminuyen por el debe </p>
+
 
                                             <div class="col-xs-12 mt-5">
                                                 <button type="submit" class="btn btn-lg btn-primary">Crear</button>

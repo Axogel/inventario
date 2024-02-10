@@ -109,9 +109,10 @@ class LibroDiarioController extends Controller
 
         $libroMayorSuma = LibroMayor::where('id', $debeIdMayor)->first();
 
+        $libroMayorController = new libroMayorController();
+
         if ($libroMayor) {
-            $libroMayor->saldo -= $debe;
-            $libroMayor->save();
+            $libroMayorController->calculateBalance($libroMayor->id);
         } else {
             throw new \Exception('No se pudo encontrar la cuenta en el Libro Mayor.');
             }
@@ -120,8 +121,8 @@ class LibroDiarioController extends Controller
 
 
             if ($libroMayorSuma) {
-                $libroMayorSuma->saldo += $debe;
-                $libroMayorSuma->save();
+                $libroMayorController->calculateBalance($libroMayorSuma->id);
+
             }else {
                 throw new \Exception('No se pudo encontrar la cuenta en el Libro Mayor.');
                 }
@@ -149,15 +150,19 @@ class LibroDiarioController extends Controller
             $registrosRelacionadosDebe = [];
             $registrosRelacionadosHaber = [];
     
-            foreach ($debeIdMayorArray as $id) {
-                $registroRelacionadoDebe = LibroMayor::find($id);
-                $registrosRelacionadosDebe[] = $registroRelacionadoDebe;
+            if (!is_null($debeIdMayorArray)) {
+                foreach ($debeIdMayorArray as $id) {
+                    $registroRelacionadoDebe = LibroMayor::find($id);
+                    $registrosRelacionadosDebe[] = $registroRelacionadoDebe;
+                }
             }
-    
+            if (!is_null($haberIdMayorArray)) {
+
             foreach ($haberIdMayorArray as $id) {
                 $registroRelacionadoHaber = LibroMayor::find($id);
                 $registrosRelacionadosHaber[] = $registroRelacionadoHaber;
             }
+        }
     
             $registrosRelacionados[] = [
                 'debe' => $registrosRelacionadosDebe,

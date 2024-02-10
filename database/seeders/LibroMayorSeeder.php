@@ -24,6 +24,7 @@ class LibroMayorSeeder extends Seeder
                 'ultimo_saldo' => $fecha,
                 'saldo_inicial' => 0,
                 'icon' => 'fa fa-line-chart',
+                'tipo' => 'ingreso',
                 'saldo' => 0,
 
             ],
@@ -32,6 +33,7 @@ class LibroMayorSeeder extends Seeder
                 'ultimo_saldo' => $fecha,
                 'saldo_inicial' => 0,
                 'icon' => 'fa fa-line-chart',
+                'tipo'=> 'ingreso',
                 'saldo' => 0,
 
             ],

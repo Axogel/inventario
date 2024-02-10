@@ -3,7 +3,7 @@ use Illuminate\Support\Facades\Route;
 use App\Mail\Transfer;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\Authenticate;
-use App\Http\Controllers\{ClienteController, DivisaController, FacturaController, HomeController,UserController,InventarioController, LibroDiarioController, LibroMayorController, OrdenEntregaController};
+use App\Http\Controllers\{ClienteController, DivisaController, FacturaController, HomeController,UserController,InventarioController, LibroDiarioController, LibroMayorController, NotificacionController, OrdenEntregaController};
 use App\Models\LibroDiario;
 
 Auth::routes();
@@ -26,6 +26,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
 Route::middleware([Authenticate::class])->group(function () {
 
     Route::resource('factura', FacturaController::class);
+    Route::resource('notificacion', NotificacionController::class);
+
     Route::get('factura/create/new', [FacturaController::class, 'new'])->name('factura.new');
     Route::post('factura/storeNew/new', [FacturaController::class, 'storeNew'])->name('factura.storeNew');
 

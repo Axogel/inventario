@@ -27,9 +27,10 @@ class VerificarProductosVencidos extends Command
 
                     $exist = Notificacion::where('id_nota', $item->codigo )->exists();
 
-                    if (!$exist) {
+                    if (!$exist && $exist->tipo == "Alquiler") {
                         $notificacion = new Notificacion;
                         $notificacion->id_nota = $item->codigo ;
+                        $notificacion->tipo ="Alquiler";
                         $notificacion->descripcion = $item->producto . " marca ". $item->marca . " de color ". $item->color;
                         $notificacion->save();
                     }

@@ -27,24 +27,14 @@ class updateVes extends Command
      */
     public function handle()
     {
-        $client = new Client;
-        $url = 'https://www.xe.com/es/currencyconverter/convert/?Amount=1&From=USD&To=VES';
+        echo "/";
 
-        $crawler = $client->request('GET', $url);
-
-
-        $secondColumnValue = $crawler->filter('.currency-conversion-tables__ConverterTable-sc-3fg8ob-5.kwmBWW tbody tr:first-child td:nth-child(2)')->text();
-        $numericString = preg_replace("/[^0-9,.]/", "", $secondColumnValue);
-
-        $numericString = str_replace(",", ".", $numericString);
-
-        $number = floatval($numericString);
+        $client = new \GuzzleHttp\Client();
+        $response = $client->get('http://localhost:3000/traer/bs');
+        $number = $response->getBody();
+        echo  $number;
         $bs = Divisa::where('name', "Bs")->first();
         $bs->tasa = $number;
         $bs->save();
-
-
-
-
     }
 }

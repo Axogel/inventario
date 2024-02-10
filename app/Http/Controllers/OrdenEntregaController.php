@@ -77,6 +77,7 @@ class OrdenEntregaController extends Controller
             $fecha = Carbon::now()->format('Y-m-d');;
 
             $fechaExistente = Fecha::whereDate('fecha', $fecha)->first();
+            $libroMayorController = new LibroMayorController;
     
             if (!$fechaExistente) {
                 $fechaExistente = Fecha::create(['fecha' => $fecha]);
@@ -85,30 +86,34 @@ class OrdenEntregaController extends Controller
             //cu
             $libroDiario = new LibroDiario;
             $libroDiario->concepto="Falta por Pagar";
-            $libroDiario->debeIdMayor = null;
-            $libroDiario->haberIdMayor = ["2"] ;
-            $libroDiario->debe = "[\"0\"]";
-            $libroDiario->haber = "[\"".( number_format((float)$orden->precio,2) -  number_format((float)$orden->abonado,2)  )."\"]";
+            $libroDiario->debeIdMayor =  ["2"];
+            $libroDiario->haberIdMayor = null;
+            $libroDiario->debe = "[\"".( number_format((float)$orden->precio,2) -  number_format((float)$orden->abonado,2)  )."\"]";
+            $libroDiario->haber = "[\"0\"]";
             $libroDiario->fecha_id = $fechaExistente->id; 
             $libroDiario->fecha = $fecha;
             $libroDiario->save();
+            $libroMayorController->calculateBalance('2');
 
             //deudas
             $libroVenta = new LibroDiario;
-            $libroVenta->concepto="Venta";
-            $libroVenta->debeIdMayor = null;
-            $libroVenta->haberIdMayor = ["1"] ;
-            $libroVenta->debe = "[\"0\"]";
-            $libroVenta->haber = "[\"". number_format((float)$orden->abonado,2)."\"]";
+            $libroVenta->concepto="Abono";
+            $libroVenta->debeIdMayor =["1"];
+            $libroVenta->haberIdMayor =  null;
+            $libroVenta->debe ="[\"". number_format((float)$orden->abonado,2)."\"]";
+            $libroVenta->haber =  "[\"0\"]";
             $libroVenta->fecha_id = $fechaExistente->id; 
             $libroVenta->fecha = $fecha;
             $libroVenta->save();
+            $libroMayorController->calculateBalance('1');
+
             
             if(!$request->input('cliente')){
                 $client = new Cliente;
                 $client->name =   $orden->name . " " .  $orden->apellido;
                 $client->fecha_nacimiento =$request->input("fechaNacimiento");
                 $client->telefono = $request->input("telefono");
+                $client->correo =  $request->input("correo");
                 $client->direccion = $request->input("direccion");
                 $client->cedula =  $request->input("cedula");
                 $client->save();

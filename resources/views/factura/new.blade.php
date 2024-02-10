@@ -82,6 +82,10 @@
                                                 <span class="input-group-addon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="side-menu__icon"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></span>
                                                 <input type="text" name="cedula" id="cedula" class="form-control input-sm" placeholder="cedula de identidad">
                                             </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-addon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="side-menu__icon"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></span>
+                                                <input type="email" name="correo" id="correo" class="form-control input-sm" placeholder="Correo del cliente">
+                                            </div>
                                             <span class="card-title">Fecha de Nacimiento</span>
                                             <div class="input-group mb-3">
                                                 <input type="date" name="fechaNacimiento" id="fechaNacimiento" class="form-control input-sm">
@@ -124,7 +128,12 @@
                                             <input type="hidden" id="inputSumaPrecio" name="inputSumaPrecio">
                                      
 
+                                            <div class="form-group mt-5">
+                                                <div class="row d-flex justify-content-start">
+                                                <div class="p-2 col-2 "><label class=" card-title">Desea Factura?</label>
+                                                <input type="checkbox" name="factura" id="factura" class=" ms-3 form-check-input">
 
+                                            </div>
                             
 
                                             <div class="col-xs-12">
@@ -148,7 +157,7 @@
    function redirectIndex() {
         setTimeout(function() {
         window.location.href = "{{ route('factura.index') }}";
-    }, 3000); 
+    }, 4000); 
     };
 
 

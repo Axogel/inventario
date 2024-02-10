@@ -39,13 +39,15 @@ class ClienteController extends Controller
             'telefono' => 'required|string',
             'cedula' => 'required|numeric',
             'fecha_nacimiento' => 'required',
+            'correo' => 'required'
 
         ]);
         $client = new Cliente;
         $client->name =   $request->input("name") . " " . $request->input("apellido");
-        $client->fecha_nacimiento =$request->input("fechaNacimiento");
+        $client->fecha_nacimiento =$request->input("fecha_nacimiento");
         $client->telefono = $request->input("telefono");
         $client->direccion = $request->input("direccion");
+        $client->correo = $request->input("correo");
         $client->cedula =  $request->input("cedula");
         $client->save();
 
@@ -83,13 +85,16 @@ class ClienteController extends Controller
             'fecha_nacimiento' => 'required',
             'telefono' => 'required|string',
             'cedula' => 'required|numeric',
+            'correo'=> 'required'
         ]);
-        $cliente->update([
+        $updated = Cliente::where("id", $cliente->id);
+        $updated->update([
             'name' => $request->input("name"),
-            'fecha_nacimiento' => $request->input("fecha_nacimiento"), 
-            'telefono' => $request->input("telefono"),
+            'fecha_nacimiento' => $request->input("fecha_nacimiento"),
             'direccion' => $request->input("direccion"),
+            'telefono' => $request->input("telefono"),
             'cedula' => $request->input("cedula"),
+            'correo' => $request->input("correo")
         ]);
         $success = array("message" => "Cliente editado Satisfactoriamente", "alert" => "success");
         return redirect()->route('cliente.index')->with('success',$success);

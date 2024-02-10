@@ -69,9 +69,7 @@
                                                             <div class="col-6">
                                                                 <a class="btn btn-primary btn-xs" href="{{ route('libroMayor.edit', ['libroMayor' => $libro->id]) }}" ><span class="fa fa-pencil"></span></a>
                                                             </div>
-                                                            <div class="col-6">
-                                                                <a class="btn btn-primary btn-xs mt-3" href="{{ route('showLibroDiario', ['id' => $libro->id]) }}" >Libros Diarios</a>
-                                                            </div>
+                                                         
                                                         </div>
                                                     </div>
                                                     <div class="col-5 mx-2">
@@ -80,7 +78,10 @@
                                                         </a>
                                                         <span>{{$libro->saldo}} $</span> 
                                                         <p class="fs-13 text-responsive font-weight-bold">ultimo transacción: {{$libro->ultimo_saldo}} </p>
+                                                        <a class="btn btn-primary btn-xs mt-3" href="{{ route('showLibroDiario', ['id' => $libro->id]) }}" >Libros Diarios</a>
+
                                                     </div>
+                                    
                                                 </div>
                                             </div>
                                         </div>

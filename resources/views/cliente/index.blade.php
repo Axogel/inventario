@@ -47,7 +47,9 @@
                                             <table id="example" class="table table-bordered text-nowrap key-buttons">
                                                 <thead>
                                                     <th class="border-bottom-0">id</th>
-                                                    <th class="border-bottom-0">name</th>
+                                                    <th class="border-bottom-0">Nombre</th>
+                                                    <th class="border-bottom-0">Correo</th>
+
                                                     <th class="border-bottom-0">fecha_nacimiento</th>
                                                     <th class="border-bottom-0">telefono</th>
                                                     <th class="border-bottom-0">direccion</th>
@@ -65,6 +67,8 @@
                                                             <tr class="bold producto-row">
                                                                 <td>{{$producto->id}}</td>
                                                                 <td>{{$producto->name}}</td>
+                                                                <td>{{$producto->correo}}</td>
+
                                                                 <td>{{$producto->fecha_nacimiento}}</td>
                                                                 <td>{{$producto->telefono}}</td>
                                                                 <td>{{$producto->direccion}}</td>

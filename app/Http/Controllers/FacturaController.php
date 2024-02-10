@@ -97,13 +97,16 @@ class FacturaController extends Controller
             //deudas
             $libroVenta = new LibroDiario;
             $libroVenta->concepto="Venta";
-            $libroVenta->debeIdMayor = null;
-            $libroVenta->haberIdMayor = ["1"] ;
-            $libroVenta->debe = "[\"0\"]";
-            $libroVenta->haber = "[\"". number_format((float)$factura->subtotal,2)."\"]";
+            $libroVenta->debeIdMayor = ["1"];
+            $libroVenta->haberIdMayor = null;
+            $libroVenta->debe = "[\"". number_format((float)$factura->subtotal,2)."\"]";
+            $libroVenta->haber = "[\"0\"]";
             $libroVenta->fecha_id = $fechaExistente->id; 
             $libroVenta->fecha = $fecha;
             $libroVenta->save();
+            $libroMayorController = new LibroMayorController();
+            $libroMayorController->calculateBalance("1");
+
         
         if(!$request->input('cliente')){
             $client = new Cliente;
@@ -112,6 +115,8 @@ class FacturaController extends Controller
             $client->telefono = $request->input("telefono");
             $client->direccion = $request->input("direccion");
             $client->cedula =  $request->input("cedula");
+            $client->correo =  $request->input("correo");
+
             $client->save();
         }
 
@@ -149,11 +154,13 @@ class FacturaController extends Controller
         $orden = ordenEntrega::findOrFail($request->input('ordenId'));
 
         $products =  $orden->ordenInventario;
+        $productsId = [];
 
         foreach ($products as $product) {
    
             ($product->tipo == "venta") ?$product->disponibilidad =  2 : $product->disponibilidad = 1;
             $product->alquiler = null;
+            array_push($productsId,$product->id ) ;
             $product->save();
         }
         ordenEntrega::find($request->input('ordenId'))->delete();
@@ -167,7 +174,10 @@ class FacturaController extends Controller
         $factura->control= $request->input('control');
         $factura->subtotal = $request->input('inputSumaPrecio');
         $factura->divisa = $request->input('divisas');
-        $factura->products =json_encode($products);
+        $factura->products =json_encode($productsId);
+        $factura->tasa_dia =Divisa::where("name", $request->input('divisas'))->first()->tasa;
+
+        
 
         $factura->save();
 
@@ -175,6 +185,8 @@ class FacturaController extends Controller
         $fecha = Carbon::now()->format('Y-m-d');;
 
         $fechaExistente = Fecha::whereDate('fecha', $fecha)->first();
+        $libroMayorController = new LibroMayorController();
+
 
         if (!$fechaExistente) {
             $fechaExistente = Fecha::create(['fecha' => $fecha]);
@@ -184,25 +196,30 @@ class FacturaController extends Controller
 
             $libroVenta = new LibroDiario;
             $libroVenta->concepto="Venta";
-            $libroVenta->debeIdMayor = null;
-            $libroVenta->haberIdMayor = ["1"] ;
-            $libroVenta->debe = "[\"0\"]";
-            $libroVenta->haber = "[\"". number_format((float)$factura->subtotal,2)."\"]";
+            $libroVenta->debeIdMayor =  ["1"] ;
+            $libroVenta->haberIdMayor = null;
+            $libroVenta->debe = "[\"". number_format((float)$factura->subtotal,2)."\"]" ;
+            $libroVenta->haber ="[\"0\"]";
             $libroVenta->fecha_id = $fechaExistente->id; 
             $libroVenta->fecha = $fecha;
             $libroVenta->save();
+            $libroMayorController->calculateBalance("1");
+
 
         }else {
             //cu
         $libroDiario = new LibroDiario;
-        $libroDiario->concepto="Falta por Pagar";
-        $libroDiario->debeIdMayor = null;
-        $libroDiario->haberIdMayor = ["2"] ;
-        $libroDiario->debe = "[\"0\"]";
+        $libroDiario->concepto="Venta";
+        $libroDiario->debeIdMayor =  ["1"] ;
+        $libroDiario->haberIdMayor =  ["2"] ;
+        $libroDiario->debe = "[\"".( number_format((float)$orden->precio,2) -  number_format((float)$orden->abonado,2)  )."\"]";
         $libroDiario->haber = "[\"".( number_format((float)$orden->precio,2) -  number_format((float)$orden->abonado,2)  )."\"]";
         $libroDiario->fecha_id = $fechaExistente->id; 
         $libroDiario->fecha = $fecha;
         $libroDiario->save();
+        $libroMayorController->calculateBalance("2");
+        $libroMayorController->calculateBalance("1");
+
         }
 
 
