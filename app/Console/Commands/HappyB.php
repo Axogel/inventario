@@ -5,6 +5,8 @@ namespace App\Console\Commands;
 use App\Models\Cliente;
 use App\Models\Notificacion;
 use Illuminate\Console\Command;
+use App\Mail\Happy;
+use Illuminate\Support\Facades\Mail;
 
 class HappyB extends Command
 {
@@ -37,6 +39,9 @@ class HappyB extends Command
             $notificacion->tipo ="Cumpleaños";
             $notificacion->descripcion =    "¡Feliz cumpleaños, " . $cliente->name . "! Hoy este cliente esta de cumpleaños, su numero de telefono es: ".$cliente->telefono ;
             $notificacion->save();
+            
+            Mail::to($cliente->correo)->send(new Happy);
+
         }
 
         //
