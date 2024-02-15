@@ -40,7 +40,7 @@ class HappyB extends Command
             $notificacion->descripcion =    "¡Feliz cumpleaños, " . $cliente->name . "! Hoy este cliente esta de cumpleaños, su numero de telefono es: ".$cliente->telefono ;
             $notificacion->save();
             
-            Mail::to($cliente->correo)->send(new Happy);
+            Mail::to($cliente->correo)->send(new Happy($cliente->name));
 
         }
 

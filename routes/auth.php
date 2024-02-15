@@ -3,7 +3,7 @@ use Illuminate\Support\Facades\Route;
 use App\Mail\Transfer;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\Authenticate;
-use App\Http\Controllers\{ClienteController, DivisaController, FacturaController, HomeController,UserController,InventarioController, LibroDiarioController, LibroMayorController, NotificacionController, OrdenEntregaController};
+use App\Http\Controllers\{ClienteController, DivisaController, FacturaController, HomeController,UserController,InventarioController, LibroDiarioController, LibroMayorController, NotificacionController, OfertasController, OrdenEntregaController};
 use App\Models\LibroDiario;
 
 Auth::routes();
@@ -22,6 +22,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('users', UserController::class);
+    Route::get('oferta/index', [OfertasController::class, 'index'])->name('oferta.index');
+    Route::post('oferta/send', [OfertasController::class, 'send'])->name('oferta.send');
+
+
 });
 Route::middleware([Authenticate::class])->group(function () {
 
